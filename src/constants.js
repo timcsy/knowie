@@ -16,7 +16,7 @@ export const CORE_FILES = ['principles.md', 'vision.md', 'experience.md'];
 export const SUBDIRS = ['research', 'design', 'history', TEMPLATES_DIR];
 
 export const SKILLS_SOURCE = join(PACKAGE_ROOT, 'skills');
-export const SKILLS_TARGET = '.claude/skills/knowy';
+export const SKILLS_TARGET = '.claude/skills';
 export const SKILL_NAMES = ['knowy-init', 'knowy-update', 'knowy-judge', 'knowy-next'];
 
 export const MARKER_START = '<!-- Knowy: Project Knowledge -->';

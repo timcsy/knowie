@@ -73,7 +73,7 @@ const messages = {
     'cli.init.handshake.created': (file, tool) => `  ✓ Created ${file} (${tool})`,
     'cli.init.handshake.updated': (file, tool) => `  ✓ Updated ${file} (${tool})`,
     'cli.init.handshake.appended': (file, tool) => `  ✓ Added to ${file} (${tool})`,
-    'cli.init.skills': (n) => `  ✓ Installed ${n} skills to .claude/skills/knowy/`,
+    'cli.init.skills': (n) => `  ✓ Installed ${n} skills to .claude/skills/`,
     'cli.init.done': '✅ Done!',
     'cli.init.nextStep': 'Next step: run /knowy init in your AI tool to populate your knowledge files.',
     'cli.init.selectLanguage': 'Select language for templates:',
