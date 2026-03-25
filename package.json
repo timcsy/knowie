@@ -1,9 +1,10 @@
 {
   "name": "knowy-cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Give your AI a structured project brain",
   "type": "module",
   "bin": {
+    "knowy-cli": "./bin/knowy.js",
     "knowy": "./bin/knowy.js",
     "knowy-mcp": "./bin/knowy-mcp.js"
   },
