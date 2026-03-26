@@ -42,22 +42,29 @@ async function readJsonSafe(path) {
   }
 }
 
-export async function setupMcp(projectRoot = process.cwd()) {
+export async function setupMcp(projectRoot = process.cwd(), { yes = false } = {}) {
   const lang = await resolveLanguage(projectRoot);
 
   console.log(`\n🧠 knowie v${VERSION} — ${t(lang, 'cli.mcp.title')}\n`);
 
-  const choices = MCP_TARGETS.map(t => ({
-    id: t.id,
-    name: `${t.name} (${t.scope})`,
-    checked: false,
-  }));
+  let selectedIds;
 
-  const selectedIds = await multiSelect(t(lang, 'cli.mcp.selectTools'), choices, lang);
+  if (yes) {
+    // Auto mode: configure all targets
+    selectedIds = MCP_TARGETS.map(t => t.id);
+  } else {
+    const choices = MCP_TARGETS.map(t => ({
+      id: t.id,
+      name: `${t.name} (${t.scope})`,
+      checked: false,
+    }));
 
-  if (selectedIds.length === 0) {
-    console.log(`\n${t(lang, 'cli.mcp.noSelection')}`);
-    return;
+    selectedIds = await multiSelect(t(lang, 'cli.mcp.selectTools'), choices, lang);
+
+    if (selectedIds.length === 0) {
+      console.log(`\n${t(lang, 'cli.mcp.noSelection')}`);
+      return;
+    }
   }
 
   for (const id of selectedIds) {

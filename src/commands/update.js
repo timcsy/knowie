@@ -13,7 +13,7 @@ async function exists(p) {
   try { await access(p); return true; } catch { return false; }
 }
 
-export async function update(projectRoot) {
+export async function update(projectRoot, { yes = false } = {}) {
   const lang = await resolveLanguage(projectRoot);
 
   console.log(`\n🧠 knowie v${VERSION} — ${t(lang, 'cli.update.title')}\n`);
@@ -52,7 +52,8 @@ export async function update(projectRoot) {
   if (newTools.length > 0) {
     const names = newTools.map(id => getToolById(id)?.name).filter(Boolean);
     console.log(`\n${t(lang, 'cli.update.newTools')(names.join(', '))}`);
-    const add = await confirm(t(lang, 'cli.update.addTools'));
+
+    const add = yes || await confirm(t(lang, 'cli.update.addTools'));
     if (add) {
       for (const id of newTools) {
         const tool = getToolById(id);

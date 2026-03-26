@@ -19,26 +19,28 @@ const LANGUAGE_CHOICES = [
   { id: 'zh-TW', name: '繁體中文' },
 ];
 
-export async function init(projectRoot) {
-  // Detect language
+export async function init(projectRoot, { yes = false } = {}) {
   const detectedLang = normalizeLanguage(detectLanguage());
   let lang = detectedLang;
 
   console.log(`\n🧠 knowie v${VERSION}\n`);
 
   // 1. Language selection
-  const msg = t(lang, 'cli.init.langDetected');
-  console.log(typeof msg === 'function' ? msg(lang) : msg);
-
-  const langChoices = LANGUAGE_CHOICES.map(c => ({
-    ...c,
-    checked: c.id === detectedLang,
-  }));
-  lang = await select(t(lang, 'cli.init.selectLanguage'), langChoices);
+  if (yes) {
+    console.log(t(lang, 'cli.init.langDetected')(lang));
+  } else {
+    console.log(typeof t(lang, 'cli.init.langDetected') === 'function'
+      ? t(lang, 'cli.init.langDetected')(lang) : lang);
+    const langChoices = LANGUAGE_CHOICES.map(c => ({
+      ...c,
+      checked: c.id === detectedLang,
+    }));
+    lang = await select(t(lang, 'cli.init.selectLanguage'), langChoices);
+  }
 
   // 2. Check if knowledge/ already exists
   const knowledgeExists = await exists(join(projectRoot, KNOWLEDGE_DIR));
-  if (knowledgeExists) {
+  if (knowledgeExists && !yes) {
     console.log(t(lang, 'cli.init.exists'));
     const proceed = await confirm(t(lang, 'cli.init.continue'));
     if (!proceed) {
@@ -59,44 +61,53 @@ export async function init(projectRoot) {
 
   // 5. Detect tools
   const { detected } = await detectTools(projectRoot);
-  if (detected.length > 0) {
-    const names = detected.map(id => getToolById(id)?.name).filter(Boolean);
-    console.log(`\n${t(lang, 'cli.init.detected')(names.join(', '))}`);
+
+  let selectedIds;
+
+  if (yes) {
+    // Auto mode: AGENTS.md + all detected tools
+    selectedIds = ['agents-md', ...detected];
+    if (selectedIds.length > 0) {
+      const names = selectedIds.map(id => getToolById(id)?.name).filter(Boolean);
+      console.log(`\n${t(lang, 'cli.init.detected')(names.join(', '))}`);
+    }
+  } else {
+    // Interactive mode
+    if (detected.length > 0) {
+      const names = detected.map(id => getToolById(id)?.name).filter(Boolean);
+      console.log(`\n${t(lang, 'cli.init.detected')(names.join(', '))}`);
+    }
+
+    const aiTools = TOOL_REGISTRY.filter(t => t.category === 'ai');
+    const specTools = TOOL_REGISTRY.filter(t => t.category === 'spec');
+    const standardTools = TOOL_REGISTRY.filter(t => t.category === 'standard');
+
+    const choices = [
+      ...standardTools.map(t => ({
+        id: t.id,
+        name: t.name,
+        checked: true,
+      })),
+      ...aiTools.map(t => ({
+        id: t.id,
+        name: t.name,
+        checked: detected.includes(t.id),
+      })),
+      ...specTools.map(t => ({
+        id: t.id,
+        name: `${t.name} (spec tool)`,
+        checked: detected.includes(t.id),
+      })),
+    ];
+
+    selectedIds = await multiSelect(t(lang, 'cli.init.selectTools'), choices, lang);
   }
 
-  // 6. Build selection choices
-  const aiTools = TOOL_REGISTRY.filter(t => t.category === 'ai');
-  const specTools = TOOL_REGISTRY.filter(t => t.category === 'spec');
-  const standardTools = TOOL_REGISTRY.filter(t => t.category === 'standard');
-
-  const choices = [
-    ...standardTools.map(t => ({
-      id: t.id,
-      name: t.name,
-      checked: true,
-    })),
-    ...aiTools.map(t => ({
-      id: t.id,
-      name: t.name,
-      checked: detected.includes(t.id),
-    })),
-    ...specTools.map(t => ({
-      id: t.id,
-      name: `${t.name} (spec tool)`,
-      checked: detected.includes(t.id),
-    })),
-  ];
-
-  const selectedIds = await multiSelect(t(lang, 'cli.init.selectTools'), choices, lang);
-
-  // 7. Handshake
-  const handshaked = [];
+  // 6. Handshake
   const writtenFiles = new Set();
-
   for (const id of selectedIds) {
     const tool = getToolById(id);
     if (!tool) continue;
-
     for (const target of tool.targets) {
       if (writtenFiles.has(target.file)) continue;
       const result = await injectHandshake(projectRoot, target);
@@ -106,11 +117,11 @@ export async function init(projectRoot) {
     }
   }
 
-  // 8. Install skills
+  // 7. Install skills
   const skills = await installSkills(projectRoot);
   console.log(`\n${t(lang, 'cli.init.skills')(skills.length)}`);
 
-  // 9. Update .knowie.json
+  // 8. Update .knowie.json
   const configPath = join(projectRoot, KNOWIE_CONFIG);
   let config;
   try {
@@ -124,7 +135,7 @@ export async function init(projectRoot) {
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 
-  // 10. Summary
+  // 9. Summary
   console.log(`\n${t(lang, 'cli.init.done')}\n`);
   console.log(`${t(lang, 'cli.init.nextStep')}\n`);
 }
