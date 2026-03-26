@@ -28,7 +28,9 @@ npx knowie init --yes
 
 Fully automatic — detects language, finds your AI tools, and sets everything up with zero prompts. Also activates automatically when stdin is not a terminal (piped input, CI, etc.).
 
-### Then, in Claude Code
+### Then, in your AI tool
+
+If you're using an AI tool with skill support (e.g., Claude Code), you can run:
 
 ```
 /knowie init
@@ -62,7 +64,7 @@ Your AI tools read these files automatically, so their suggestions align with yo
 
 ## Skills
 
-Knowie installs four skills for Claude Code (under the `/knowie` namespace):
+Knowie installs four skills (under the `/knowie` namespace). Currently supports Claude Code, with more AI tools planned:
 
 | Skill | What it does |
 |-------|-------------|

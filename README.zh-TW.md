@@ -28,7 +28,9 @@ npx knowie init --yes
 
 全自動——偵測語言、找到你的 AI 工具、完成所有設定，零互動。當 stdin 不是終端機時（pipe、CI 等）也會自動啟用。
 
-### 接著，在 Claude Code 中
+### 接著，在你的 AI 工具中
+
+如果你使用的 AI 工具支援 skill（例如 Claude Code），可以執行：
 
 ```
 /knowie init
@@ -62,7 +64,7 @@ knowledge/
 
 ## Skills
 
-Knowie 為 Claude Code 安裝四個 skill（在 `/knowie` 命名空間下）：
+Knowie 安裝四個 skill（在 `/knowie` 命名空間下）。目前支援 Claude Code，更多 AI 工具規劃中：
 
 | Skill | 功能 |
 |-------|------|
