@@ -8,15 +8,13 @@
 
 ## The Problem
 
-You ask your AI to add a feature. It writes code that works — but makes choices you wouldn't make.
+Your AI writes code that works — but makes choices you wouldn't make. It picks the wrong library, breaks your conventions, or suggests an approach you already tried and failed with.
 
-Maybe it picks a complex library when your project values simplicity. Maybe it restructures files in a way that breaks your team's conventions. Or maybe it suggests the exact approach you tried last month — the one that failed.
-
-**Your AI doesn't know what you know.** It sees your code, but not your reasoning, your plans, or your hard-won lessons.
+**It sees your code, but not your reasoning.**
 
 ## The Fix
 
-Three files. That's it.
+Three Markdown files in a `knowledge/` directory:
 
 ```
 knowledge/
@@ -25,31 +23,45 @@ knowledge/
   experience.md    ← What you've learned the hard way
 ```
 
-Your AI reads them before every task. Now its suggestions align with your project — not just your code.
+Your AI reads them before every task. Its suggestions now align with your project — not just your code.
 
-## 30 Seconds to Start
+## Get Started
 
 ```bash
-npx knowie init
+npx knowie init        # interactive
+npx knowie init --yes  # automatic (AI tools, CI)
 ```
 
-Done. Knowie creates the files, detects your AI tools (25+ supported), and connects everything.
-
-> Using an AI tool? It can do this for you: `npx knowie init --yes`
+That's it. Knowie creates the files, detects your AI tools, and connects everything.
 
 ## What Changes
 
-**Example 1 — A beginner building a personal project:**
+<details>
+<summary><b>Beginner example</b> — "Add user login"</summary>
 
-*Before:* "Add user login" → AI generates a full OAuth2 + JWT + refresh token system with three services.
+*Before:* AI generates OAuth2 + JWT + refresh tokens with three services.
 
-*After:* AI reads `principles.md` ("keep it simple — this is a learning project") and `vision.md` ("single-user app, no registration needed"). It adds a simple password check. Done in 5 minutes instead of 5 hours.
+*After:* AI reads your principles ("keep it simple — learning project") and vision ("single-user, no registration"). Adds a simple password check. 5 minutes, not 5 hours.
+</details>
 
-**Example 2 — A senior engineer on a team project:**
+<details>
+<summary><b>Senior example</b> — "Add caching"</summary>
 
-*Before:* "Add caching" → AI picks Redis because it's popular online. But your principle says "no external dependencies for core features," and `experience.md` records that a similar caching layer caused stale data issues last quarter.
+*Before:* AI picks Redis (popular online). But your principle says "no external dependencies for core," and experience.md records that caching caused stale data last quarter.
 
-*After:* AI reads all three files. It picks in-memory caching, adds a TTL based on the stale-data lesson, and links to the relevant design doc in `knowledge/design/`.
+*After:* AI picks in-memory caching, adds TTL from the stale-data lesson, links to the design doc in `knowledge/design/`.
+</details>
+
+## Adding to an Existing Project
+
+Knowie is safe to add at any point:
+
+- **Won't touch your code** — it only creates `knowledge/` and injects references into AI tool configs
+- **Won't break anything** — references use HTML comment markers, easily removable
+- **Won't force a rewrite** — start with empty files and fill them gradually
+- **Works alongside existing docs** — `knowledge/` complements your README, wiki, or ADRs
+
+Run `npx knowie init` in your existing project and start with just `principles.md`. Add vision and experience when you're ready. Your AI starts benefiting from the first file you fill in.
 
 ## How It Works
 
@@ -59,9 +71,10 @@ Done. Knowie creates the files, detects your AI tools (25+ supported), and conne
 | `vision.md` | Where are we going? | After milestones |
 | `experience.md` | What have we learned? | After surprises |
 
-Each file has guided comments to help you get started — no blank page anxiety.
+Templates include guided comments — no blank page anxiety.
 
-Three subdirectories hold the details:
+<details>
+<summary>Subdirectories for supporting details</summary>
 
 | Directory | Contains | Distills into |
 |-----------|----------|---------------|
@@ -69,75 +82,64 @@ Three subdirectories hold the details:
 | `design/` | Architecture decisions | → vision.md |
 | `history/` | Event records | → experience.md |
 
-Think of the three files as the *summary* and the subdirectories as the *supporting evidence*. You start with the summary; the details grow over time.
+Think of the three files as the *summary* and subdirectories as the *evidence*. Start with the summary; details grow over time.
+</details>
 
 ## Skills
 
-If your AI tool supports skills (e.g., Claude Code), Knowie gives you four commands:
+For AI tools with skill support (e.g., Claude Code):
 
 | Skill | What it does |
 |-------|-------------|
-| `/knowie init` | Guided conversation to help you fill in your knowledge files — it asks you questions and drafts content |
-| `/knowie update` | Check file structure and suggest improvements as your project evolves |
-| `/knowie judge` | Health check: are your files consistent with each other and with your actual code? |
-| `/knowie next` | Plan the next step, grounded in your principles and informed by your experience |
+| `/knowie init` | Guided conversation to draft your knowledge files |
+| `/knowie update` | Check structure and suggest improvements |
+| `/knowie judge` | 17-point health check: consistency, coherence, code alignment |
+| `/knowie next` | Plan next step, grounded in principles and experience |
 
-### `/knowie judge` — The Core Loop
+<details>
+<summary>About <code>/knowie judge</code></summary>
 
-After you finish a feature, run `/knowie judge`. It checks 17 things:
+The core feedback loop. Checks: self-consistency (3), internal coherence (3), cross-references between files (6 directional), alignment with actual code/git (3), overall synthesis (1), beyond-scope (1).
 
-- Are your three files internally consistent? (no self-contradictions)
-- Do they agree with each other? (e.g., does your vision match what experience taught you?)
-- Do they match your actual project? (e.g., does your roadmap say "Phase 1 done" when it really is?)
+Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — with specific quotes and suggestions.
+</details>
 
-Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — each with quotes from your files and concrete suggestions.
+## Already Using a Spec Tool?
 
-## "I already use Speckit / OpenSpec / Kiro Specs — do I need this?"
-
-Yes. They do different jobs.
-
-**Spec tools** answer *what* to build: requirements, designs, task breakdowns. They're great at turning an idea into a concrete plan.
-
-**Knowie** answers *why* you build it that way: your principles, your roadmap context, and the lessons that should inform every decision.
-
-Without Knowie, your spec tool doesn't know that your project avoids external dependencies, that Phase 2 depends on Phase 1, or that a similar feature failed last quarter. It generates specs in a vacuum.
-
-With Knowie, your spec tool inherits the context. Knowie even detects spec tools in your project and suggests handoff — for example, after `/knowie next` converges on a feature, it'll suggest running `/speckit-specify` if Speckit is installed.
+Knowie and spec tools are complementary:
 
 ```
 Knowie (why)  →  Spec tool (what)  →  Code (how)
-  principles       requirements         implementation
-  vision           design               tests
-  experience       task breakdown        deployment
 ```
 
-They're complementary layers. Knowie gives the context; spec tools give the structure; you write the code.
+Spec tools generate requirements and designs. Knowie gives them context — your principles, roadmap, and lessons. Without Knowie, specs are written in a vacuum.
 
-## Works With Your Tools
+Knowie detects installed spec tools and suggests handoff after `/knowie next`.
 
-Knowie connects to **25+ AI tools and spec tools** — automatically:
+<details>
+<summary>Supported spec tools</summary>
 
-**AI tools:** Claude Code, Cursor, Windsurf, GitHub Copilot, Codex, Gemini, Kiro, Amazon Q, Cline, Roo Code, Kilo Code, Aider, Continue, Augment, Amp, Devin, Warp, Zed, OpenCode, Qodo, JetBrains AI, Tabnine, Replit, Bolt.new
+Speckit, OpenSpec, Kiro Specs — auto-detected and connected during init.
+</details>
 
-**Spec tools:** Speckit, OpenSpec, Kiro Specs
+## Supported Tools
 
-**Standard:** AGENTS.md (cross-tool standard, 60k+ repos)
+**25+ AI tools** connected automatically: Claude Code, Cursor, Windsurf, GitHub Copilot, Codex, Gemini, Kiro, Amazon Q, Cline, Roo Code, Kilo Code, Aider, Continue, Augment, Amp, Devin, Warp, Zed, OpenCode, Qodo, JetBrains AI, Tabnine, Replit, Bolt.new
 
-`knowie init` detects what you have and injects a reference to your `knowledge/` files. No manual config needed.
+**Standard:** AGENTS.md (60k+ repos)
 
-## MCP Server
+`knowie init` detects what you have and injects references. No manual config.
 
-For AI tools that support MCP (Model Context Protocol):
+<details>
+<summary>MCP Server</summary>
+
+For AI tools supporting MCP:
 
 ```bash
 npx knowie setup-mcp
 ```
 
-This gives your AI direct access to `knowie_init`, `knowie_update`, `knowie_judge`, and `knowie_next` as native tools.
-
-<details>
-<summary>Manual MCP config</summary>
-
+Or manually:
 ```json
 {
   "mcpServers": {
@@ -153,32 +155,32 @@ This gives your AI direct access to `knowie_init`, `knowie_update`, `knowie_judg
 ## Updating
 
 ```bash
-npx knowie update
+npx knowie update       # or --yes for automatic
 ```
 
-Updates skills and templates without touching your knowledge files. Catches new AI tools added since last run. Use `--yes` for automatic mode.
+Updates skills and templates. Never touches your knowledge files.
 
-## Design Principles
+## Design
 
-- **Plain Markdown** — `knowledge/` works with any tool, or none. No proprietary format, no lock-in.
-- **No npm dependencies** — only Node.js built-ins. Install is instant.
-- **AI-native** — `--yes` flag for zero-prompt operation. Your AI can install and update Knowie without you leaving the conversation.
-- **Progressive** — start with just the three files. Add skills, MCP, or subdirectories when you're ready.
+- **Plain Markdown** — no proprietary format, no lock-in
+- **No npm dependencies** — Node.js built-ins only
+- **AI-native** — `--yes` for zero-prompt operation
+- **Progressive** — start with three files, add skills/MCP/subdirectories when ready
 
 ## Why Three Files?
 
-Every decision you make has three parts: what's *correct* (your principles), what you're *building* (your vision), and what *context* you're in (your experience). Miss one, and you get:
+Every decision has three parts: what's *correct* (principles), what you're *building* (vision), and what *context* you're in (experience). Miss one:
 
-- Principles without vision → rigid rules that don't ship anything
-- Vision without experience → plans that repeat past mistakes
-- Experience without principles → lessons with no framework to apply them
+- Principles without vision → rigid rules that ship nothing
+- Vision without experience → plans that repeat mistakes
+- Experience without principles → lessons with no framework
 
-Knowie keeps all three in sync. `/knowie judge` checks the alignment. `/knowie next` uses all three to plan coherent next steps.
+`/knowie judge` keeps them aligned. `/knowie next` uses all three to plan.
 
 <details>
-<summary>For the theoretically curious</summary>
+<summary>Theory</summary>
 
-This maps to the structure of a *judgment* in type theory (Γ ⊢ t : A) and [triperspectivalism](https://en.wikipedia.org/wiki/Triperspectivalism) in epistemology. The three perspectives are co-dependent and irreducible — each only makes sense in relation to the other two.
+Maps to *judgment* in type theory (Γ ⊢ t : A) and [triperspectivalism](https://en.wikipedia.org/wiki/Triperspectivalism). Three co-dependent, irreducible perspectives.
 </details>
 
 ## License
