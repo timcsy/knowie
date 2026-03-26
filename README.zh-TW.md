@@ -27,13 +27,15 @@ knowledge/
 
 ## 開始使用
 
+在你的**終端機**中執行：
+
 ```bash
 npx knowie init
 ```
 
 搞定。Knowie 建好檔案、偵測你的 AI 工具、全部連結好。
 
-> **用 AI 工具？** 讓它跑這個——全自動，不需要互動：
+> **想留在 AI 聊天介面？** 請你的 AI 執行這個（它會在終端機幫你跑）：
 > ```bash
 > npx knowie init --yes
 > ```
@@ -83,7 +85,7 @@ Knowie 可以安全地加到任何專案：
 
 ## Skills
 
-支援 skill 的 AI 工具（如 Claude Code）：
+以下指令在你的 **AI 聊天介面**中使用（不是終端機）。支援 skill 的 AI 工具（如 Claude Code）：
 
 | Skill | 做什麼 |
 |-------|--------|
@@ -138,7 +140,7 @@ npx knowie setup-mcp
 
 ## 更新
 
-當 Knowie 有新版本時：
+當 Knowie 有新版本時，在你的**終端機**執行：
 
 ```bash
 npx knowie update

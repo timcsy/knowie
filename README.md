@@ -27,13 +27,15 @@ Your AI reads them before every task. Its suggestions now align with your projec
 
 ## Get Started
 
+In your **terminal**, run:
+
 ```bash
 npx knowie init
 ```
 
 That's it. Knowie creates the files, detects your AI tools, and connects everything.
 
-> **Using an AI tool?** Let it run this instead — fully automatic, no prompts:
+> **Prefer to stay in your AI chat?** Ask your AI to run this (it will execute it in the terminal for you):
 > ```bash
 > npx knowie init --yes
 > ```
@@ -83,7 +85,7 @@ The three files are the *summary*; subdirectories are the *evidence*. Start with
 
 ## Skills
 
-For AI tools with skill support (e.g., Claude Code):
+These commands run **inside your AI chat** (not in the terminal). For AI tools with skill support (e.g., Claude Code):
 
 | Skill | What it does |
 |-------|-------------|
@@ -138,7 +140,7 @@ Or manually:
 
 ## Updating
 
-When a new version of Knowie is released:
+When a new version of Knowie is released, run in your **terminal**:
 
 ```bash
 npx knowie update
