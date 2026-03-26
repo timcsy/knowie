@@ -2,8 +2,15 @@ import { mkdir, copyFile, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
   KNOWLEDGE_DIR, KNOWY_CONFIG, CORE_FILES, SUBDIRS,
-  PACKAGE_ROOT, VERSION
+  PACKAGE_ROOT, VERSION, TEMPLATES_DIR
 } from './constants.js';
+
+// Subdirectories that get a README (excludes .templates)
+const SUBDIR_READMES = {
+  research: 'research-README.md',
+  design: 'design-README.md',
+  history: 'history-README.md',
+};
 
 async function exists(p) {
   try { await access(p); return true; } catch { return false; }
@@ -32,6 +39,21 @@ export async function scaffoldKnowledge(projectRoot, language = 'en') {
       }
       await copyFile(src, dest);
       report.created.push(file);
+    }
+  }
+
+  // Copy subdirectory READMEs (never overwrite)
+  for (const [sub, tmplName] of Object.entries(SUBDIR_READMES)) {
+    const dest = join(knowledgeDir, sub, 'README.md');
+    if (await exists(dest)) {
+      report.skipped.push(`${sub}/README.md`);
+    } else {
+      let src = join(PACKAGE_ROOT, 'templates', language, tmplName);
+      if (!await exists(src)) {
+        src = join(PACKAGE_ROOT, 'templates', 'en', tmplName);
+      }
+      await copyFile(src, dest);
+      report.created.push(`${sub}/README.md`);
     }
   }
 

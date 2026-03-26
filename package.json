@@ -1,6 +1,6 @@
 {
   "name": "knowy-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Give your AI a structured project brain",
   "type": "module",
   "bin": {
