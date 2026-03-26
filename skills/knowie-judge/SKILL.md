@@ -262,7 +262,7 @@ After the user makes changes based on your suggestions:
 
 ## Guidelines
 
-- **Language**: Read `.knowie.json` → `language` field (e.g., `"zh-TW"`). Use that language for ALL output — section headers, descriptions, suggestions, everything. If `.knowie.json` is missing or has no language field, detect from conversation context or default to English.
+- **Language**: Read `.knowledge/.knowie.json` → `language` field (e.g., `"zh-TW"`). Use that language for ALL output — section headers, descriptions, suggestions, everything. If `.knowledge/.knowie.json` is missing or has no language field, detect from conversation context or default to English.
 - Be specific — always quote relevant text from knowledge files
 - Distinguish between true contradictions (🔴) and tensions worth watching (🟡)
 - Don't flag stylistic differences as inconsistencies

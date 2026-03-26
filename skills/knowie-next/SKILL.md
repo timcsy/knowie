@@ -119,7 +119,7 @@ After presenting the feature brief, scan the project for spec/planning tools:
 
 ## Guidelines
 
-- **Language**: Read `.knowie.json` → `language` field (e.g., `"zh-TW"`). Use that language for ALL output — section headers, descriptions, suggestions, everything. If `.knowie.json` is missing or has no language field, detect from conversation context or default to English.
+- **Language**: Read `.knowledge/.knowie.json` → `language` field (e.g., `"zh-TW"`). Use that language for ALL output — section headers, descriptions, suggestions, everything. If `.knowledge/.knowie.json` is missing or has no language field, detect from conversation context or default to English.
 - Keep the feature brief concise — it's a starting point, not a full spec
 - **Every recommendation must reference knowledge files.** Don't invent principles or cite non-existent experience. If there's no relevant principle, say so explicitly.
 - Verify project state before claiming prerequisites are met — check actual code, not just what vision says

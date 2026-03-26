@@ -125,7 +125,7 @@ If you find issues, revise the draft or flag them to the user.
 
 ## Guidelines
 
-- **Language**: Read `.knowie.json` → `language` field (e.g., `"zh-TW"`). Use that language for ALL output — questions, drafts, suggestions, everything. If `.knowie.json` is missing or has no language field, detect from conversation context or default to English.
+- **Language**: Read `.knowledge/.knowie.json` → `language` field (e.g., `"zh-TW"`). Use that language for ALL output — questions, drafts, suggestions, everything. If `.knowledge/.knowie.json` is missing or has no language field, detect from conversation context or default to English.
 - **Layer your questions** — don't dump all questions at once. Ask 2-3, listen, then go deeper.
 - Keep language practical and clear — avoid academic jargon
 - Reference existing content in other knowledge files when relevant
