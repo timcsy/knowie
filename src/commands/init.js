@@ -82,7 +82,8 @@ export async function init(projectRoot, { yes = false } = {}) {
     const specTools = TOOL_REGISTRY.filter(t => t.category === 'spec');
     const standardTools = TOOL_REGISTRY.filter(t => t.category === 'standard');
 
-    const choices = [
+    // First: AI tools + standard
+    const aiChoices = [
       ...standardTools.map(t => ({
         id: t.id,
         name: t.name,
@@ -93,14 +94,23 @@ export async function init(projectRoot, { yes = false } = {}) {
         name: t.name,
         checked: detected.includes(t.id),
       })),
-      ...specTools.map(t => ({
-        id: t.id,
-        name: `${t.name} (spec tool)`,
-        checked: detected.includes(t.id),
-      })),
     ];
 
-    selectedIds = await multiSelect(t(lang, 'cli.init.selectTools'), choices, lang);
+    const selectedAi = await multiSelect(t(lang, 'cli.init.selectTools'), aiChoices, lang);
+
+    // Second: Spec tools (only if any exist in registry)
+    let selectedSpec = [];
+    if (specTools.length > 0) {
+      const specChoices = specTools.map(t => ({
+        id: t.id,
+        name: t.name,
+        checked: detected.includes(t.id),
+      }));
+
+      selectedSpec = await multiSelect(t(lang, 'cli.init.selectSpecTools'), specChoices, lang);
+    }
+
+    selectedIds = [...selectedAi, ...selectedSpec];
   }
 
   // 6. Handshake
