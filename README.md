@@ -92,6 +92,27 @@ After you finish a feature, run `/knowie judge`. It checks 17 things:
 
 Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — each with quotes from your files and concrete suggestions.
 
+## "I already use Speckit / OpenSpec / Kiro Specs — do I need this?"
+
+Yes. They do different jobs.
+
+**Spec tools** answer *what* to build: requirements, designs, task breakdowns. They're great at turning an idea into a concrete plan.
+
+**Knowie** answers *why* you build it that way: your principles, your roadmap context, and the lessons that should inform every decision.
+
+Without Knowie, your spec tool doesn't know that your project avoids external dependencies, that Phase 2 depends on Phase 1, or that a similar feature failed last quarter. It generates specs in a vacuum.
+
+With Knowie, your spec tool inherits the context. Knowie even detects spec tools in your project and suggests handoff — for example, after `/knowie next` converges on a feature, it'll suggest running `/speckit-specify` if Speckit is installed.
+
+```
+Knowie (why)  →  Spec tool (what)  →  Code (how)
+  principles       requirements         implementation
+  vision           design               tests
+  experience       task breakdown        deployment
+```
+
+They're complementary layers. Knowie gives the context; spec tools give the structure; you write the code.
+
 ## Works With Your Tools
 
 Knowie connects to **25+ AI tools and spec tools** — automatically:
