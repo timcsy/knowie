@@ -12,6 +12,8 @@ Your AI writes code that works — but makes choices you wouldn't make. It picks
 
 **It sees your code, but not your reasoning.**
 
+This compounds at scale. Around 30–50 features in, most AI-assisted projects start to drift: principles get silently abandoned, the same bugs reappear, scope balloons unconsciously. Each new feature is written without memory of the last ten.
+
 ## The Fix
 
 Three Markdown files in a `knowledge/` directory:
@@ -53,6 +55,37 @@ That's it. Knowie creates the files, detects your AI tools, and connects everyth
 > *Before:* AI picks Redis (popular online). But your principle says "no external dependencies for core," and experience.md records that caching caused stale data last quarter.
 >
 > *After:* AI picks in-memory caching, adds TTL from the stale-data lesson, links to the design doc in `knowledge/design/`.
+
+## Proven in Practice
+
+**One person. One project. 150+ features. Still coherent.**
+
+That's the bar Knowie is designed for. Whether you're starting fresh or arriving at feature #40 wondering why the AI keeps re-suggesting things you already decided against — this is what it's for.
+
+## Where Knowie Fits
+
+The AI coding landscape has grown many layers. Knowie occupies one specific layer:
+
+| Layer | Manages | Examples |
+|-------|---------|----------|
+| Harness | How the agent runs (retry, validation, workflows) | Claude Code, agent SDKs |
+| Context engineering | What goes into the LLM context *right now* | RAG, @-mentions, repo grep |
+| Memory systems | Auto-extracted facts persisted across sessions | mem0, Letta, ChatGPT memory |
+| Spec tools | Per-feature contracts | SpecKit, OpenSpec, Kiro Specs |
+| **Knowie** | **Human-curated, project-level *why* — durable across sessions, specs, and tools** | — |
+
+**vs spec tools:** Specs are per-feature. Knowie is the shared layer *across* all specs — so spec #20 still respects the principle set in spec #1. Spec tools make each feature rigorous; Knowie keeps the project coherent.
+
+**vs memory systems:** Memory systems auto-extract and accumulate (often with noise you can't audit). Knowie is explicitly human-authored — every line is something you can point at and stand behind. `/knowie-judge` gives you a feedback loop no black-box memory system offers.
+
+**vs context engineering:** Context engineering decides *what to load right now*. Knowie decides *what stays true across every query*. Different axis.
+
+They can coexist. Use a RAG system for code retrieval, a memory system for personal history, and Knowie for the curated "why." Different layers, different jobs.
+
+**When Knowie isn't the right fit:**
+- You need automatic fact extraction from conversations → use a memory system
+- Your project logic fits in one file → a single `CLAUDE.md` is probably enough
+- You don't yet have strong opinions about your project → come back when you do
 
 ## Adding to an Existing Project
 
@@ -98,17 +131,21 @@ These commands run **inside your AI chat** (not in the terminal). For AI tools w
 
 `/knowie-judge` is the core feedback loop. It catches when your vision contradicts your experience, your principles don't match your code, or your files have gone stale. Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — with specific quotes and suggestions.
 
-## Already Using a Spec Tool?
+## Working With Spec Tools
 
-Knowie and spec tools are complementary:
+Spec tools (SpecKit, OpenSpec, Kiro Specs) give each feature a rigorous contract. But specs are per-feature — left alone, they fragment. Spec #1 enforces performance; spec #20 quietly doesn't, because it was written without visibility into spec #1.
+
+Knowie sits *underneath* your spec tool, not in a pipeline with it:
 
 ```
-Knowie (why)  →  Spec tool (what)  →  Code (how)
+           ┌── spec 1
+           ├── spec 2
+  knowie ──┼── spec 3  ──→ code
+           ├── ...
+           └── spec N
 ```
 
-Spec tools generate requirements and designs. Knowie gives them context — your principles, roadmap, and lessons. Without Knowie, specs are written in a vacuum.
-
-Knowie detects installed spec tools (Speckit, OpenSpec, Kiro Specs) and suggests handoff after `/knowie-next`.
+Every spec shares the same principles, vision, and lessons. `/knowie-next` detects installed spec tools and hands off naturally — Knowie provides the *why*, your spec tool provides the *what*, AI handles the *how*.
 
 ## Supported Tools
 
@@ -155,8 +192,9 @@ This updates skills and templates to the latest version. **Your knowledge files 
 ## Design
 
 - **Plain Markdown** — no proprietary format, no lock-in
+- **Human-authored** — every line is auditable, not auto-extracted noise
 - **No npm dependencies** — Node.js built-ins only
-- **AI-native** — `--yes` for zero-prompt operation
+- **Tool-agnostic** — works with any AI tool that reads files
 - **Progressive** — start with three files, add skills/MCP/subdirectories when ready
 
 ## Why Three Files?
