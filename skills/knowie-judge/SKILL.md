@@ -187,6 +187,9 @@ Look for content that doesn't belong:
 2. [Medium] Fix auth status inconsistency in vision
 3. [Medium] Clarify Phase 3/5 overlap in vision
 4. [Low] Consider adding progressive disclosure principle
+
+---
+Would you like me to help fix any of these issues? I can propose specific edits for you to review.
 ```
 
 ### 6. Event-based analysis (when $ARGUMENTS describes an event)
@@ -211,6 +214,9 @@ Look for content that doesn't belong:
 ### Suggested Actions
 1. Add lesson to experience.md: [specific lesson]
 2. Update vision.md: mark [milestone] as complete
+
+---
+Would you like me to help fix any of these issues? I can propose specific edits for you to review.
 ```
 
 ### 7. Reorganization offer
@@ -259,6 +265,7 @@ After the user makes changes based on your suggestions:
 - 🔴 **Conflict**: expand with specific quotes, explain the conflict, suggest concrete action with priority
 - Always quote the specific text from knowledge files that supports your finding
 - End with a numbered list of suggested actions, ordered by priority ([High] / [Medium] / [Low])
+- **Always end with a fix offer**: After the suggested actions list, add a separator (`---`) and ask the user if they'd like help fixing any of the issues. Example: "Would you like me to help fix any of these issues? I can propose specific edits for you to review."
 
 ## Guidelines
 
