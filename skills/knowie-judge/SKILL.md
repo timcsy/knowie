@@ -22,10 +22,23 @@ These rules govern how you interact with knowledge files. Follow them in every c
 - **Principles are the highest authority.** If vision or experience conflicts with principles, the pressure is on vision/experience to change — unless the conflict reveals that a principle needs revision.
 - **Vision evolves with understanding.** It should be updated after milestones, not frozen.
 - **Experience is distilled, not accumulated.** Only patterns that influence future decisions belong here. Raw events go in history/.
-- **Knowledge files are indexes, not encyclopedias.** Each should be short enough to read in one pass (~100-200 lines). Long content belongs in subdirectories.
+- **Knowledge files are indexes, not encyclopedias.** Readability comes from **per-bullet structure**, not total line count. Three rules:
+  1. **One claim per bullet** — split bullets containing multiple distinct claims
+  2. **Claim + support + ref pattern** — main bullet is a claim; sub-bullets give supports; ref (feature ID / spec / commit) at tail
+  3. **Scannable** — reader navigates by headers + first-line-of-bullet, not by reading every word
+
+  Long content can live inline if scannable; move to subdirectories only when reference-heavy. **Line count is NOT a readability metric** — well-structured 1000 lines reads better than dense 200 lines.
 - **Never modify files without explicit user confirmation.** Present findings and suggestions; let the user decide.
 
 ## Workflow
+
+### 0. Load state file (mandatory, first step)
+
+Read `knowledge/.knowie-state.yaml`. If missing, treat as stub.
+Extract **debt list** = all sub-files with `skipped_in_a_row >= 3`.
+
+Sub-files in the debt list **MUST** appear in the Phase A contract marked
+`fresh-read` OR `propose-row-removal`. Silent skip again is not allowed.
 
 ### 1. Read knowledge files
 
@@ -34,7 +47,79 @@ Read all three core files:
 - `knowledge/vision.md`
 - `knowledge/experience.md`
 
-Also scan `knowledge/research/`, `knowledge/design/`, `knowledge/history/` for additional context.
+### Output discipline (applies to all of Step 1.5 / 1.6 / 9)
+
+Phase A contract, Phase B evidence, and state diff are **internal mechanics**.
+They are computed, executed, and written to `knowledge/.knowie-state.yaml`
+but **MUST NOT** be printed verbatim in the user-facing output.
+
+User-facing output structure:
+
+1. The Knowledge Health Check report (Step 5 format)
+2. A **Reading audit footer** ≤ 5 lines, NOT YAML:
+   - Line 1: fresh-read count + each as `<file>:<line> → "<quote>"`
+   - Line 2: skip-to-debt escalations (only if `skipped_in_a_row` crossed 3 this turn)
+   - Line 3: count of carryover / strategic-skip entries + pointer "see `knowledge/.knowie-state.yaml` diff"
+   - Line 4-5: only if Block condition triggered (debt file forced fresh-read; STOP and ask user)
+3. Suggested Actions list (Step 5)
+
+**Forensic invariants** (still mandatory; just not printed):
+- Phase A contract was committed before the judge result was drafted
+- Every fresh-read corresponds to an actual Read tool call this turn
+- State file is updated atomically at end of turn
+- `evidence_quote` in state file is verbatim from the file (user can `grep` to verify)
+
+The footer surfaces only the *anomalies* (new fresh-read, debt escalations) and
+points to the state file for full audit. Verbose YAML output proved to drift
+toward self-serving 100% — the new mechanism keeps verification in the file
+system, not in chat output.
+
+---
+
+### 1.5 Reading Contract — Phase A (commit *before* judging, internally)
+
+Each core file should contain a **Key Extensions table** at the bottom — titled `## Key Extensions` or `## 關鍵延伸`, matching the project's `language` field in `knowledge/.knowie.json`. Steps:
+
+1. Extract **topic keywords** from `$ARGUMENTS` + `git log --oneline -10` + user intent
+2. If `$ARGUMENTS` is empty / full-check → derive keywords automatically from the 10 most recent commit subjects
+3. For each core file, scan the Key Extensions table; list **hit rows** + every sub-file the row references
+4. Union the hit sub-files with Step 0's debt list → **expected-reads** list
+5. For each expected-read, **pre-commit** how it will be handled (this prevents backfill rationalisation):
+   - `fresh-read` — open this turn via Read tool, attach verbatim quote
+   - `carryover` — cite state's `last_fresh_read` date + `evidence_quote`, must be ≤ 1 session old
+   - `strategic-skip` — reason ≥ 15 specific characters; banned phrases: "context pressure", "context accumulation", "already settled"
+   - `propose-row-removal` — sub-file should not be hit by this row; output a proposed table edit
+
+**Block condition**: if any debt-list sub-file is marked `strategic-skip` or `carryover`, **block the judge result** until it is changed to `fresh-read` or `propose-row-removal`.
+
+**Phase A output**:
+
+```yaml
+expected-reads-contract:
+  - file: <path>
+    why: <relevance to current judge scope>
+    plan: fresh-read | carryover | strategic-skip | propose-row-removal
+    skip-reason: <only if strategic-skip; ≥15 specific chars>
+    carryover-vintage: <YYYY-MM-DD; only if carryover>
+    debt-resolution: <only if file is in debt list>
+```
+
+### 1.6 Reading Evidence — Phase B (execute the contract)
+
+For each Phase A entry:
+
+- **fresh-read** → call Read tool on the file, then output:
+  - `quote`: one **verbatim** sentence (user can `grep` to verify)
+  - `quote_line`: line number
+  - `informs`: how this sentence shapes the judge result
+
+- **carryover** → cite state's `evidence_quote` + `evidence_line`, justify why the quote is still fresh
+
+- **strategic-skip** → repeat the reason, note `debt-impact: skipped_in_a_row += 1`
+
+- **propose-row-removal** → state which row should be removed/split, output a concrete patch suggestion at the end of this turn
+
+**Project Alignment hardening**: for each sub-file referenced in core files, run `ls` to verify existence + compare mtime. If a sub-file is newer than the core file that references it → 🟡 flag "sub-file updated, core may be stale".
 
 ### 2. Read project context
 
@@ -182,6 +267,23 @@ Look for content that doesn't belong:
 ### Beyond Scope
 🟢 All content is relevant to this project.
 
+### Reading Evidence Recap (replaces the old Topic Mapping trace)
+
+The Phase A contract + Phase B evidence (Workflow Steps 1.5/1.6) is the
+forensic substrate for this skill. Do **not** emit a separate Topic Mapping
+trace block — historical evidence shows self-reported coverage drifts toward
+self-serving 100%.
+
+The replacement forensic mechanism:
+
+1. Phase A contract **pre-commits** how each expected-read will be handled
+   (no backfill rationalisation possible).
+2. Every `fresh-read` carries a verbatim quote + line (user-greppable).
+3. The state file `knowledge/.knowie-state.yaml` accumulates `skipped_in_a_row`
+   across sessions → ≥3 → automatic escalation to "debt".
+4. The state file's `evidence_quote` can be spot-checked by the user against
+   the actual file.
+
 ## Suggested Actions
 1. [High] Resolve SSR conflict between vision and experience
 2. [Medium] Fix auth status inconsistency in vision
@@ -223,7 +325,9 @@ Would you like me to help fix any of these issues? I can propose specific edits 
 
 If checks reveal that files are too disorganized to assess clearly, offer to help reorganize. Common triggers:
 
-- **Overgrown core file** (>200 lines): Propose moving detail to subdirectories, keeping only distilled content in core.
+- **Dense bullets** (primary readability trigger, NOT line count): any single bullet packs claim + supports + ref into one paragraph. Propose split into main claim + sub-bullets + ref tail pattern.
+- **Reference-heavy detail dominating concept**: bullet/section is mostly refs with conceptual claim buried. Propose moving detail to subdirectories, leaving pointer.
+- **Section with many similar items lacking categorization** (10+ flat items of same kind): Propose subsection structure.
 - **Raw events in experience.md**: Propose moving them to history/ and distilling into patterns.
 - **Stale content**: Propose removing or updating entries that reference deleted code, completed milestones, or resolved problems.
 - **Broken structure**: Propose reordering sections to match template structure (root → derived, general → specific).
@@ -257,6 +361,33 @@ After the user makes changes based on your suggestions:
 2. Run a focused check on the changed areas only
 3. Confirm the changes resolved the issues without introducing new ones
 4. If new issues are found, report them (one recursion only — don't loop)
+
+### 9. Update state file (mandatory final step)
+
+Write back to `knowledge/.knowie-state.yaml` based on Phase B execution:
+
+- For each `fresh-read`:
+  - `last_fresh_read: <today>`
+  - `fresh_read_count += 1`
+  - `skipped_in_a_row: 0`
+  - `last_skip_reasons: []`
+  - `evidence_quote: <Phase B verbatim quote>`
+  - `evidence_line: <Phase B line>`
+  - `evidence_session: <today>`
+
+- For each `strategic-skip`:
+  - `skipped_in_a_row += 1`
+  - `last_skip_reasons.push(<reason>)` — keep last 5 (FIFO)
+
+- For each `carryover`:
+  - No state change (already current)
+
+- For each `propose-row-removal`:
+  - No state change; output the patch suggestion in the user-facing report
+
+**Verification**: after writing, echo the state diff to the user. If any
+`evidence_quote` is claimed for `fresh-read` but no actual Read tool call was
+made this turn, the whole judge result is invalid — redo Phase B.
 
 ## Display Rules
 

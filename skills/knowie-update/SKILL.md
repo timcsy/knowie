@@ -20,7 +20,7 @@ $ARGUMENTS
 - **Principles are the highest authority.** If the structure check reveals that principles are weak or missing derivation chains, this is the highest priority fix.
 - **Vision evolves with understanding.** Suggest updates when the project has moved forward but vision hasn't caught up.
 - **Experience is distilled, not accumulated.** If experience.md is growing too long, suggest distilling. If history/ has entries that should be promoted, flag them.
-- **Knowledge files are indexes, not encyclopedias.** If any core file exceeds ~200 lines, suggest moving detail to subdirectories.
+- **Knowledge files are indexes, not encyclopedias.** Watch **per-bullet structure**, NOT total line count. Dense bullets (multiple claims + supports + refs crammed into one line) are the readability killer — propose split into claim + sub-bullets + ref pattern. Long well-structured content is fine.
 - **Never modify files without explicit user confirmation.**
 
 ## Workflow
@@ -39,7 +39,8 @@ Compare each core file against its template. Look for:
 - **Missing sections**: template suggests a section that the file doesn't have
 - **Empty sections**: section header exists but no content below it
 - **Orphaned content**: content that doesn't fit any recommended section
-- **Overgrown files**: core files exceeding ~200 lines (should move detail to subdirectories)
+- **Dense bullets**: bullets cramming claim + supports + refs into one paragraph (split into structured pattern)
+- **Reference-heavy bullets**: detail dominates concept → move detail to sub-file, leave pointer
 - **Weak derivations**: principles without clear derivation chains
 - **Vague milestones**: vision roadmap items without success criteria
 - **Undistilled lessons**: experience entries that are raw events rather than patterns
@@ -100,9 +101,12 @@ Present findings organized by priority:
 
 When structural problems are severe enough to warrant reorganization, offer proactively:
 
-- **Overgrown core file** (>200 lines): Propose extracting detail to subdirectories.
-  - principles.md → move research/exploration to research/
-  - vision.md → move detailed designs to design/
+- **Structurally unreadable** (dense bullets / mis-grouped sections / detail dominates concept): Propose structural reorganization. **Line count is NOT a trigger** — well-structured 1000 lines reads better than dense 200 lines.
+  - Dense bullets → split into claim + sub-bullets + ref pattern
+  - Reference-heavy bullets dominating concept → move detail to sub-file, leave pointer
+  - Many similar items lacking categorization → subsection structure
+  - principles.md → move research/exploration to research/ (when refs dominate concept)
+  - vision.md → move detailed designs to design/ (when refs dominate concept)
   - experience.md → move raw events to history/, keep only distilled lessons
 - **Wrong format**: Propose reformatting entries to match template structure.
   - experience lessons not in four-part format (Theory said → Actually → Resolved by → Lesson)

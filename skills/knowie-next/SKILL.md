@@ -24,6 +24,14 @@ $ARGUMENTS
 
 ## Workflow
 
+### 0. Load state file (mandatory, first step)
+
+Read `knowledge/.knowie-state.yaml`. If missing, treat as stub (`version: 1` + empty `sub_files`).
+Extract **debt list** = all sub-files with `skipped_in_a_row >= 3`.
+
+Sub-files in the debt list **MUST** appear in the Phase A contract marked
+`fresh-read` OR `propose-row-removal`. Silent skip again is not allowed.
+
 ### 1. Read knowledge files
 
 Read all three core files:
@@ -31,8 +39,78 @@ Read all three core files:
 - `knowledge/vision.md`
 - `knowledge/experience.md`
 
+### Output discipline (applies to all of Step 1.5 / 1.6 / 4.5)
+
+Phase A contract, Phase B evidence, and state diff are **internal mechanics**.
+They are computed, executed, and written to `knowledge/.knowie-state.yaml`
+but **MUST NOT** be printed verbatim in the user-facing output.
+
+User-facing output structure:
+
+1. The recommendation block (Step 4 template)
+2. A **Reading audit footer** ≤ 5 lines, NOT YAML:
+   - Line 1: fresh-read count + each as `<file>:<line> → "<quote>"`
+   - Line 2: skip-to-debt escalations (only if `skipped_in_a_row` crossed 3 this turn)
+   - Line 3: count of carryover / strategic-skip entries + pointer "see `knowledge/.knowie-state.yaml` diff"
+   - Line 4-5: only if Block condition triggered (debt file forced fresh-read; STOP and ask user)
+3. The suggested next action (Step 5)
+
+**Forensic invariants** (still mandatory; just not printed):
+- Phase A contract was committed before the recommendation was drafted
+- Every fresh-read corresponds to an actual Read tool call this turn
+- State file is updated atomically at end of turn
+- `evidence_quote` in state file is verbatim from the file (user can `grep` to verify)
+
+The footer surfaces only the *anomalies* (new fresh-read, debt escalations) and
+points to the state file for full audit. Verbose YAML output proved to drift
+toward self-serving 100% — the new mechanism keeps verification in the file
+system, not in chat output.
+
+---
+
+### 1.5 Reading Contract — Phase A (commit *before* drawing conclusions, internally)
+
+Each core file should contain a **Key Extensions table** at the bottom — titled `## Key Extensions` or `## 關鍵延伸`, matching the project's `language` field in `knowledge/.knowie.json`. Steps:
+
+1. Extract **topic keywords** from `$ARGUMENTS` + `git log --oneline -10` + user intent
+2. For each core file, scan the Key Extensions table; list **hit rows** + every sub-file the row references
+3. Union the hit sub-files with Step 0's debt list → **expected-reads** list
+4. For each expected-read, **pre-commit** how it will be handled (this prevents backfill rationalisation):
+   - `fresh-read` — open this turn via Read tool, attach verbatim quote
+   - `carryover` — cite state's `last_fresh_read` date + `evidence_quote`, must be ≤ 1 session old
+   - `strategic-skip` — reason ≥ 15 specific characters; banned phrases: "context pressure", "context accumulation", "already settled" (these are content-free rationalisations)
+   - `propose-row-removal` — sub-file should not be hit by this row; output a proposed table edit
+
+**Block condition**: if any debt-list sub-file is marked `strategic-skip` or `carryover`, **block the recommendation** until it is changed to `fresh-read` or `propose-row-removal`.
+
+**Phase A output** (must appear *before* the final recommendation):
+
+```yaml
+expected-reads-contract:
+  - file: <path>
+    why: <one-line decision relevance>
+    plan: fresh-read | carryover | strategic-skip | propose-row-removal
+    skip-reason: <only if strategic-skip; ≥15 specific chars>
+    carryover-vintage: <YYYY-MM-DD; only if carryover>
+    debt-resolution: <only if file is in debt list>
+```
+
+### 1.6 Reading Evidence — Phase B (execute the contract)
+
+For each Phase A entry:
+
+- **fresh-read** → call Read tool on the file, then output:
+  - `quote`: one **verbatim** sentence (copied from file, user can `grep` to verify)
+  - `quote_line`: line number
+  - `informs`: how this sentence shapes the recommendation
+
+- **carryover** → cite state's `evidence_quote` + `evidence_line`, justify why the quote is still fresh (`last_fresh_read` within 1 session)
+
+- **strategic-skip** → repeat the reason, note `debt-impact: skipped_in_a_row += 1`
+
+- **propose-row-removal** → state which row should be removed/split, and output a concrete patch suggestion at the end of this turn
+
 Also check:
-- `knowledge/design/` for relevant design documents
 - Project structure and recent git log for actual state
 
 ### 2. Determine direction
@@ -101,6 +179,33 @@ Present a concise feature brief:
 - [ ] [Concrete, verifiable criterion]
 - [ ] [Concrete, verifiable criterion]
 ```
+
+### 4.5 Update state file (mandatory final step)
+
+Write back to `knowledge/.knowie-state.yaml` based on Phase B execution:
+
+- For each `fresh-read`:
+  - `last_fresh_read: <today>`
+  - `fresh_read_count += 1`
+  - `skipped_in_a_row: 0`
+  - `last_skip_reasons: []`
+  - `evidence_quote: <Phase B verbatim quote>`
+  - `evidence_line: <Phase B line>`
+  - `evidence_session: <today>`
+
+- For each `strategic-skip`:
+  - `skipped_in_a_row += 1`
+  - `last_skip_reasons.push(<reason>)` — keep last 5 (FIFO)
+
+- For each `carryover`:
+  - No state change (already current)
+
+- For each `propose-row-removal`:
+  - No state change; output the patch suggestion in the user-facing recommendation
+
+**Verification**: after writing, echo the state diff to the user. If any
+`evidence_quote` is claimed for `fresh-read` but no actual Read tool call was
+made this turn, the whole recommendation is invalid — redo Phase B.
 
 ### 5. Suggest next action
 

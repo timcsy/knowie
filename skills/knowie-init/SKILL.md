@@ -20,7 +20,7 @@ $ARGUMENTS
 - **Principles are the highest authority.** When helping write principles, push the user to find the *root* — the one belief everything else derives from. Don't settle for surface-level rules.
 - **Vision evolves with understanding.** It's OK if vision is incomplete at first. Help the user capture what they know now.
 - **Experience is distilled, not accumulated.** Guide the user to extract patterns, not dump event logs.
-- **Knowledge files are indexes, not encyclopedias.** Keep core files short. Point to subdirectories for details.
+- **Knowledge files are indexes, not encyclopedias.** Structure beats length: one claim per bullet, claim + supports + ref pattern, scannable headers. Long well-structured content is fine — **don't impose line limits**. Move detail to subdirectories only when refs dominate concept.
 - **Never write files without explicit user confirmation.** Always show the draft first.
 - **Low-pressure entry.** Beginners worry about "am I doing it right?" Remind them they can fill just one item, skip a section, or come back later. An incomplete `knowledge/` is still more useful than an empty one. Proactively surface this reassurance when the user seems hesitant.
 
