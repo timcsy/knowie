@@ -1,38 +1,31 @@
 # History
 
-This directory holds event records — what happened, when, and why it mattered. These are the raw material that gets distilled into experience.md.
+This directory holds the **causal trail** — why the project became what it is. Not a flat event log, but **decision transitions** and **rejected options**. It's the raw material distilled into experience.md.
 
 ## When to add a file here
-
-- You just completed a significant milestone or feature
-- Something unexpected happened during development
-- You made a decision you might need to revisit later
-- A debugging session revealed something important about the system
+- A decision **supersedes** an earlier one — record the old, the new, and **why it changed**; mark the old superseded and link to the new.
+- An option was **rejected** — leave a **tombstone**: what was considered, and **why not** (the richest why).
+- A debugging session or milestone revealed an important turn.
 
 ## Suggested format
 
 ```markdown
-# [Event Title]
+# [NNN]: from [old] to [new]
+> Date: YYYY-MM-DD
 
-**Date**: YYYY-MM-DD
+## Transition
+- Old: ...
+- New: ...
 
-## What Happened
+## Why it changed
+...
 
-Describe the event — what was built, what broke, what changed.
-
-## Impact
-
-How did this affect the project? What changed as a result?
-
-## Follow-up Actions
-
-- [ ] ...
+## Status
+✅ adopted  /  ⚰️ rejected (reason)
 ```
 
 ## File naming
-
-Use numbered prefixes to maintain chronological order: `001-initial-setup.md`, `002-auth-migration.md`, `015-performance-crisis.md`
+Numbered prefixes keep chronological order: `001-...`, `002-...`.
 
 ## Relationship to core files
-
-History entries are the raw events. The lessons they teach should be distilled into **experience.md** using the four-part format (Theory said → Actually happened → Resolved by → Lesson). The history file stays here as the detailed record; experience.md has the actionable pattern.
+This is the uncompressed causal trail; the lessons in it distil into **experience.md** (four-part format). A recurring trail, once mature, becomes one experience lesson.

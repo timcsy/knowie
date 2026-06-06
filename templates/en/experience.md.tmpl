@@ -5,8 +5,8 @@
   but patterns that should influence future decisions.
 
   Each lesson records the gap between theory and reality.
-  Keep entries short and actionable. Detailed event records belong in
-  knowledge/history/.
+  Keep entries short and actionable. The full causal trail behind a lesson
+  (how it evolved, what was considered) belongs in knowledge/history/.
 -->
 
 ## Lessons
@@ -20,6 +20,13 @@
 
   This format forces you to articulate *why* something was surprising,
   not just *what* happened.
+
+  Lessons others commonly record (see if any hit something you've been through):
+    1. Locate bugs with prints before reasoning about them
+    2. On big refactors, let the compiler / type-checker be your to-do list
+    3. Performance usually comes from the data model, not micro-optimization
+    4. "Wrong → understand → fix" beats "think it through perfectly first"
+    5. Don't skip TDD — "I'll add tests later" usually means 3× the debugging
 -->
 
 ### [Lesson Title]
@@ -50,7 +57,7 @@
 
 <!--
   This table is the "reading router" for /knowie-next and /knowie-judge.
-  Core files hold only distilled lessons; full event records live in the
+  Core files hold only distilled lessons; the full causal trail lives in the
   history/ subdirectory. When a topic's keywords are triggered, the skill
   MUST read the matching sub-file before acting.
   Leave it empty at first; add a row whenever you move detail into a subdirectory.

@@ -7,9 +7,9 @@ import {
 
 // Subdirectories that get a README (excludes .templates)
 const SUBDIR_READMES = {
-  research: 'research-README.md',
-  design: 'design-README.md',
+  concepts: 'concepts-README.md',
   history: 'history-README.md',
+  draft: 'draft-README.md',
 };
 
 async function exists(p) {
@@ -39,6 +39,21 @@ export async function scaffoldKnowledge(projectRoot, language = 'en') {
       }
       await copyFile(src, dest);
       report.created.push(file);
+    }
+  }
+
+  // Copy knowledge/README.md (never overwrite) — orients a third party who's never heard of knowie
+  {
+    const dest = join(knowledgeDir, 'README.md');
+    if (await exists(dest)) {
+      report.skipped.push('README.md');
+    } else {
+      let src = join(PACKAGE_ROOT, 'templates', language, 'knowledge-README.md');
+      if (!await exists(src)) {
+        src = join(PACKAGE_ROOT, 'templates', 'en', 'knowledge-README.md');
+      }
+      await copyFile(src, dest);
+      report.created.push('README.md');
     }
   }
 

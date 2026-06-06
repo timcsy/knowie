@@ -13,11 +13,11 @@ export const KNOWIE_CONFIG = 'knowledge/.knowie.json';
 export const TEMPLATES_DIR = '.templates';
 
 export const CORE_FILES = ['principles.md', 'vision.md', 'experience.md'];
-export const SUBDIRS = ['research', 'design', 'history', TEMPLATES_DIR];
+export const SUBDIRS = ['concepts', 'history', 'draft', TEMPLATES_DIR];
 
 export const SKILLS_SOURCE = join(PACKAGE_ROOT, 'skills');
 export const SKILLS_TARGET = '.claude/skills';
-export const SKILL_NAMES = ['knowie-init', 'knowie-update', 'knowie-judge', 'knowie-next'];
+export const SKILL_NAMES = ['knowie-init', 'knowie-capture', 'knowie-next', 'knowie-judge', 'knowie-update'];
 
 export const MARKER_START = '<!-- Knowie: Project Knowledge -->';
 export const MARKER_END = '<!-- /Knowie -->';
