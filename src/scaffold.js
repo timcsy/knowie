@@ -8,6 +8,7 @@ import {
 // Subdirectories that get a README (excludes .templates)
 const SUBDIR_READMES = {
   concepts: 'concepts-README.md',
+  episodes: 'episodes-README.md',
   history: 'history-README.md',
   draft: 'draft-README.md',
 };

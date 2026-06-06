@@ -28,14 +28,18 @@ Scan each core file's Key Extensions table for topics the scope hits (or, if emp
 Run these with grep/ls — by eye, both humans and AIs miss them.
 
 ## 4. Reflow what was learned — dispatch, don't collapse
-New lessons default to `experience`, but sieve first:
-- challenges a principle? → flag as a **proposal to amend root/derived principles** — don't bury it in experience.
-- changes the roadmap? → vision. · a recurring new thing? → a concept.
+A finished roadmap item reflows into several places (don't dump all into one):
+- lesson (distilled) → `experience`; its full scene, if recall-worthy → `episodes` (link the lesson to it).
+- decision-transition → `history`; then **retire the roadmap item** (redeem-and-retire).
+- challenges a principle? → flag a **proposal to amend root/derived principles**, don't bury it in experience.
+- a recurring new thing? → a concept.
 
-## 5. Tidy — batch, keep it converging
-- Core file overflowing → sink detail into `concepts/` **by concept**; update that layer's summary incrementally (don't re-read the whole subtree).
-- Too many concepts → find the parent-concept and converge (pruning-power test); watch the concept count flatten.
-- Visit `draft/`: by git recency, find the longest-untouched topics → for each, **rescue (consolidate) or let go (decay)**. Recency + frequency, not age.
+## 5. Tidy — batch, each layer its own way
+- `concepts/`: converge upward — find the parent-concept (pruning-power test); watch the count flatten.
+- `experience/`: two-way — merge similar lessons up; split full scenes down to `episodes`; clear stale.
+- `vision/`: redeem-and-retire (done roadmap items reflow out, then leave); wishes not committed → back to `draft/`.
+- `draft/`: by review-signal, push each topic **one step along its chain** — experience→consolidate, design→roadmap, problem→find-answer; long-untouched → let go (decay). Recency + frequency, not age.
+- `episodes/`: keep only the recall-worthy; let the rest fade.
 
 ## 6. Stay within the line
 Moving files (reversible) is yours. But **commit, amend root principles, anoint parent-concepts → propose only; wait for the human.**

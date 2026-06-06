@@ -20,6 +20,11 @@
 - Detail sinks into `concepts/` **by concept**.
 - `history/` = causal trail (why things became what they are).
 - `draft/` = short-term memory: undecided things; decays by default, consolidated only when repeatedly used.
+- `episodes/` = episodic memory: full lived experiences worth recalling (the scene behind an experience lesson). Most fade; only the recall-worthy are kept.
+
+## Two intake lines
+- **Thinking → `draft`**: undecided thoughts (problems / designs / insights) — incubate, then dispatch.
+- **Doing → action reflow**: a finished roadmap item reflows — lesson → `experience`, full scene → `episodes`, decision-transition → `history`. experience's main source is *doing*, not draft.
 
 ## Invariants (MUST)
 - **Captured ≠ committed.** Undecided → `draft/`; writing into the three files or root principles needs human confirmation.
