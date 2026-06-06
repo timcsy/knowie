@@ -14,5 +14,8 @@
 ## 旁證
 這正是延伸原則「可逆的自動化，不可逆的要人」的應用——機制固化可逆（隨時能改），所以該動手；根公理候選仍留 draft（不可逆，需慎）。
 
+## 過程瑕疵：跳過 roadmap 閘門（dogfood 抓到）
+按 knowie 協議，設計型 draft 的正路是 **draft → vision roadmap（人定案）→ 實作 → 兌現出列**。本次卻走成 **draft →（跳過 roadmap）→ 實作 → 出列**：人定案（使用者「固化」指令）有發生，但沒走成 roadmap 項目，而是讓它在 vision 直接以「已完成」現身，等於略過閘門、也沒讓 next 驅動。使用者當場抓到「怎麼直接拿 draft 實作，沒進 vision？」——這是 dogfood 驗到的真實協議違反。教訓已回流 experience「人定案的閘門是 draft→roadmap，不可略過」。
+
 ## 狀態
-✅ 已固化（B）。教訓「成熟的設計該主動固化」已回流 experience。
+✅ 已固化（B）。教訓「成熟的設計該主動固化」+「不可略過 roadmap 閘門」已回流 experience。
