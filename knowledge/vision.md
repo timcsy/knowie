@@ -7,10 +7,11 @@ AI coding 工具能記住 what（code），但記不住 why（為什麼這樣設
 knowie 是一個**寄生在 markdown 上、給 AI 讀的 why 協議**：把專案的 why 偽裝成一堆 md 檔 + 幾個簡單 skill，讓任何 AI 不必學就會用，且人保有定案主權。
 
 ## 現狀
-- 三檔（principles / vision / experience）作為知識的 介面，已過十幾個專案驗證、穩定好用。
-- 四個 skill：init / next / judge / update。
-- 0.5.0 已 merge 三大機制（結構化可讀性、state-file 閱讀稽核、Key Extensions 路由）。
-- 知識→行動閉環四段都有對應動作；「執行中遵守」「回流分發」仍待打磨。
+- 三檔（principles / vision / experience）作為知識的介面，已過十幾個專案驗證、穩定好用。
+- **五個 skill：init / capture / next / judge / update**，共用 `_core`（CLI 安裝時注入），全部蒸餾成判準式。
+- **結構對齊 concepts / history / draft**；templates / README 同步。
+- **dogfood：knowie 有了自己的 knowledge/**（三檔 + 子目錄 + draft），judge 試跑過一次自我維護。
+- 知識→行動閉環四段都有對應動作；「執行中遵守」「回流分發」仍待打磨（設計見 `draft/`）。
 
 ## 架構（why 協議層）
 
@@ -24,24 +25,14 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 
 ## 路線圖
 
-### 階段 1：skill 從「窮舉流程」改寫成「核心 + 薄職責」
-- [ ] 抽出共享核心 `_core`（根公理 / 三視角 / 不變量 / 判準 / 分工）
-- [ ] judge 從臃腫機制蒸餾回「不變量 + 判準」
-- [ ] next / init / update 改薄
+### ✅ 已完成（2026-06，兌現出列）
+- skill 改寫成「`_core` 共享核心 + 判準式薄職責」（init/capture/next/judge/update）；CLI 注入 `_core`；結構對齊 concepts/history/draft；templates/README 同步。（教訓已回流 experience）
 
-**成功標準**：每個 skill 引用共享核心 + 只剩自己那段薄指令；judge 大幅變短但保留必要繁瑣。
+### 進行中 / 待做
+- **軟介面硬化**：結構承載語義（templates 大部分已做）；judge 作為 compliance test（孤兒/死連結偵測已做；**複習偵測待硬化**，見 `draft/記憶動態`）。
+- **補完知識→行動閉環**：capture 已補（寫入）；回流分發（experience ↔ episodes）設計見 `draft/記憶動態`；next 召回率待做。
 
-### 階段 2：把「軟介面」硬化
-- [ ] 三視角 / 根本原則 / 因果 / 路由 / draft 都由模板結構承載，不靠 skill 文字
-- [ ] judge 作為 compliance test：可驗證的證據要求（逐字引用、孤兒偵測）
-
-**成功標準**：能塞進結構的語義都塞進結構；「有沒有遵守」可被機械驗證。
-
-### 階段 3：補完知識→行動閉環
-- [ ] 回流的 分發（別坍縮進 experience；開修訂根本原則通道）
-- [ ] 提升 next 的召回品質（檢索器）
-
-（②b 執行縫隙、跨專案層、ROI/失敗模式 → 見 `draft/`）
+（②b 執行縫隙、跨專案層、ROI/失敗模式、設計型提案 → 見 `draft/`）
 
 ## 關鍵延伸（主題觸發必讀）
 
