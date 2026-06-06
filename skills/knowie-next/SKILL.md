@@ -38,7 +38,7 @@ Every line cites where it comes from; skip a line if empty.
 After the brief, if step 1 found ripe `draft/` items, end with the option:
 **"Before we start, promote these first? (design → roadmap, then build it through the roadmap; insight → consolidate.)"** — list them. The human decides; you propose. This is the gate that keeps a design from being built straight out of `draft/`.
 
-When you promote, don't move the block whole: pull any **recurring concept** inside it into a `concepts/` file (a concept = projects onto all three perspectives + has pruning power; see core tests). Promoting is a dispatch, not a relocation — the roadmap/lesson gets the situational part, the concept gets the durable idea.
+Promoting is a **dispatch, not a relocation** (see core: *Consolidating is dispatch*) — direction → roadmap/`experience`, recurring concept → `concepts/`, brainstorming scene → `episodes/`, transition → `history/`. Ask the human which pieces to keep; let the rest of the draft fade.
 
 ## Invariant
 Every recommendation traces to vision / principles / experience. Nothing from thin air — if there's no relevant knowledge for a point, say so explicitly.

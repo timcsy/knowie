@@ -20,11 +20,14 @@
 - Detail sinks into `concepts/` **by concept**.
 - `history/` = causal trail (why things became what they are).
 - `draft/` = short-term memory: undecided things; decays by default, consolidated only when repeatedly used.
-- `episodes/` = episodic memory: full lived experiences worth recalling (the scene behind an experience lesson). Most fade; only the recall-worthy are kept.
+- `episodes/` = episodic memory: full lived experiences worth recalling — the scene behind an experience lesson, **or the brainstorming behind a consolidated draft** (*why* we explored it this way). Most fade; only the recall-worthy are kept.
 
 ## Two intake lines
-- **Thinking → `draft`**: undecided thoughts (problems / designs / insights) — incubate, then dispatch.
+- **Thinking → `draft`**: undecided thoughts (problems / designs / insights) — incubate, then **dispatch on exit** (next bullet).
 - **Doing → action reflow**: a finished roadmap item reflows — lesson → `experience`, full scene → `episodes`, decision-transition → `history`. experience's main source is *doing*, not draft.
+
+## Consolidating is dispatch, not relocation
+When anything leaves `draft/` (or an item finishes), **disperse it across every folder that applies — never move the block whole**: direction → roadmap/`experience` · recurring concept → `concepts/` · the **brainstorming scene (why we explored it this way, options weighed) → `episodes/`** · decision-transition → `history/`. The brainstorming scene is the easiest to lose — drop it and a future reader keeps the conclusion but forgets the *why behind the why*.
 
 ## Invariants (MUST)
 - **Captured ≠ committed.** Undecided → `draft/`; writing into the three files or root principles needs human confirmation.
