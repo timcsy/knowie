@@ -14,7 +14,7 @@ Holds the full lived experiences worth recalling — the complete scene of one a
 | Reduce | converge upward (merge) | **never merge** (each stands alone, append-only) |
 | Shrink | distillation | **decay** (drop the non-recall-worthy, don't merge) |
 
-- **Filename**: `YYYY-MM-DD-what-it-was.md` (date + one line).
+- **Filename**: `YYYY-MM-DD-what-it-was.md` (date + one line). For one reflowed on redeem-and-retire, use the roadmap item's **completion date** (stamped in vision).
 - **File body = a recall unit**: why / how (which options were weighed) / which concepts / outcome, with `[](path)` links back to the experience lesson or history decision it backs.
 - **Link the "how" to external artifacts**: the *how* often has code/SDD-world artifacts — a **spec (e.g. Spec Kit), PR, commit**. Link them with `[](path)` — **point out, don't copy** (they're what/how, owned by code/SDD; knowie keeps the why + a pointer). For a spec that gets regenerated, pin a **commit/SHA** (link the version as it was), else it's changed by the time you look back.
 - **Link direction**: one experience/history ← many episodes (the lesson/decision links down to its scenes).

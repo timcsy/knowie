@@ -14,7 +14,7 @@
 | 化簡 | 向上收斂（合併） | **不合併**（每次經歷獨立、append-only） |
 | 減量 | 蒸餾 | **衰減**（刪不值得回憶的，不 merge） |
 
-- **檔名**：`YYYY-MM-DD-什麼經歷.md`（日期 + 一句）。
+- **檔名**：`YYYY-MM-DD-什麼經歷.md`（日期 + 一句）。兌現出列來的，用 roadmap 項的**完成日期**（vision 標的）。
 - **檔內 = 可回憶單元**：為何（why）/ 怎麼（how，權衡過哪些選項）/ 用了哪些概念 / 結果，並用 `[]()` 連回它支撐的 experience 教訓或 history 決策。
 - **how 連外部產物**：「怎麼做」常有 code/SDD 世界的產物——**spec（如 Spec Kit）、PR、commit**。用 `[]()` **連出去，不複製**（它們是 what/how、歸 code/SDD 所有；knowie 留 why + 指針）。會被重生的 spec → 釘一個 **commit/SHA**（連到當時那版），否則回看時它已變。
 - **連結方向**：一條 experience/history ← 多個 episodes（教訓／決策向下連到現場）。
