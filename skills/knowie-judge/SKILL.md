@@ -31,7 +31,7 @@ Run these with grep/ls — by eye, both humans and AIs miss them.
 
 ## 4. Reflow what was learned — dispatch, don't collapse
 A finished roadmap item reflows into several places (don't dump all into one):
-- lesson (distilled) → `experience`; its full scene, if recall-worthy → `episodes` (link the lesson to it).
+- lesson (distilled) → `experience`; its full scene, if recall-worthy → `episodes` (link the lesson to it, and link the episode out to its *how*-artifacts — spec / PR / commit — don't copy them; pin a commit for a regenerable spec).
 - decision-transition → `history`; then **retire the roadmap item** (redeem-and-retire) **and its source design draft** — the draft's brainstorming scene, if recall-worthy, also reflows to `episodes`. Only now is the draft let go (it was the in-flight rationale until done).
 - challenges a principle? → flag a **proposal to amend root/derived principles**, don't bury it in experience.
 - a recurring new thing? → a concept.

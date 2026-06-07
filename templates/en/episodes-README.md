@@ -16,5 +16,6 @@ Holds the full lived experiences worth recalling — the complete scene of one a
 
 - **Filename**: `YYYY-MM-DD-what-it-was.md` (date + one line).
 - **File body = a recall unit**: why / how (which options were weighed) / which concepts / outcome, with `[](path)` links back to the experience lesson or history decision it backs.
+- **Link the "how" to external artifacts**: the *how* often has code/SDD-world artifacts — a **spec (e.g. Spec Kit), PR, commit**. Link them with `[](path)` — **point out, don't copy** (they're what/how, owned by code/SDD; knowie keeps the why + a pointer). For a spec that gets regenerated, pin a **commit/SHA** (link the version as it was), else it's changed by the time you look back.
 - **Link direction**: one experience/history ← many episodes (the lesson/decision links down to its scenes).
 - **No heavy index, no premature subfolders** (both fight decay; split by year only once one folder overflows).
