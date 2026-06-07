@@ -127,6 +127,7 @@ These commands run **inside your AI chat** (not in the terminal). For AI tools w
 |-------|-------------|
 | `/knowie-init` | Guided conversation to draft your knowledge files |
 | `/knowie-capture` | Dispatch a discussion or idea into the right place |
+| `/knowie-crystallize` | Human-initiated: consolidate a ripe draft out to the long-term tier |
 | `/knowie-next` | Plan the next step, grounded in principles, vision, and experience |
 | `/knowie-judge` | Health check: coherence, alignment with code, rot detection — then tidy |
 | `/knowie-update` | Migrate the knowledge base when the structure version moves on |

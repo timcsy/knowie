@@ -22,6 +22,7 @@
 如果你用支援 knowie 的 AI 工具（如 Claude Code），這些指令幫你維護這個知識庫：
 - `/knowie-init` — 從零建立知識庫
 - `/knowie-capture` — 把一段討論／想法統整進對的地方
+- `/knowie-crystallize` — 你主動把成熟的 draft 結晶出去（capture 的對稱另一端）
 - `/knowie-next` — 根據知識庫規劃下一步該做什麼
 - `/knowie-judge` — 檢查一致性、對齊程式碼、整理
 - `/knowie-update` — 結構升級時遷移知識庫

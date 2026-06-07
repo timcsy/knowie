@@ -127,6 +127,7 @@ Knowie 可以安全地加到任何專案：
 |-------|--------|
 | `/knowie-init` | 引導式對話，幫你起草知識文件 |
 | `/knowie-capture` | 把一段討論／想法統整進對的地方 |
+| `/knowie-crystallize` | 人主動把成熟的 draft 結晶到長期層 |
 | `/knowie-next` | 以原則、願景、經驗為根基，規劃下一步 |
 | `/knowie-judge` | 健康檢查：連貫性、對齊程式碼、偵測腐爛——然後整理 |
 | `/knowie-update` | 結構版本升級時遷移知識庫 |

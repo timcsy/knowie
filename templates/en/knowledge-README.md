@@ -22,6 +22,7 @@ Start with the three core files; each ends with a "Key Extensions" table telling
 If you use an AI tool that supports knowie (e.g. Claude Code), these commands help maintain this knowledge base:
 - `/knowie-init` — create the knowledge base from scratch
 - `/knowie-capture` — dispatch a discussion / idea into the right place
+- `/knowie-crystallize` — human-initiated: consolidate a ripe draft out (capture's symmetric OUT)
 - `/knowie-next` — plan the next step from the knowledge base
 - `/knowie-judge` — check consistency, align with code, tidy
 - `/knowie-update` — migrate the base when the structure version moves on
