@@ -10,9 +10,10 @@
 
 **What knowie is**: a project's *why* memory — the knowledge code can't hold, and that has no oracle to catch when it rots. It's a protocol parasitic on markdown: any AI that can read/write files can use it.
 
-## Root axioms (never violate)
+## Mission & root axioms (never violate)
+- **Mission (telos): memory for shared understanding.** knowie remembers for the *human + AI consensus* — keep both aligned, the human holds decision sovereignty, the "why" stays traceable. Everything else serves this. (Not "memory so the agent gets stronger" — that's Letta/Hermes's root.)
 1. **One concept, many projections.** Organize by concept.
-2. **Keep why, not what.** Code is the source of truth for *what*; don't duplicate it (redundant, and drifts from code).
+2. **Memory stays (roughly) reconstructable.** Keep why + the *minimal how/what* needed to rebuild past cognition (a recall unit = why + how + which concepts). Don't duplicate what code already holds as truth (redundant, drifts) — but it's not "zero what"; the bar is "enough to reconstruct," not "why only."
 
 ## Structure
 - `principles` / `vision` / `experience` = the normative / situational / existential perspectives; the three entry points.
