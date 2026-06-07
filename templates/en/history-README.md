@@ -24,8 +24,9 @@ This directory holds the **causal trail** — why the project became what it is.
 ✅ adopted  /  ⚰️ rejected (reason)
 ```
 
-## File naming
-Numbered prefixes keep chronological order: `001-...`, `002-...`.
+## File naming & date
+Numbered prefixes keep causal order: `001-...`, `002-...` (NNN is the key — don't put the date in the filename, that mixes two axes: number + time).
+Put the date in the body (`> Date: YYYY-MM-DD`), to the **day**: time is over-precision — the NNN prefix already orders same-day transitions. (A date lets time-based health metrics like "root-principle churn rate" be computed.)
 
 ## Relationship to core files
 This is the uncompressed causal trail; the lessons in it distil into **experience.md** (four-part format). A recurring trail, once mature, becomes one experience lesson.
