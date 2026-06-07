@@ -1,6 +1,6 @@
 import { readFile, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
-import { KNOWLEDGE_DIR, KNOWIE_CONFIG, VERSION } from '../constants.js';
+import { KNOWLEDGE_DIR, KNOWIE_CONFIG, VERSION, STRUCTURE_VERSION } from '../constants.js';
 import { scaffoldKnowledge } from '../scaffold.js';
 import { installTemplates } from '../templates.js';
 import { installSkills } from '../skills.js';
@@ -137,9 +137,11 @@ export async function init(projectRoot, { yes = false } = {}) {
   try {
     config = JSON.parse(await readFile(configPath, 'utf-8'));
   } catch {
-    config = { version: VERSION, createdAt: new Date().toISOString() };
+    config = { version: VERSION, structureVersion: STRUCTURE_VERSION, createdAt: new Date().toISOString() };
   }
   config.version = VERSION;
+  // NOTE: don't stamp structureVersion onto an existing base — absence means an
+  // older structure that /knowie-update should detect and migrate (then bump it).
   config.language = lang;
   config.tools = selectedIds;
   config.updatedAt = new Date().toISOString();

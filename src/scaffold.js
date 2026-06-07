@@ -2,7 +2,7 @@ import { mkdir, copyFile, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import {
   KNOWLEDGE_DIR, KNOWIE_CONFIG, CORE_FILES, SUBDIRS,
-  PACKAGE_ROOT, VERSION, TEMPLATES_DIR
+  PACKAGE_ROOT, VERSION, STRUCTURE_VERSION, TEMPLATES_DIR
 } from './constants.js';
 
 // Subdirectories that get a README (excludes .templates)
@@ -80,6 +80,7 @@ export async function scaffoldKnowledge(projectRoot, language = 'en') {
   } else {
     await writeFile(configPath, JSON.stringify({
       version: VERSION,
+      structureVersion: STRUCTURE_VERSION,
       language,
       createdAt: new Date().toISOString(),
       tools: []

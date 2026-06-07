@@ -1,5 +1,5 @@
 import { createInterface } from 'node:readline';
-import { VERSION, PACKAGE_ROOT } from './constants.js';
+import { VERSION, STRUCTURE_VERSION, PACKAGE_ROOT } from './constants.js';
 
 const PROTOCOL_VERSION = '2025-03-26';
 
@@ -129,9 +129,10 @@ async function handleKnowieInit(args) {
   try {
     config = JSON.parse(await readFile(configPath, 'utf-8'));
   } catch {
-    config = { version: VERSION, createdAt: new Date().toISOString() };
+    config = { version: VERSION, structureVersion: STRUCTURE_VERSION, createdAt: new Date().toISOString() };
   }
   config.version = VERSION;
+  // Don't stamp structureVersion onto an existing base (absence = older structure).
   config.language = config.language || lang;
   config.tools = [...new Set(toolIds)];
   config.updatedAt = new Date().toISOString();

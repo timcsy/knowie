@@ -6,6 +6,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf-8'));
 
 export const VERSION = pkg.version;
+
+// Structure version — bumped ONLY when the knowledge *structure* changes
+// (folders / file layout / conventions), NOT every release. Decoupled from the
+// tool VERSION so minor releases don't trigger a false migration prompt.
+// History: (absent) = pre-redesign era (research/design/history); '2' = current
+// (concepts/episodes/history/draft + root/derived principles + []() links).
+export const STRUCTURE_VERSION = '2';
+
 export const PACKAGE_ROOT = join(__dirname, '..');
 
 export const KNOWLEDGE_DIR = 'knowledge';

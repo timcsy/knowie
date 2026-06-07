@@ -77,10 +77,11 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] 一個指令輸出可看的健康報告
 - [ ] 指標可機械算，不靠 AI 自報
 
-**版本偵測 + 遷移提示** — `.knowie.json` 的 `version` 讓 update 認出舊結構、提示手動遷移（不做向後相容，但**不靜默 breaking**）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)。
-- [ ] update 讀 version、認出舊結構
-- [ ] 偵測到舊結構 → 印出手動遷移步驟（不自動改）
-- [ ] 明示 breaking、不靜默
+**版本偵測 + 遷移提示**（實作完，待真實舊專案驗）— 用 `.knowie.json` 的 **`structureVersion`**（與 tool `version` 脫鉤，只在結構真的改時才升）讓 `/knowie-update` 認出舊結構、提示手動遷移（不做向後相容，但**不靜默 breaking**）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)。
+- [x] update（skill）讀 structureVersion + 比對當前正典訊號、認出舊結構
+- [x] 偵測到舊結構 → detect/propose/confirm 手動遷移（不自動改）
+- [x] 明示 breaking、不靜默（CLI `structureBehind` 警告 + 修掉「CLI 自動升 version＝靜默 breaking」的 bug）
+- [ ] 真實舊專案（research/design/history era）遷移驗證（驗證類，merge 後）
 
 **FUSE 掛載驗證**（北極星，仍未證）— adapter 從 `[]()` 結構衍生 graph、把 knowie 的 why 層掛上 LLM Wiki / Obsidian / 向量後端；軟介面硬化到「可被多方實作」。設計脈絡 ←→ [檢索機制-graph還是path](draft/2026-06-07-檢索機制-graph還是path.md)。
 - [ ] 一個 adapter 把 knowie 結構餵進一個後端（如 Obsidian / LLM Wiki），graph/backlink 由後端衍生
