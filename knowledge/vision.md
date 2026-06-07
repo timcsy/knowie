@@ -44,6 +44,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 
 > **出貨/merge 政策**：**可建的功能做完才把 redesign 併回 main**（build-first，不 merge 半套）。**驗證類項目**（拿去真實專案測、next 召回率、軟介面硬化、FUSE 掛載）本質是 **merge 後／持續**的——它們等不到 merge 前完成（階段二甚至需要先有穩定的 main），不擋 merge。
 > 釐清：建**已承諾的 roadmap 功能**（過了閘門、有驗收）**不算過度工程**——那是執行承諾；過度工程是「加沒承諾的／鍍金」。所以 build-first 與「別過度工程」不衝突。
+> 釐清 2（2026-06-07）：**「可建」＝機制建得出來；驗證永遠是之後的階段，不是「可建」的前提**（可建 ⊉ 可驗）。所以 **`程序自習得` 是可建功能**（機制 pre-merge 建，只有「真實專案驗 domain skill」那條是 post-merge）——不被 re-route 成驗證類。先建完 skill 部分再去驗。
 
 ### ✅ 已完成（2026-06，兌現出列）
 - **（2026-06-06）** skill 改寫成「`_core` 共享核心 + 判準式薄職責」（init/capture/next/judge/update）；CLI 注入 `_core`；結構對齊 concepts/episodes/history/draft；templates/README 同步。（教訓已回流 experience）
