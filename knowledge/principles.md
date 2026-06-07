@@ -79,3 +79,4 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 | AI 自動 vs 人在環 / 定案權 | `history/001-從自動到人在環.md` |
 | 連結 / `[]()` / `[[ ]]` / graph / backlink / 檢索定位 | `history/003-連結慣例與檢索定位.md` |
 | 使命 / 為共識而記 / 可回溯 / 為誰而記 / 根公理修訂 | `history/004-補使命-根公理二鬆綁.md` |
+| skill 家族 / crystallize / 何時加 skill / meta vs domain | `history/005-新增crystallize-skill家族成形.md` |
