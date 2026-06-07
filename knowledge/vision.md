@@ -69,10 +69,11 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] 真實使用中召回命中（漏掉相關 why 是主要失敗模式）
 
 **程序記憶自習得** — 讓 LLM 把反覆做的事蒸餾成 skill（capture 的程序版）：meta skill（維護知識庫）+ **domain skill**（專案領域的重複工作，更有價值）。skill 是知識（code=data）→ 重用記憶動態，不造引擎。設計脈絡 ←→ [記憶系統框架](draft/2026-06-06-記憶系統框架.md)、[競品與生存空間](draft/2026-06-06-競品與生存空間.md)。
-- [ ] capture 察覺操作重複、記「候選 skill」進 `draft/`（連這次怎麼做）
-- [ ] （人確認）固化進 **`knowledge/skills/`（小腦）→ 沿 registry 安裝到各工具**；採 **agentskills.io 格式、不自造引擎**
-- [ ] skill 化人確認（更慎，執行級）；**進化不自主**——偵測問題自動（部分 oracle）、改寫人確認（vs GEPA 閉環）
-- [ ] 記 why-behind-skill；skill↔episodes 互餵
+- [x] capture 察覺操作重複、記「候選 skill」進 `draft/`（連這次怎麼做）— A+B
+- [x] `knowledge/skills/`（小腦）結構 +（人確認）固化機制；採 **agentskills.io 格式、不自造引擎** — A+B
+- [x] skill 化更嚴人確認（執行級）；記 **why-behind-skill** — capture 程序版
+- [ ] **沿 registry 安裝到各工具**（C：多工具安裝，待建——installSkills 現只裝 .claude/skills）
+- [ ] **進化偵測**（用了結果爛 → 自動標記待修，改寫人確認；待建）
 - [ ] 在一個真實專案長出至少一個 domain skill（驗證類，merge 後）
 
 **健康儀表板 → 併入 judge（不另做 CLI，2026-06-07 定）** — judge 本來就用 grep/ls 算機械指標（孤兒/死連結/計數，§3），已滿足「機械算、不靠 AI 自報」；語義/時序指標（冪等/趨平/churn）也是 judge 的。另做 `knowie health` CLI＝重複邏輯 + 把「分析知識內容」放進 CLI＝平台化（違反協議非平台）。**所以不做 CLI，judge 就是健康儀表板。**

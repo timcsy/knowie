@@ -9,6 +9,7 @@ import {
 const SUBDIR_READMES = {
   concepts: 'concepts-README.md',
   episodes: 'episodes-README.md',
+  skills: 'skills-README.md',
   history: 'history-README.md',
   draft: 'draft-README.md',
 };

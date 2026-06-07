@@ -21,7 +21,7 @@ export const KNOWIE_CONFIG = 'knowledge/.knowie.json';
 export const TEMPLATES_DIR = '.templates';
 
 export const CORE_FILES = ['principles.md', 'vision.md', 'experience.md'];
-export const SUBDIRS = ['concepts', 'episodes', 'history', 'draft', TEMPLATES_DIR];
+export const SUBDIRS = ['concepts', 'episodes', 'skills', 'history', 'draft', TEMPLATES_DIR];
 
 export const SKILLS_SOURCE = join(PACKAGE_ROOT, 'skills');
 export const SKILLS_TARGET = '.claude/skills';

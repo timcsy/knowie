@@ -26,5 +26,12 @@ Split the input into *which kinds* of knowledge it produced, then route each pie
 - **Don't collapse dimensions.** One discussion usually spans perspectives — don't shove it all into `vision`. Route each piece to where it belongs.
 - **When unsure if it's settled → `draft/`, not the three files.** (Captured ≠ committed.)
 
+## Procedural capture — repeated *doing* → a candidate skill
+A second mode: not dispatching a discussion, but noticing you've done the **same operation repeatedly** (scrape-build a dataset, batch-translate…). That's procedural memory forming — capture it.
+- **Notice + record a candidate** → a `draft/` block: what the task is + *how* you did it this time. (A candidate is still data/undecided → it incubates in `draft/` like anything else.)
+- **On repetition + maturity → the human confirms → consolidate into `knowledge/skills/`** (the cerebellum) as one skill: a folder + `SKILL.md` (agentskills.io format) carrying its *why*. knowie installs it out to each tool's skill location.
+- **Stricter gate than knowledge**: a skill is *executed* (it acts, can fail silently) → consolidating needs firmer human confirmation than committing knowledge.
+- **Form**: a *domain* skill automates a mechanical task → it may be procedural/rote (steps), unlike a *meta* skill (judgment). Don't force domain skills into judgment-form.
+
 ## Output
 Show the dispatch plan (what goes where) first. Write `draft/` directly; for anything in the long-term tier or the roadmap, write only on confirmation.
