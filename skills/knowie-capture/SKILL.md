@@ -29,7 +29,8 @@ Split the input into *which kinds* of knowledge it produced, then route each pie
 ## Procedural capture — repeated *doing* → a candidate skill
 A second mode: not dispatching a discussion, but noticing you've done the **same operation repeatedly** (scrape-build a dataset, batch-translate…). That's procedural memory forming — capture it.
 - **Notice + record a candidate** → a `draft/` block: what the task is + *how* you did it this time. (A candidate is still data/undecided → it incubates in `draft/` like anything else.)
-- **On repetition + maturity → the human confirms → consolidate into `knowledge/skills/`** (the cerebellum) as one skill: a folder + `SKILL.md` (agentskills.io format) carrying its *why*. knowie installs it out to each tool's skill location.
+- **On repetition + maturity → the human confirms → consolidate into `knowledge/skills/`** (the cerebellum, source of truth) as one skill: a folder + `SKILL.md` (agentskills.io format) carrying its *why*.
+- **Then install it yourself so it's usable now** — copy the skill folder into the tool's skill location (e.g. `.claude/skills/`, `.agents/skills/`). Don't make the user run a CLI just to start using a skill they just made. (`knowie update` is the *systematic* multi-tool re-sync — new tools / new machine / bulk — copying the same source; it's not a gate.)
 - **Stricter gate than knowledge**: a skill is *executed* (it acts, can fail silently) → consolidating needs firmer human confirmation than committing knowledge.
 - **Form**: a *domain* skill automates a mechanical task → it may be procedural/rote (steps), unlike a *meta* skill (judgment). Don't force domain skills into judgment-form.
 

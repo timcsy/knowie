@@ -8,7 +8,7 @@ Holds the **domain skills this project has learned** — repeated work distilled
 
 ## Format & install
 - Each skill = a folder + `SKILL.md` ([agentskills.io](https://agentskills.io) open standard).
-- This is the **source of truth**; knowie installs them by copying into each AI tool's skill location (`.claude/skills`, `.agents/skills`, …) → loadable/executable.
+- This is the **source of truth**; on consolidation the **AI copies it straight into the tool's skill location** (`.claude/skills`, `.agents/skills`, …) so it's **usable now**, and `knowie update` does the **systematic re-sync** (new tools / new machine). Both copy from the same source.
 
 ## vs knowie's own skills
 - Here: domain skills **this project** learned.

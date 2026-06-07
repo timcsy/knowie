@@ -8,7 +8,7 @@
 
 ## 格式與安裝
 - 每個 skill = 一個資料夾 + `SKILL.md`（[agentskills.io](https://agentskills.io) 開放標準）。
-- 這裡是**真相源**；knowie 安裝時複製到各 AI 工具的 skill 位置（`.claude/skills`、`.agents/skills`…）→ 變可執行。
+- 這裡是**真相源**；固化時 **AI 直接複製到工具 skill 位置**（`.claude/skills`、`.agents/skills`…）讓它**立刻可用**，`knowie update` 則做**整批 re-sync**（新工具/新機器）。兩者同源、一致。
 
 ## 與 knowie 自己的 skill 的差別
 - 這裡：**這個專案學到的** domain skill。
