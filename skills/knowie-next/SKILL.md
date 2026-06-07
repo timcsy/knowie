@@ -21,6 +21,8 @@ Turn the knowledge base into a **structured plan** for the next step, and carry 
 ## The plan — a brief grounded in all three perspectives
 Every line cites where it comes from; skip a line if empty.
 
+**The next step is the *best* move, not necessarily the roadmap's sequential item.** next may re-prioritize, jump roadmap order, or flag a **re-route** (a committed route found wrong → say so and make admitting it cheap). Justify the jump from the three perspectives like any recommendation. Guardrail: a *new* route still passes the gate (draft → roadmap) before it's built — jumping ≠ bypassing the commit gate.
+
 **Next: [name] — [one-line]** · roadmap position: [phase / milestone]
 
 - **From vision** (the roadmap / situational):
