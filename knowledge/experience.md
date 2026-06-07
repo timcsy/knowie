@@ -52,6 +52,14 @@
 - **已落實**：`knowie-next` 改成動手前先掃 `draft/` 找成熟項，並在最後選項問「要不要先把它進 roadmap 再開始」——把這個閘門從「靠人記得」變成「skill 主動提」。
 - **來源**：本次固化記憶動態（redesign/protocol-skills），使用者抓到跳過 roadmap。
 
+### roadmap 項要帶驗收 + 雙向連回設計 draft；draft 是「在建脈絡」留到完成才退場
+- **理論說**：設計進了 roadmap，draft 任務就結束了，可以刪；roadmap 寫個標題即可。
+- **實際發生**：我把設計寫進 roadmap 卻沒給 checklist（違反 knowie 自己「milestones 要有可驗收標準」），又想刪 draft——使用者抓到「為何沒 checklist？draft 為何刪？上下文怎麼找得到？」。
+- **解決方式**：(1) roadmap 項一律帶 `- [ ]` 驗收清單（可機械驗）。(2) roadmap 項 ←→ draft **雙向連結**（可導航的真實路徑）。(3) draft **不在提升時刪**——它是「在建的設計脈絡」，蓋到一半要回看「當初為何這樣設計」；**留到 roadmap 完成才兌現出列**（現場→episodes、教訓→experience），那時才退場。judge 不可把「被 active roadmap 連到的 draft」當過時清掉。
+- **教訓**：提升不是「draft 結束」，是「draft 進入在建狀態」；它的價值在建設中與回顧時才最高，所以連結要留、驗收要明、退場要等完成。
+- **已落實**：寫進 `_core`／capture／judge §4·§5／next（roadmap 帶驗收 + 雙向連結 + draft 留到完成）。
+- **來源**：本次把 draft 分發進 vision（redesign/protocol-skills），使用者抓到缺 checklist + 問 draft 去留。
+
 ### skill 該寫成判準，不是窮舉流程
 - **理論說**：要完整，skill 就得列舉所有步驟與情況（cella 的 judge：Phase A/B、17 項檢查，約 400 行）。
 - **實際發生**：重寫成「`_core` 共享核心 + 一頁判準」後，judge 約 45 行，dogfood 跑通（孤兒/死連結偵測有效，還揪出自己「複習偵測沒機械化」的缺口）。

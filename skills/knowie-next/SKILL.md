@@ -38,7 +38,7 @@ Every line cites where it comes from; skip a line if empty.
 After the brief, if step 1 found ripe `draft/` items, end with the option:
 **"Before we start, promote these first? (design → roadmap, then build it through the roadmap; insight → consolidate.)"** — list them. The human decides; you propose. This is the gate that keeps a design from being built straight out of `draft/`.
 
-Promoting is a **dispatch, not a relocation** (see core: *Consolidating is dispatch*) — direction → roadmap/`experience`, recurring concept → `concepts/`, brainstorming scene → `episodes/`, transition → `history/`. Ask the human which pieces to keep; let the rest of the draft fade.
+Promoting is a **dispatch, not a relocation** (see core: *Consolidating is dispatch*) — direction → roadmap/`experience`, recurring concept → `concepts/`, brainstorming scene → `episodes/`, transition → `history/`. A new roadmap item carries **acceptance criteria** (verifiable) and a **two-way link** to its design draft. The draft is **not deleted** — it stays as the in-flight design rationale until the item is done (then it reflows + retires, judge §4). Only the pieces already dispatched elsewhere (concept, transition) leave the draft.
 
 ## Invariant
 Every recommendation traces to vision / principles / experience. Nothing from thin air — if there's no relevant knowledge for a point, say so explicitly.

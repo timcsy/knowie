@@ -30,7 +30,7 @@ Run these with grep/ls — by eye, both humans and AIs miss them.
 ## 4. Reflow what was learned — dispatch, don't collapse
 A finished roadmap item reflows into several places (don't dump all into one):
 - lesson (distilled) → `experience`; its full scene, if recall-worthy → `episodes` (link the lesson to it).
-- decision-transition → `history`; then **retire the roadmap item** (redeem-and-retire).
+- decision-transition → `history`; then **retire the roadmap item** (redeem-and-retire) **and its source design draft** — the draft's brainstorming scene, if recall-worthy, also reflows to `episodes`. Only now is the draft let go (it was the in-flight rationale until done).
 - challenges a principle? → flag a **proposal to amend root/derived principles**, don't bury it in experience.
 - a recurring new thing? → a concept.
 
@@ -38,7 +38,7 @@ A finished roadmap item reflows into several places (don't dump all into one):
 - `concepts/`: converge upward — find the parent-concept (pruning-power test); watch the count flatten.
 - `experience/`: two-way — merge similar lessons up; split full scenes down to `episodes`; clear stale.
 - `vision/`: redeem-and-retire (done roadmap items reflow out, then leave); wishes not committed → back to `draft/`.
-- `draft/`: by review-signal, push each topic **one step along its chain** — experience→consolidate, design→roadmap, problem→find-answer; long-untouched → let go (decay). Recency + frequency, not age.
+- `draft/`: by review-signal, push each topic **one step along its chain** — experience→consolidate, design→roadmap, problem→find-answer; long-untouched → let go (decay). Recency + frequency, not age. **Exception: a draft linked from an active roadmap item is in-flight design rationale — never reap it; it retires only when its roadmap item completes (§4).**
 - `episodes/`: keep only the recall-worthy; let the rest fade.
 
 ## 6. Stay within the line
