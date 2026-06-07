@@ -44,6 +44,7 @@ A finished roadmap item reflows into several places (don't dump all into one):
 - `vision/`: redeem-and-retire (done roadmap items reflow out, then leave); wishes not committed → back to `draft/`.
 - `draft/`: by review-signal, push each topic **one step along its chain** — experience→consolidate, design→roadmap, problem→find-answer; long-untouched → let go (decay). Recency + frequency, not age. **Exception: a draft linked from an active roadmap item is in-flight design rationale — never reap it; it retires only when its roadmap item completes (§4).**
 - `episodes/`: keep only the recall-worthy; let the rest fade.
+- `skills/`: **detection backstop** — a recurring operation (across episodes / history / git) with no skill → flag a **skill candidate** (same recurrence-scan as draft's review-signal; capture records, human confirms). A stale/unused skill → flag for retirement: it still *executes* (higher stakes than stale knowledge — a stale skill acts, a stale doc just misleads), so don't let it rot loadable.
 
 ## 6. Stay within the line
 Moving files (reversible) is yours. But **commit, amend root principles, anoint parent-concepts → propose only; wait for the human.**
