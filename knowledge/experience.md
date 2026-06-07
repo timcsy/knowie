@@ -81,3 +81,4 @@
 | 命名 / 捕捉非發明 / 私語 / 批次結晶 | `concepts/蒸餾.md` |
 | 必要繁瑣 vs 冗餘 / 落實 / 機率性執行者 | `concepts/why沒有oracle.md` |
 | 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision | `concepts/分發非傾倒.md` |
+| 認知失調 / 路線錯了 / 認錯 / 失敗模式 / 合理化維持 | `concepts/讓認錯變便宜.md` |
