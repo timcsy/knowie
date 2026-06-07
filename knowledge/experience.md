@@ -60,6 +60,13 @@
 - **已落實**：寫進 `_core`／capture／judge §4·§5／next（roadmap 帶驗收 + 雙向連結 + draft 留到完成）。
 - **來源**：本次把 draft 分發進 vision（redesign/protocol-skills），使用者抓到缺 checklist + 問 draft 去留。
 
+### why 對齊的引擎是 next 的預防，不是 judge 的偵測
+- **理論說**：judge 的深層職責是「給沒有 oracle 的 why 造 oracle」——對帳 code、抓出腐爛的 why，這是 knowie 的核心價值。
+- **實際發生**：十幾個專案的真實使用裡，why 確實有跟上，但**主因是 next 在規劃時把規範餵進去（預防）**，讓 code 一開始就建對；judge 大多在做回流／記帳（更新願景 checklist、寫回設計、新增經驗），**很少真的「抓腐爛 why」**。
+- **解決方式**：認對價值引擎——**next 的 feed-forward 預防**是已驗證的核心；judge 的 oracle 偵測是給「夠老、why 真的爛掉」的專案的賭注，還沒被驗（你的專案因 next 一直預防，why 沒機會爛）。兩者不衝突，但別把敘事壓在未驗的那個上。
+- **教訓**：**預防 > 偵測**。knowie 已驗證能打的是 `next→spec` 的預防；judge 的 [why沒有oracle](concepts/why沒有oracle.md) oracle 是未驗賭注、不是賣點。
+- **來源**：使用者十幾個專案真實使用回饋（2026-06-07）。
+
 ### skill 該寫成判準，不是窮舉流程
 - **理論說**：要完整，skill 就得列舉所有步驟與情況（cella 的 judge：Phase A/B、17 項檢查，約 400 行）。
 - **實際發生**：重寫成「`_core` 共享核心 + 一頁判準」後，judge 約 45 行，dogfood 跑通（孤兒/死連結偵測有效，還揪出自己「複習偵測沒機械化」的缺口）。
