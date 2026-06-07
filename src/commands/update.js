@@ -2,7 +2,7 @@ import { readFile, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { KNOWIE_CONFIG, VERSION, STRUCTURE_VERSION } from '../constants.js';
 import { installTemplates } from '../templates.js';
-import { installSkills, installDomainSkills } from '../skills.js';
+import { installSkills } from '../skills.js';
 import { detectTools } from '../adapters/detect.js';
 import { getToolById } from '../adapters/registry.js';
 import { injectHandshake } from '../adapters/handshake.js';
@@ -80,10 +80,6 @@ export async function update(projectRoot, { yes = false } = {}) {
     }
   }
   console.log(t(lang, 'cli.update.refreshed')(writtenFiles.size));
-
-  // 6c. Re-install learned domain skills to each tool's skill location.
-  const dom = await installDomainSkills(projectRoot, [...existingTools]);
-  if (dom.skills.length) console.log(t(lang, 'cli.update.domainSkills')(dom.skills.length, dom.dirs.length));
 
   // 7. Update .knowie.json — bump the *tool* version only.
   // Deliberately DO NOT touch structureVersion: that's the knowledge structure's

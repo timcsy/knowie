@@ -1,7 +1,6 @@
-import { readFile, writeFile, mkdir, readdir, cp } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { SKILLS_SOURCE, SKILLS_TARGET, SKILL_NAMES, KNOWLEDGE_DIR } from './constants.js';
-import { getToolById } from './adapters/registry.js';
+import { SKILLS_SOURCE, SKILLS_TARGET, SKILL_NAMES } from './constants.js';
 
 const CORE_MARKER = '<!-- knowie-core is injected above this line at install time -->';
 
@@ -32,28 +31,4 @@ export async function installSkills(projectRoot) {
   }
 
   return installed;
-}
-
-/**
- * Install learned *domain* skills (knowledge/skills/<skill>/) into each detected
- * tool's skill location (agentskills.io: .claude/skills, .agents/skills, …).
- * knowledge/skills is the cerebellum (source of truth); these are copies.
- * Skips README.md (knowie's doc, not a skill). No-op until skills are learned.
- */
-export async function installDomainSkills(projectRoot, toolIds = []) {
-  const src = join(projectRoot, KNOWLEDGE_DIR, 'skills');
-  let entries;
-  try { entries = await readdir(src, { withFileTypes: true }); } catch { return { skills: [], dirs: [] }; }
-  const skills = entries.filter((e) => e.isDirectory()).map((e) => e.name);
-  if (!skills.length) return { skills: [], dirs: [] };
-
-  // Unique skill directories across the detected tools (e.g. .claude/skills, .agents/skills).
-  const dirs = [...new Set(toolIds.map((id) => getToolById(id)?.skillsDir).filter(Boolean))];
-
-  for (const dir of dirs) {
-    for (const skill of skills) {
-      await cp(join(src, skill), join(projectRoot, dir, skill), { recursive: true });
-    }
-  }
-  return { skills, dirs };
 }
