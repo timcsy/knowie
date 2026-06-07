@@ -73,7 +73,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] skill 化走人確認（比知識定案更慎）
 - [ ] 在一個真實專案長出至少一個 domain skill
 
-**健康儀表板 → 併入 judge（不另做 CLI）** — judge 本來就用 grep/ls 算機械指標（孤兒/死連結/計數，§3），已滿足「機械算、不靠 AI 自報」；語義/時序指標（冪等/趨平/churn）也是 judge 的。另做 `knowie health` CLI＝重複邏輯 + 把「分析知識內容」放進 CLI＝平台化（違反協議非平台）。**所以不做 CLI，judge 就是健康儀表板。**
+**健康儀表板 → 併入 judge（不另做 CLI，2026-06-07 定）** — judge 本來就用 grep/ls 算機械指標（孤兒/死連結/計數，§3），已滿足「機械算、不靠 AI 自報」；語義/時序指標（冪等/趨平/churn）也是 judge 的。另做 `knowie health` CLI＝重複邏輯 + 把「分析知識內容」放進 CLI＝平台化（違反協議非平台）。**所以不做 CLI，judge 就是健康儀表板。**
 
 **版本偵測 + 遷移提示**（實作完，待真實舊專案驗）— 用 `.knowie.json` 的 **`structureVersion`**（與 tool `version` 脫鉤，只在結構真的改時才升）讓 `/knowie-update` 認出舊結構、提示手動遷移（不做向後相容，但**不靜默 breaking**）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)。
 - [x] update（skill）讀 structureVersion + 比對當前正典訊號、認出舊結構
