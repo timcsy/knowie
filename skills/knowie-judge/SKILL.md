@@ -24,6 +24,7 @@ Scan each core file's Key Extensions table for topics the scope hits (or, if emp
 - **Orphans**: any sub-file no Key Extensions table points to.
 - **Dead links**: any pointer to a file that's gone or renamed.
 - **Stale**: entries referencing deleted code, finished milestones, resolved problems.
+- **Backlinks (derive, don't require `[[ ]]`)**: the same scan inverted — `grep '](path'` gives a node's inbound links. Surface them on request, and flag a *materialized* back-edge that's asymmetric (A links B, but an intended B→A is missing). Links are plain `[](path)`; the graph is derived, not stored (see principle 8).
 
 Run these with grep/ls — by eye, both humans and AIs miss them.
 
