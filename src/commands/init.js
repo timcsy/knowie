@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { KNOWLEDGE_DIR, KNOWIE_CONFIG, VERSION, STRUCTURE_VERSION } from '../constants.js';
 import { scaffoldKnowledge } from '../scaffold.js';
 import { installTemplates } from '../templates.js';
-import { installSkills } from '../skills.js';
+import { installSkills, installDomainSkills } from '../skills.js';
 import { detectTools } from '../adapters/detect.js';
 import { getToolById, TOOL_REGISTRY } from '../adapters/registry.js';
 import { injectHandshake } from '../adapters/handshake.js';
@@ -127,9 +127,11 @@ export async function init(projectRoot, { yes = false } = {}) {
     }
   }
 
-  // 7. Install skills
+  // 7. Install skills (meta + any learned domain skills)
   const skills = await installSkills(projectRoot);
   console.log(`\n${t(lang, 'cli.init.skills')(skills.length)}`);
+  const dom = await installDomainSkills(projectRoot, selectedIds);
+  if (dom.skills.length) console.log(t(lang, 'cli.init.domainSkills')(dom.skills.length, dom.dirs.length));
 
   // 8. Update .knowie.json
   const configPath = join(projectRoot, KNOWIE_CONFIG);

@@ -72,7 +72,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] capture 察覺操作重複、記「候選 skill」進 `draft/`（連這次怎麼做）— A+B
 - [x] `knowledge/skills/`（小腦）結構 +（人確認）固化機制；採 **agentskills.io 格式、不自造引擎** — A+B
 - [x] skill 化更嚴人確認（執行級）；記 **why-behind-skill** — capture 程序版
-- [ ] **沿 registry 安裝到各工具**（C：多工具安裝，待建——installSkills 現只裝 .claude/skills）
+- [x] **沿 registry 安裝到各工具**（C：`installDomainSkills` 把 knowledge/skills 裝到各工具 skillsDir，.claude/skills + .agents/skills，去重；接進 init/update）
 - [ ] **進化偵測**（用了結果爛 → 自動標記待修，改寫人確認；待建）
 - [ ] 在一個真實專案長出至少一個 domain skill（驗證類，merge 後）
 
