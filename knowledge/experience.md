@@ -74,7 +74,8 @@
 - **實際發生**：重寫成「`_core` 共享核心 + 一頁判準」後，judge 約 45 行，dogfood 跑通（孤兒/死連結偵測有效，還揪出自己「複習偵測沒機械化」的缺口）。
 - **解決方式**：完整性來自**生成式**（判準 + 不變量 + 根公理，讓 AI 推導），不是**窮舉**（列舉每種情況）；共享部分抽 `_core`、CLI 注入。
 - **教訓**：skill 該像一頁判準，不像一本手冊——窮舉長且脆，判準短且跨處境；但「必要的繁瑣」（堵漏洞的機制）要留，只是壓成一句。
-- **來源**：這次重構（redesign/protocol-skills）+ judge 試跑。
+- **何時該加一個新 meta skill（判準）**：當它是「**distinct 且反覆的人類 invocation 意圖、而既有 skill 的框架沒服務到**」才 earn 得起；否則折進既有 skill 或砍。套三次：路線錯了→折進 judge（無 distinct invocation）；health→砍（與 judge 重複）；crystallize→加（人主動結晶，既有沒服務）。（domain skill 的判準不同：recurrence → 程序自習得。）
+- **來源**：這次重構（redesign/protocol-skills）+ judge 試跑 + crystallize 決策。
 
 ## 關鍵延伸（主題觸發必讀）
 
