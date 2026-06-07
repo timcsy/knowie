@@ -6,8 +6,20 @@ AI coding 工具能記住 what（code），但記不住 why（為什麼這樣設
 ## 核心想法
 knowie 是一個**寄生在 markdown 上、給 AI 讀的 why 協議**：把專案的 why 偽裝成一堆 md 檔 + 幾個簡單 skill，讓任何 AI 不必學就會用，且人保有定案主權。
 
-**定位（FUSE 式）**：不與記憶 agent（Letta / Hermes）或 LLM Wiki 競爭，而是**掛在它們之上、補它們留白的那塊——結構化的 *why*（三視角／因果／法典）**。knowie 只定義「協議與運作方式」，底層記憶與檢索可插拔（大規模 graph/RAG 外包後端，adapter 從 `[]()` 結構衍生 graph）；協議被多方實作正是它的成功（像 FUSE 被各 OS 支援），不是被吸收。緣由見 `draft/競品與生存空間`、`history/003`。
-（修正：「人在環」本身不獨特——LLM Wiki/Karpathy 派也強調人策展；獨特的是 *結構化的 why*。）
+**最具體的定位（已在用）：knowie 是 SDD 的 why 供給層 ＋ 對帳層。** SDD（Spec Kit / Kiro / …）把 spec→code，但公認的洞是「持久的 why／spec 從哪來、怎麼跨 feature 不漂」。knowie 補這個：
+
+```
+knowie why（原則/願景/經驗，為共識而記、對 code 負責）
+   │ next 把 why 餵 →
+   ▼
+SDD spec ─ 生成 → code（what 真相）
+   ▲ judge 對帳、capture 回流 ←┘
+```
+
+spec 是交棒物；knowie 是**持久** why 記憶，spec 是**每 feature 一次性**的意圖。**SDD 越普及，這個接口越被需要（順風，非競品）**；「code 真相 vs spec 真相」是假對立（驗證方向 vs 生成方向，兩軸）。
+
+**更廣的定位（FUSE 式）**：同理也掛在記憶 agent（Letta / Hermes）/ LLM Wiki 之上，補它們留白的**結構化 *why***（三視角／因果／法典）。knowie 只定義「協議與運作方式」，底層記憶與檢索可插拔（大規模 graph/RAG 外包後端）。最近的真競品是 **ADR-for-AI**（持久 why↔code），但它扁平、無三視角／回流／代謝。緣由見 `draft/競品與生存空間`、`history/003`。
+（修正：「人在環」本身不獨特——LLM Wiki/Karpathy 派也強調人策展；獨特的是 *結構化的 why 從開發回流、對 code 負責、會自我代謝*。）
 
 ## 現狀
 - 三檔（principles / vision / experience）作為知識的介面，已過十幾個專案驗證、穩定好用。
