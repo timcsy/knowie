@@ -68,13 +68,14 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 **next 召回率** — 三視角 brief 已做。設計脈絡 ←→ [閉環縫隙](draft/2026-06-05-閉環縫隙.md)。
 - [ ] 真實使用中召回命中（漏掉相關 why 是主要失敗模式）
 
-**程序記憶自習得** — 讓 LLM 把反覆做的事蒸餾成 skill（capture 的程序版）：meta skill（維護知識庫）+ **domain skill**（專案領域的重複工作，更有價值）。skill 是知識（code=data）→ 重用記憶動態，不造引擎。設計脈絡 ←→ [記憶系統框架](draft/2026-06-06-記憶系統框架.md)、[競品與生存空間](draft/2026-06-06-競品與生存空間.md)。
+**程序記憶自習得（可建機制完成）** — 讓 LLM 把反覆做的事蒸餾成 skill（capture 的程序版）：meta skill（維護知識庫）+ **domain skill**（專案領域的重複工作，更有價值）。skill 是知識（code=data）→ 重用記憶動態，不造引擎。設計脈絡 ←→ [記憶系統框架](draft/2026-06-06-記憶系統框架.md)、[競品與生存空間](draft/2026-06-06-競品與生存空間.md)。
 - [x] capture 察覺操作重複、記「候選 skill」進 `draft/`（連這次怎麼做）— A+B
 - [x] `knowledge/skills/`（小腦）結構 +（人確認）固化機制；採 **agentskills.io 格式、不自造引擎** — A+B
 - [x] skill 化更嚴人確認（執行級）；記 **why-behind-skill** — capture 程序版
-- [x] 安裝到工具位置——**AI 固化時直接裝**到專案 skill 位置（B）。（CLI 批次安裝 installDomainSkills 一度建、又砍：純 no-op + 專案 scope 用不到；跨 checkout/跨專案泛化才需要 → 真要時再接，見 `draft/記憶系統框架`）
-- [ ] **進化偵測**（用了結果爛 → 自動標記待修，改寫人確認；待建）
-- [ ] 在一個真實專案長出至少一個 domain skill（驗證類，merge 後）
+- [x] 安裝到工具位置——**AI 固化時直接裝**到專案 skill 位置（B）。（CLI 批次安裝 installDomainSkills 一度建、又砍：純 no-op + 專案 scope 用不到；跨 checkout/泛化才需要 → 真要時再接）
+- [x] 觸發接進三 skill（next 預防＋消費 / capture 記錄 / judge §5 backstop＋抓過時 skill）
+- [ ] **進化（outcome-based）**：用了結果爛 → 自動標記、人改寫——**驗證類**（要真實 skill 執行+結果才驗得到；過時/未用偵測已在 judge §5）
+- [ ] 在一個真實專案長出至少一個 domain skill（**驗證類，merge 後**）
 
 **健康儀表板 → 併入 judge（不另做 CLI，2026-06-07 定）** — judge 本來就用 grep/ls 算機械指標（孤兒/死連結/計數，§3），已滿足「機械算、不靠 AI 自報」；語義/時序指標（冪等/趨平/churn）也是 judge 的。另做 `knowie health` CLI＝重複邏輯 + 把「分析知識內容」放進 CLI＝平台化（違反協議非平台）。**所以不做 CLI，judge 就是健康儀表板。**
 
