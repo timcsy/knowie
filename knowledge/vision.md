@@ -46,7 +46,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 > 釐清：建**已承諾的 roadmap 功能**（過了閘門、有驗收）**不算過度工程**——那是執行承諾；過度工程是「加沒承諾的／鍍金」。所以 build-first 與「別過度工程」不衝突。
 
 ### ✅ 已完成（2026-06，兌現出列）
-- skill 改寫成「`_core` 共享核心 + 判準式薄職責」（init/capture/next/judge/update）；CLI 注入 `_core`；結構對齊 concepts/history/draft；templates/README 同步。（教訓已回流 experience）
+- skill 改寫成「`_core` 共享核心 + 判準式薄職責」（init/capture/next/judge/update）；CLI 注入 `_core`；結構對齊 concepts/episodes/history/draft；templates/README 同步。（教訓已回流 experience）
 - **記憶動態固化**：episodes 進結構；兩條輸入線、回流分發、分層整理寫進 skills（`_core`/capture/judge）。從半成品變成「機制完整、可拿去真實測」。（人定案＝使用者「固化」指令；過程曾跳過 roadmap 閘門，被 dogfood 抓到，見 `history/002`）
 
 ### 進行中 / 待做
