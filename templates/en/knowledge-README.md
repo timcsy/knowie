@@ -11,6 +11,7 @@ This folder records the **why** behind this project — its principles, directio
 
 ## For detail, go into the subdirectories
 - **`concepts/`** — recurring core concepts; the three files keep only pointers, the detail lives here.
+- **`episodes/`** — episodic memory: recall-worthy full scenes (the story behind a lesson or decision).
 - **`history/`** — the causal trail: why things became what they are (decision transitions, rejected options).
 - **`draft/`** — short-term memory: undecided ideas still forming.
 
