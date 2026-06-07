@@ -27,6 +27,7 @@ Scan each core file's Key Extensions table for topics the scope hits (or, if emp
 - **Backlinks (derive, don't require `[[ ]]`)**: the same scan inverted — `grep '](path'` gives a node's inbound links. Surface them on request, and flag a *materialized* back-edge that's asymmetric (A links B, but an intended B→A is missing). Links are plain `[](path)`; the graph is derived, not stored (see principle 8).
 - **Derivation blast-radius**: every derived principle cites its parent. When a principle is challenged or revised, grep those citations to list every dependent (and theirs, transitively) — surface the **full impact set** so a wrong root's downstream (derived principles / vision / experience) gets updated together, not silently left stale. Trace it; don't recall it from memory.
 - **Draft↔vision sync (both directions)**: every vision item that links a draft as its design-context → that draft must carry a promotion marker (promoted / in-flight-rationale) — a promoted draft with no marker reads as still-open when it's already committed. Reverse: a draft claiming it's in vision → vision must actually have it. grep both directions; mismatches are stale.
+- **Subdir READMEs present**: every knowledge subdirectory (concepts / episodes / history / draft) must have a `README.md` (it orients a third party who's never heard of knowie). `ls */README.md`; a missing one is a gap.
 
 Run these with grep/ls — by eye, both humans and AIs miss them.
 
