@@ -76,7 +76,9 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 | 收斂 / 發散 / 冪等 / 健康指標 / 母概念 | `concepts/收斂.md` |
 | why / what / ground truth / oracle / 必要繁瑣 | `concepts/why沒有oracle.md` |
 | 協議 / 平台 / POSIX / FUSE / 工具中立 / 軟硬介面 | `concepts/協議非平台.md` |
+| 記憶系統 / 記憶層 / 小腦 / 程序記憶 / 內隱記憶 / 促發 / 可回憶單元 / git 基底 | `concepts/記憶系統.md` |
 | AI 自動 vs 人在環 / 定案權 | `history/001-從自動到人在環.md` |
+| 記憶動態固化 / draft 固化 / roadmap 閘門 / 可建 vs 可驗 | `history/002-記憶動態從draft固化.md` |
 | 連結 / `[]()` / `[[ ]]` / graph / backlink / 檢索定位 | `history/003-連結慣例與檢索定位.md` |
 | 使命 / 為共識而記 / 可回溯 / 為誰而記 / 根公理修訂 | `history/004-補使命-根公理二鬆綁.md` |
 | skill 家族 / consolidate（原 crystallize）/ 何時加 skill / meta vs domain | `history/005-新增crystallize-skill家族成形.md` |
