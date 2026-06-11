@@ -83,6 +83,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] update（skill）讀 structureVersion + 比對當前正典訊號、認出舊結構
 - [x] 偵測到舊結構 → detect/propose/confirm 手動遷移（不自動改）
 - [x] 明示 breaking、不靜默（CLI `structureBehind` 警告 + 修掉「CLI 自動升 version＝靜默 breaking」的 bug）
+- [x] **git 時光機**：re-home 有歧義時，用 `git log`/`git show` 還原當時的 knowledge/code/spec；舊 base 的 git log ＝ 可蒸餾成 `history/` 的因果軌跡；留 commit 指針補「how 腿」（四護欄：脈絡非 import what／有界非考古／優雅降級／人仍確認）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)
 - [ ] 真實舊專案（research/design/history era）遷移驗證（驗證類，merge 後）
 
 **FUSE 掛載驗證**（北極星，仍未證）— adapter 從 `[]()` 結構衍生 graph、把 knowie 的 why 層掛上 LLM Wiki / Obsidian / 向量後端；軟介面硬化到「可被多方實作」。設計脈絡 ←→ [檢索機制-graph還是path](draft/2026-06-07-檢索機制-graph還是path.md)。
