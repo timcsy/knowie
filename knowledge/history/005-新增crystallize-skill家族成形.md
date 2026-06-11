@@ -1,6 +1,7 @@
 # 005：新增 knowie-crystallize（5→6 skills）、skill 家族成形
 
 > 2026-06-07。一條結構轉移的因果記錄。
+> ⚠️ 2026-06-11：此 skill 已更名 **`knowie-crystallize` → `knowie-consolidate`（固化）**，見 [history/007](007-crystallize更名consolidate.md)。本檔保留當時「以 crystallize 引入」的記錄（point-in-time），下文 crystallize 即現在的 consolidate。
 
 ## 轉移
 - **A（曾）**：5 skills（init / capture / next / judge / update）。draft 的「結晶出去」散在 next（偵測）+ judge（§5 整理）+ capture（分發機制），**沒有人主動發起的入口**。
