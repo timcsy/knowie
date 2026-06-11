@@ -141,7 +141,7 @@ export async function init(projectRoot, { yes = false } = {}) {
   }
   config.version = VERSION;
   // NOTE: don't stamp structureVersion onto an existing base — absence means an
-  // older structure that /knowie-update should detect and migrate (then bump it).
+  // older structure that /knowie-migrate should detect and migrate (then bump it).
   config.language = lang;
   config.tools = selectedIds;
   config.updatedAt = new Date().toISOString();

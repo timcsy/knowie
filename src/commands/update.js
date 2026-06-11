@@ -83,7 +83,7 @@ export async function update(projectRoot, { yes = false } = {}) {
 
   // 7. Update .knowie.json — bump the *tool* version only.
   // Deliberately DO NOT touch structureVersion: that's the knowledge structure's
-  // version, migrated by the /knowie-update skill (with human confirm). Auto-
+  // version, migrated by the /knowie-migrate skill (with human confirm). Auto-
   // bumping it here would silently mark an un-migrated base as current.
   const structureBehind = config.structureVersion !== STRUCTURE_VERSION;
   config.version = VERSION;

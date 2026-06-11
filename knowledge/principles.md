@@ -82,3 +82,4 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 | skill 家族 / consolidate（原 crystallize）/ 何時加 skill / meta vs domain | `history/005-新增crystallize-skill家族成形.md` |
 | 命名 / history vs migrations / 為何不叫 | `history/006-為何叫history不叫migrations.md` |
 | consolidate / 固化 / crystallize 改名 / 編碼-固化-提取 / 記憶三階段 | `history/007-crystallize更名consolidate.md` |
+| migrate / update skill 改名 / skill vs CLI update / judge 為何不改 / Judgment | `history/008-update-skill更名migrate.md` |

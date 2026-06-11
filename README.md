@@ -130,7 +130,7 @@ These commands run **inside your AI chat** (not in the terminal). For AI tools w
 | `/knowie-consolidate` | Human-initiated: consolidate a ripe draft out to the long-term tier |
 | `/knowie-next` | Plan the next step, grounded in principles, vision, and experience |
 | `/knowie-judge` | Health check: coherence, alignment with code, rot detection — then tidy |
-| `/knowie-update` | Migrate the knowledge base when the structure version moves on |
+| `/knowie-migrate` | Migrate the knowledge base when the structure version moves on |
 
 `/knowie-judge` is the core feedback loop. It catches when your vision contradicts your experience, your principles don't match your code, or your files have gone stale. Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — with specific quotes and suggestions.
 

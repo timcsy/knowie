@@ -1,5 +1,5 @@
 ---
-name: knowie-update
+name: knowie-migrate
 description: Migrate the knowledge base to the current knowie structure — detect drift, propose, confirm
 user-invocable: true
 argument-hint: "[empty = check this base for structure drift]"
@@ -7,11 +7,11 @@ argument-hint: "[empty = check this base for structure drift]"
 
 <!-- knowie-core is injected above this line at install time -->
 
-# Knowie Update
+# Knowie Migrate
 
 Keep the knowledge base in step with the current knowie **structure**. When the structure moves ahead, migrate the user's base up — **detect, propose, confirm** (never auto-apply).
 
-(Pulling the latest skills/templates is the CLI's job — `knowie update`. Internal quality/rot is `judge`'s job. This skill is only **structure migration**.)
+(Pulling the latest skills/templates is the CLI's job — `knowie update`. Internal quality/rot is `judge`'s job. This skill is only **structure migration** — hence the name, distinct from the CLI's `update`.)
 
 ## How detection stays robust to minor changes
 Don't hardcode a version-pair migration table — it rots on every tweak. Instead **detect drift against the *current canon*, derived live**:

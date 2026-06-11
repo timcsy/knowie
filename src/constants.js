@@ -25,7 +25,7 @@ export const SUBDIRS = ['concepts', 'episodes', 'skills', 'history', 'draft', TE
 
 export const SKILLS_SOURCE = join(PACKAGE_ROOT, 'skills');
 export const SKILLS_TARGET = '.claude/skills';
-export const SKILL_NAMES = ['knowie-init', 'knowie-capture', 'knowie-consolidate', 'knowie-next', 'knowie-judge', 'knowie-update'];
+export const SKILL_NAMES = ['knowie-init', 'knowie-capture', 'knowie-consolidate', 'knowie-next', 'knowie-judge', 'knowie-migrate'];
 
 export const MARKER_START = '<!-- Knowie: Project Knowledge -->';
 export const MARKER_END = '<!-- /Knowie -->';

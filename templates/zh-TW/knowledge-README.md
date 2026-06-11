@@ -25,6 +25,6 @@
 - `/knowie-consolidate` — 你主動把成熟的 draft 固化出去（capture 的對稱另一端）
 - `/knowie-next` — 根據知識庫規劃下一步該做什麼
 - `/knowie-judge` — 檢查一致性、對齊程式碼、整理
-- `/knowie-update` — 結構升級時遷移知識庫
+- `/knowie-migrate` — 結構升級時遷移知識庫
 
 （只是想讀懂專案？忽略這段沒關係。）
