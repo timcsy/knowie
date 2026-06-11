@@ -48,6 +48,20 @@
 - **定位**：path + 後端衍生 graph = 「掛在 LLM Wiki 上的 why 層」（見競品檔的待答）。
 - **MEMORY.md**（我的自動記憶）用 `[[ ]]` 是另一套系統，不在此決策內。
 
+## KFS：把 FUSE 介面形式化（北極星，但 premature + POSIX 陷阱）
+問過「做一個 Knowledge File System 協定，讓 knowie 坐在上面？」——這其實是 **FUSE 北極星的具體化**：把「機械層」正式切出來。
+```
+knowie（why 語意：三視角、記憶動態、層結構）
+   ↓ 用
+KFS（知識檔操作：存/讀/連/查/版本，backend 可插拔）   ← 形式化的 FUSE 介面
+   ↓ 被實作
+backends（純檔 / 向量庫 / LLM Wiki / Obsidian）
+```
+- **架構對**：乾淨歸位本檔反覆分的東西——檢索/graph/sync/backend ＝ KFS（機械）；why/三視角/動態 ＝ knowie（語意）。並解鎖「KFS 被多方共用」（LLM Wiki / agent memory 都能坐上去，knowie 只是 why-語意那個 consumer）＝協議被多方實作的成功態。
+- **時機錯（最大級 premature）**：knowie 上層**還沒驗**（只軟體 dogfood），先定下層協議＝為沒證明有人要的房子打地基。正解**自底向上**：先驗 knowie，**若**機械層真要被重用，**再從穩的上層 factor 出 KFS**——不 top-down 先猜。（同砍 health CLI / installDomainSkills 的 YAGNI，scale 更大。）
+- **POSIX 陷阱（最尖）**：knowie 命根＝**FUSE 不是 POSIX**（寄生「AI 會讀寫 markdown」、零採用成本）。KFS 若是**別人要去實作的新標準**→ 用 knowie 先要有 KFS 實作＝採用成本＝POSIX，**背叛命根**。故 KFS 必須**保持寄生**（只 markdown+慣例，零採用）——但那它幾乎就是 knowie 已內嵌的東西，當「獨立協議」邊際價值低。形式化的真價值是**互通**（多工具共用知識檔基底），但要**生態 + knowie 已證**才有意義。
+- **判斷**：對的北極星，錯的時機；真做時守住「仍寄生 markdown」。歸進 roadmap「FUSE 掛載驗證」的同一族（artifact 封裝見 [能否跨領域](2026-06-11-能否跨領域-endeavor為單位.md)）。
+
 ## 出口
 problem 大半已答（往 `[]()` + 衍生 backlink + why 層收斂），剩 **FUSE 掛載未證**。
 - 若接受此收斂 → 轉 design：(1) 把 9 處 `[[ ]]` 遷 `[]()`（連結慣例定案）；(2) judge 加「掃正向連結 → 衍生 backlink」職責；(3) 定位句進 vision（已部分進）。三者可進 roadmap。
