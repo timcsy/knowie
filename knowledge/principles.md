@@ -80,3 +80,4 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 | 連結 / `[]()` / `[[ ]]` / graph / backlink / 檢索定位 | `history/003-連結慣例與檢索定位.md` |
 | 使命 / 為共識而記 / 可回溯 / 為誰而記 / 根公理修訂 | `history/004-補使命-根公理二鬆綁.md` |
 | skill 家族 / crystallize / 何時加 skill / meta vs domain | `history/005-新增crystallize-skill家族成形.md` |
+| 命名 / history vs migrations / 為何不叫 | `history/006-為何叫history不叫migrations.md` |
