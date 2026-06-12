@@ -2,6 +2,7 @@ import { readFile, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { KNOWIE_CONFIG, VERSION, STRUCTURE_VERSION } from '../constants.js';
 import { installTemplates } from '../templates.js';
+import { installReadmes } from '../scaffold.js';
 import { installSkills } from '../skills.js';
 import { detectTools } from '../adapters/detect.js';
 import { getToolById } from '../adapters/registry.js';
@@ -35,9 +36,14 @@ export async function update(projectRoot, { yes = false } = {}) {
 
   const configLang = config.language || lang;
 
-  // 2. Update templates
+  // 2. Update templates + orientation READMEs (managed files carrying the
+  // filename/format conventions — refresh to latest so convention changes land,
+  // and heal a base that's missing them, e.g. one never run through init).
   const templates = await installTemplates(projectRoot, configLang);
   console.log(t(lang, 'cli.update.templates')(templates.length));
+
+  const readmes = await installReadmes(projectRoot, configLang, { overwrite: true });
+  console.log(t(lang, 'cli.update.readmes')(readmes.created.length));
 
   // 3. Update skills
   const skills = await installSkills(projectRoot);

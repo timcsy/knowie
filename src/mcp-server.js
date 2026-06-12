@@ -147,6 +147,7 @@ async function handleKnowieInit(args) {
 async function handleKnowieUpdate(args) {
   const projectPath = args.project_path || process.cwd();
   const { installTemplates } = await import('./templates.js');
+  const { installReadmes } = await import('./scaffold.js');
   const { installSkills } = await import('./skills.js');
   const { detectTools } = await import('./adapters/detect.js');
   const { getToolById } = await import('./adapters/registry.js');
@@ -163,11 +164,17 @@ async function handleKnowieUpdate(args) {
     return 'Error: .knowie.json not found. Run knowie_init first.';
   }
 
+  const configLang = config.language || 'en';
   const report = [];
 
-  // Update managed files
-  const templates = await installTemplates(projectPath);
+  // Update managed files (in the base's language, not the default)
+  const templates = await installTemplates(projectPath, configLang);
   report.push(`✓ Updated ${templates.length} templates`);
+
+  // Re-ensure orientation READMEs (managed files carrying the format
+  // conventions) — refresh to latest, and heal a base that's missing them.
+  const readmes = await installReadmes(projectPath, configLang, { overwrite: true });
+  report.push(`✓ Refreshed ${readmes.created.length} subdir READMEs`);
 
   const skills = await installSkills(projectPath);
   report.push(`✓ Updated ${skills.length} skills`);

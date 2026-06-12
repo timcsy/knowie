@@ -2,6 +2,13 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.9] — 2026-06-12
+
+### Fixed
+
+- **`knowie update` now re-ensures the subdir READMEs** (`concepts/`, `episodes/`, `history/`, `draft/`, `skills/` + `knowledge/README.md`). Previously update only refreshed the `.tmpl` core templates into `.templates/`, so a base set up or refreshed via `update` (rather than a full `init`) had **no subdir READMEs at all** — and those READMEs are where the filename/format conventions live (`history/` = `NNN-slug`, `episodes/`+`draft/` = `YYYY-MM-DD-slug`). With the conventions absent, downstream metabolism guessed formats wrong (e.g. `history/` files date-prefixed instead of numbered, `draft/` files missing the date prefix). The README-copy logic is now factored into a shared `installReadmes()` — `init` copies never-overwrite, `update` refreshes to latest, both heal a base that's missing them.
+- **`knowie update` now refreshes templates in the base's language**, not English. The MCP `knowie_update` path called `installTemplates` without the language, defaulting to `en` and overwriting a `zh-TW` base's `.templates/*.tmpl` with English. It now passes `config.language` (the CLI `update` already did).
+
 ## [0.6.8] — 2026-06-12
 
 ### Changed
