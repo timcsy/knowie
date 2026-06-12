@@ -2,6 +2,13 @@
 
 ## 教訓
 
+### 有些 bug 是執行層的，協議層（skill 措辭）解不了——別預設用措辭修
+- **理論說**：skill 寫得夠清楚，AI 就會照做；再補一句措辭就能修好。
+- **實際發生**：migrate 連改**五版**措辭（0.6.1–0.6.5：深版/隔離舊檔/檔名/structureVersion/replay/讀當時 knowledge/tool-agnostic），但 battle 真跑**還是非決定性 + 復發舊錯**（`history/001-early-lessons` 又進 history、沒重判）**+ 沒偵測到**。根因不是措辭——是 **AI 有整個 repo 存取權，會偷看結局（最終 knowledge/code），做 hindsight rationalization**。措辭擋不住偷看；自律修不了非決定性。三個角度（沒遮罩 / 偷看結局 / 舊 knowledge 原地混淆）指向同一結論。
+- **解決方式**：停止再改 skill 措辭（邊際遞減、已證無效）。真解在**執行層**：(1) **遮罩 harness**（checkout per commit、物理上拿掉未來）；(2) **舊 knowledge/ 搬遷**（別原地讀寫）；(3) **機械偵測檢查**（抓得到錯，不靠 AI 自覺）。協議層（skill）描述「該怎樣」、執行層（harness）保證「真的這樣」。
+- **教訓**：「[落實全壓在 skill 措辭](concepts/why沒有oracle.md)」有個上限——當 bug 是「AI 看到不該看的（結局/舊態）」，那是**執行層**的事，措辭保證不了。**先判一個 bug 是協議層還是執行層，別預設用措辭修。** 我自己連犯五版才被使用者點醒（協議層偏誤）。
+- **來源**：battle 0.6.1–0.6.5 真跑 2026-06-12；使用者三則回饋（遮罩/偷看/舊 knowledge 混淆）。見 [draft/migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md)「執行層黑洞」。
+
 ### 驗證：決策轉移真的只從「往前播」長出來（snapshot 看不到）
 - **理論說（賭注）**：把 git 史往前播、逐片疊，會長出 snapshot 法**結構上看不到**的「決策轉移」（`history/` 的精髓）；snapshot 看終局只看得到結果 Y，看不到 X→Y。
 - **實際發生**：battle 真實跑 replay 版（migrate 0.6.3），history 長出**三條真實轉移**。最強一條（`002`）：X＝plan 原案「重建 submissions 表、移 content CHECK」→ 動手撞 `votes` FK + SQLite PRAGMA 在交易內 no-op → Y＝「保留 CHECK + 佔位值 + type 判別欄位」。**看最終 schema 永遠生不出這條**——只有讀到 plan 寫的 X、再走到反轉它的 commit，才看得到。賭注成立。
