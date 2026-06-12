@@ -2,6 +2,14 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.11] — 2026-06-13
+
+### Changed
+
+- **`/knowie-migrate` re-bootstraps via the real scaffold after `mv`, so `update`'s READMEs survive and the format source is present during the replay.** The old flow did `mv knowledge knowledge.old` then hand-`mkdir`'d the fresh subdirs, and only created the subdir READMEs at the final step — so the filename/format conventions they carry (`history/` = `NNN`, `episodes/`/`draft/` = date-prefix) were **absent for the entire replay**, which is why migrated `history/` files came out date-prefixed instead of numbered. Now step 2 runs the CLI bootstrap (`scaffoldKnowledge`) to lay down the canon subdirs **+ subdir READMEs + `.templates/` + `.knowie.json` from the package, carrying the language read back from `knowledge.old/.knowie.json`** (so it isn't defaulted to English) — the convention source is in place *before* slice 1. Scaffolding is the CLI's bootstrap job, not AI hand-work (a hand `mkdir` is exactly how the just-`update`-installed READMEs vanished).
+- **Per-slice sub-agents now name files by the subdir READMEs** — `history/` numbered (never date-prefixed), `episodes/`/`draft/` date-prefixed with the slice's *contemporaneous* date, base-language filenames. (Even with READMEs present, the replay wasn't consulting them.)
+- **`/knowie-migrate` honors an explicit rebuild request** — detection no-ops a current-`structureVersion` base, so to deliberately re-replay one the human says so and migrate treats it as drift instead of silently doing nothing.
+
 ## [0.6.10] — 2026-06-13
 
 ### Changed
