@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.3] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` now replays git history forward, slice by slice** — instead of judging the whole final state in one pass. The old one-pass reconstruction was non-reproducible (re-running produced a substantially different base) and blind to decision *transitions*. Replaying forward is monotonic (it converges — re-running is near no-op), catches transitions as they happen (the heart of `history/`), and anchors each episode to a real commit window rather than the model's per-run whim. Granularity (one slice per milestone / spec / commit cluster) is the cost knob. Migrate once and checkpoint — don't re-run from scratch. (From a third real-world migration that exposed the non-determinism.)
+
 ## [0.6.2] — 2026-06-12
 
 ### Changed
@@ -39,6 +45,7 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.3]: https://github.com/timcsy/knowie/releases/tag/v0.6.3
 [0.6.2]: https://github.com/timcsy/knowie/releases/tag/v0.6.2
 [0.6.1]: https://github.com/timcsy/knowie/releases/tag/v0.6.1
 [0.6.0]: https://github.com/timcsy/knowie/releases/tag/v0.6.0
