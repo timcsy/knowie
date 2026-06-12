@@ -16,6 +16,27 @@
 4. **history（轉移）只有往前播才看得到（決定性理由）**：`history` 是決策的**轉移**（X→Y）。看終局只看得到 Y；只有順時間走，才會在那個 commit 撞見「這裡把 X 換成 Y」。**轉移只在時間軸上可見** → snapshot 法結構性地抓不到 history 精髓；replay 法 history 自然長出來。
 5. **變異被分解**：很多個小的、各自錨在一個 commit 上的判斷（低變異、有錨），而非一個巨大判斷。**骨架（哪些切片、什麼順序）是 git 給的、決定性的** → 整體結構穩（9 vs 4 不再發生，episodes 錨在切片上、非 LLM 心情）。
 
+## 執行層黑洞：沒遮罩 ＝ 偷看結局 ＝ hindsight（理論對、執行沒做到）⭐
+真實觀察（battle）：**AI 並沒有真的往前播**——它有整個 repo 存取權，自然去讀**最終的 knowledge/、最終 code**（看了結局），skill 寫「往前播」卻**沒有任何東西強制遮罩未來**。結果是 **hindsight rationalization**（從已知結局往回合理化），退化回 snapshot 判斷、只是包了層「假裝往前走」。
+
+**為什麼遮罩是命脈（比「轉移可見」更深）**：why 的推論**本質上需要遮罩未來**。
+- 看了結局 → 只會**合理化結局**（hindsight bias），推不出真實意圖；
+- 遮住未來往前走 → 看到開發者在**不知道未來**下選了 X → 「**為何當下、不知會反轉、仍選 X**」才是真 why。
+→ 遮罩不只為了看到轉移，是**讓 why 是『推論出來的』而非『從結局倒推的』**。偷看結局 ＝ 污染 why 推論。
+
+**IRL/GAIL 才是對的目標框架**（BC 太淺）：
+| | 給什麼 | 夠嗎 |
+|---|---|---|
+| Behavior Cloning | state→action 複製：「做了**什麼**」 | ❌ 只有 what |
+| **IRL / GAIL** | 推論軌跡背後的 reward/intent：「**為何**這樣做」 | ✅ knowie 要的 |
+→ migration ＝ **對 git 軌跡做 inverse RL**：從觀察到的行為推論能解釋它的 why。每片任務從「摘要這片發生什麼」（BC、淺）改成「**遮住未來下，推論這片行為背後的 why**」（IRL、深）。而 IRL 本來就要求看軌跡 unfold——看結局就不是 IRL。
+
+**怎麼真正遮罩（skill 措辭管不住，已驗）**：
+1. **每片 checkout 到該 commit / 開 worktree** → 工作樹**物理上沒有未來的檔案**，想偷看也沒得看（最強遮罩）。
+2. **harness/script 驅動**：外圈迴圈 checkout 每個 commit、只把那片狀態的 context 餵 AI、累積。
+
+→ **遮罩屬執行層（harness），不是協議層（skill）**：這正是「knowie 在 loop 外、harness 驅動迴圈」——harness 提供遮罩，knowie 提供「拿到遮罩切片該做什麼」的 skill。純 skill 靠 AI 自律＝弱（已證）。**缺口：「skill 描述遮罩 replay」與「AI 真的遮罩 replay」之間，要 harness 補，不是改措辭**（同「plan mode ephemeral、knowie 不存 atom 內部」——遮罩是 harness 職責）。
+
 ## 演算法草圖
 1. **切片**（粒度旋鈕，見下）：把 git 史切成有序的時間窗（里程碑/spec/有意義的 commit cluster）。
 2. **順時間 for each slice**：
