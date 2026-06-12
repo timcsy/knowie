@@ -34,6 +34,27 @@
 - **務實前提：逐片審「可做」，審完整 200 檔「不可做」**。replay 把「不可能的審查」切成「一口口審得動」——這本身就是 HITL 可行的前提。
 - **接使命**：這讓遷移真正是「為共識而記」——人補腦裡的、AI 補 git 裡的、每片對齊，**一起把過去的 why 重新策展**，比純 AI replay 整理得乾淨。
 
+## HITL 的安全形態：人讀軌跡、不在中途改寫（RL 鏡子）⭐ 修正上節
+上節把 HITL 講成「人介入重建」——但人若**在 replay 中途 re-decide**，會引發**蝴蝶效應**：下游切片都建立在「真實發生過的事」上，被人改過一刀後就對不上、變沒價值。根本原因——**re-decide ＝ retraction（撤回/改寫）＝ 破壞單調性**，而單調性正是 replay 收斂的命根（見上「為什麼理論正確」#3）。**蝴蝶效應就是單調性被破壞的後果。**
+
+**RL 的鏡子照得很準**：
+| RL | replay-migration |
+|---|---|
+| **Trajectory**（實際走過的路） | git 史 ＝ 專案真實軌跡，**不可變** |
+| **Replay Buffer**（存經驗、只讀、取樣學） | git 軌跡＝buffer——replay 它、取樣它，**永不編輯它** |
+| 學習 / policy update | 蒸餾（從軌跡建 knowledge/）＝學習那一側 |
+| **Off-policy**（從別 policy 的軌跡學） | 歷史是**沒 knowie 時**產生的（不同 policy）→ off-policy 地學 knowie 知識 |
+
+RL 鐵律：**不編輯 buffer 裡的經驗，從它學。** 人在中途寫＝編輯 buffer＝污染經驗＝蝴蝶。**「人讀不寫」＝人在 learning 側、不在 experience 側。**
+
+**解＝把「忠實記錄軌跡」和「策展知識」分兩相**（蝴蝶只在兩者混在一起時存在）：
+- **Phase 1 — replay（人讀，軌跡不可變）**：AI 忠實蒸餾進 knowledge/；人讀（時間軸 jog 記憶）。產出忠實、單調，無蝴蝶。
+- **Phase 2 — 策展（人寫）**：在完整忠實 base 上跑正常代謝（consolidate/judge）剪/併/重塑——這裡寫不 cascade，因重建已完成。
+
+**「撈 why」收斂成 additive-only**：人讀 replay、記憶被勾起 → **說出** missing why → **AI 寫**進那片（additive＝補真實 why、不改軌跡 ＝ 單調 ＝ 安全）。人**不**中途 re-decide/剪/重塑（retraction＝蝴蝶）→ 留 Phase 2。**分界：additive 補充（安全）vs alteration 改寫（危險）。** 「人說、AI 寫」也對上延伸原則 5（人給語義、AI 機械寫）。
+
+→ 本質：**不可變的軌跡 + 可策展的投影**——跟 event sourcing（log 不可變、projection 可重建）同結構，也是 replay 單調收斂的保證。
+
 ## 代價（使用者說的「不一定快」——對）
 - N 個切片 ＝ N 次 pass，比一次貴很多。
 - **解 ＝ 切片粒度旋鈕**（又是「原子多大」那個旋鈕）：不用每個 commit 一片，用里程碑/spec/cluster（battle ≈ M1/M2a/M2b/M3a/M3b/M3c，6–9 片）。粗 = 快但糊、細 = 慢但準。可調。
