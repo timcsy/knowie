@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.1] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` is now deep by default.** Migrating an existing base is treated as *memory archaeology*, not folder-renaming: it reconstructs the project's past from **git history + specs** and dispatches each piece to its right layer — recall-worthy **scenes → `episodes/`**, **decision transitions → `history/`** (a scene is not a decision — don't conflate), recurring concepts → `concepts/`, lessons → `experience`. It also completes the canon (Key Extensions tables, all subdirs incl. `skills/`, `[](path)` links, root/derived principles) and bumps `structureVersion` only once canon is fully applied. Prompted by the first real-world migration, where the shallow version left `episodes/` empty and the routing interface missing.
+
 ## [0.6.0] — 2026-06-12
 
 A ground-up redesign: knowie is now **a why-protocol parasitic on markdown** — for "human + AI" shared understanding of a project's *why*.
@@ -27,4 +33,5 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.1]: https://github.com/timcsy/knowie/releases/tag/v0.6.1
 [0.6.0]: https://github.com/timcsy/knowie/releases/tag/v0.6.0
