@@ -12,7 +12,9 @@ This project maintains structured knowledge in \`${KNOWLEDGE_DIR}/\`:
 - **Experience** (\`${KNOWLEDGE_DIR}/experience.md\`): Distilled lessons from past development — patterns, pitfalls, and takeaways.
 
 Read these files at the start of any task to understand the project's *why* and constraints.
-Additional context may be found in \`${KNOWLEDGE_DIR}/research/\`, \`${KNOWLEDGE_DIR}/design/\`, and \`${KNOWLEDGE_DIR}/history/\`.
+Additional context may be found in \`${KNOWLEDGE_DIR}/concepts/\`, \`${KNOWLEDGE_DIR}/history/\`, and \`${KNOWLEDGE_DIR}/draft/\`.
+
+Learned procedures live in \`${KNOWLEDGE_DIR}/skills/\` (agentskills.io SKILL.md format). If your tool auto-loads skills, they may be projected into your skill directory; otherwise read the relevant \`SKILL.md\` there and follow it.
 ${MARKER_END}`;
 
 const MDC_SNIPPET = `---

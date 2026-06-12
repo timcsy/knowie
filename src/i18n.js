@@ -83,6 +83,7 @@ const messages = {
     'cli.update.newTools': (names) => `  New tools detected: ${names}`,
     'cli.update.addTools': '  Add knowledge references to these tools?',
     'cli.update.refreshed': (n) => `  ✓ Refreshed ${n} tool connection(s)`,
+    'cli.update.structureBehind': '⚠️  Your knowledge *structure* looks older than this knowie version.\n   Run /knowie-migrate (the skill, inside your AI) to migrate it — detect, propose, confirm.\n   Tool files were updated; your knowledge was NOT touched.',
     'cli.update.done': '✅ Update complete.',
 
     'cli.mcp.title': 'MCP setup',
@@ -135,6 +136,7 @@ const messages = {
     'cli.update.newTools': (names) => `  偵測到新工具：${names}`,
     'cli.update.addTools': '  要為這些工具加入知識引用嗎？',
     'cli.update.refreshed': (n) => `  ✓ 已刷新 ${n} 個工具連結`,
+    'cli.update.structureBehind': '⚠️  你的知識庫*結構*看起來比這個 knowie 版本舊。\n   請在 AI 裡執行 /knowie-migrate（skill）來遷移——偵測、提議、確認。\n   工具檔已更新；你的知識沒有被動到。',
     'cli.update.done': '✅ 更新完成。',
 
     'cli.mcp.title': 'MCP 設定',

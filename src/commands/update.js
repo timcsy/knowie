@@ -1,6 +1,6 @@
 import { readFile, writeFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
-import { KNOWIE_CONFIG, VERSION } from '../constants.js';
+import { KNOWIE_CONFIG, VERSION, STRUCTURE_VERSION } from '../constants.js';
 import { installTemplates } from '../templates.js';
 import { installSkills } from '../skills.js';
 import { detectTools } from '../adapters/detect.js';
@@ -81,11 +81,20 @@ export async function update(projectRoot, { yes = false } = {}) {
   }
   console.log(t(lang, 'cli.update.refreshed')(writtenFiles.size));
 
-  // 7. Update .knowie.json
+  // 7. Update .knowie.json — bump the *tool* version only.
+  // Deliberately DO NOT touch structureVersion: that's the knowledge structure's
+  // version, migrated by the /knowie-migrate skill (with human confirm). Auto-
+  // bumping it here would silently mark an un-migrated base as current.
+  const structureBehind = config.structureVersion !== STRUCTURE_VERSION;
   config.version = VERSION;
   config.tools = [...existingTools];
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
+
+  // Make a structure drift loud, never silent (breaking is fine; silent breaking is not).
+  if (structureBehind) {
+    console.log(`\n${t(lang, 'cli.update.structureBehind')}`);
+  }
 
   console.log(`\n${t(lang, 'cli.update.done')}\n`);
 }

@@ -1,6 +1,6 @@
 {
   "name": "knowie",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Give your AI a structured project brain",
   "type": "module",
   "bin": {
@@ -11,8 +11,7 @@
     "bin/",
     "src/",
     "templates/",
-    "skills/",
-    "snippets/"
+    "skills/"
   ],
   "engines": {
     "node": ">=18.0.0"

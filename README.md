@@ -54,7 +54,7 @@ That's it. Knowie creates the files, detects your AI tools, and connects everyth
 
 > *Before:* AI picks Redis (popular online). But your principle says "no external dependencies for core," and experience.md records that caching caused stale data last quarter.
 >
-> *After:* AI picks in-memory caching, adds TTL from the stale-data lesson, links to the design doc in `knowledge/design/`.
+> *After:* AI picks in-memory caching, adds TTL from the stale-data lesson, links to the rationale in `knowledge/history/`.
 
 ## Proven in Practice
 
@@ -108,15 +108,17 @@ Start with just `principles.md`. Your AI benefits from the first file you fill i
 
 Templates include guided comments — no blank page anxiety.
 
-Three subdirectories hold supporting details:
+Five subdirectories hold the rest:
 
-| Directory | Contains | Distills into |
-|-----------|----------|---------------|
-| `research/` | Explorations, experiments | → principles.md |
-| `design/` | Architecture decisions | → vision.md |
-| `history/` | Event records | → experience.md |
+| Directory | Holds |
+|-----------|-------|
+| `concepts/` | Recurring core concepts — the three files keep only pointers, detail lives here (semantic memory) |
+| `episodes/` | Recall-worthy full scenes behind a lesson or decision (episodic memory) |
+| `skills/` | Learned domain skills — repeated work distilled into reusable capability (procedural memory / cerebellum); projected into your AI tool's skill dir |
+| `history/` | The causal trail — why things became what they are (decisions, rejected options) |
+| `draft/` | Short-term memory — undecided ideas still forming |
 
-The three files are the *summary*; subdirectories are the *evidence*. Start with the summary — details grow over time.
+The three files are the *interface*; subdirectories hold the detail. Start with the three — the rest grows over time.
 
 ## Skills
 
@@ -125,9 +127,11 @@ These commands run **inside your AI chat** (not in the terminal). For AI tools w
 | Skill | What it does |
 |-------|-------------|
 | `/knowie-init` | Guided conversation to draft your knowledge files |
-| `/knowie-update` | Check structure and suggest improvements |
-| `/knowie-judge` | 17-point health check: consistency, coherence, code alignment |
-| `/knowie-next` | Plan next step, grounded in principles and experience |
+| `/knowie-capture` | Dispatch a discussion or idea into the right place |
+| `/knowie-consolidate` | Human-initiated: consolidate a ripe draft out to the long-term tier |
+| `/knowie-next` | Plan the next step, grounded in principles, vision, and experience |
+| `/knowie-judge` | Health check: coherence, alignment with code, rot detection — then tidy |
+| `/knowie-migrate` | Migrate the knowledge base when the structure version moves on |
 
 `/knowie-judge` is the core feedback loop. It catches when your vision contradicts your experience, your principles don't match your code, or your files have gone stale. Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — with specific quotes and suggestions.
 
@@ -188,6 +192,8 @@ npx knowie update
 This updates skills and templates to the latest version. **Your knowledge files are never modified** — only managed files (skills, templates) are updated. It also detects any new AI tools you've added since last time.
 
 > Re-running `npx knowie init` is also safe — it does the same thing and skips existing files.
+
+If the knowledge **structure** itself moves on between versions, `npx knowie update` still won't touch your files — it flags the drift loudly, and you run `/knowie-migrate` (inside your AI) to migrate, proposing each move for your confirmation. Breaking changes are surfaced, never applied silently.
 
 ## Design
 
