@@ -1,6 +1,7 @@
 # domain skill 跨工具散佈：knowledge/skills 為源 + 內部 symlink 投影
 
 > 2026-06-12 設計討論。draft，design 型——設計已具體，待建 + 待驗（symlink/Windows/跨廠商沒跑過）。
+> ✅ **已進 vision roadmap**（2026-06-12 consolidate，人 commit-to-build）：`程序自習得` 下「跨工具散佈（內部 symlink 投影）」。本檔留作在建設計脈絡。
 > 怎麼冒出來的：問「knowie 學出來的 skill 跨不跨廠商」→ 查 code（只裝 `.claude/skills`）→ 研究 2026 best practice → 收斂出這個設計。是 `程序自習得`（vision roadmap）的**跨廠商落地**。
 
 ## 2026 best practice（外部鏡子，已是標準）
