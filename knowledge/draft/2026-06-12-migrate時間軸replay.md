@@ -46,6 +46,22 @@
    - **（可選）checkpoint/commit** 這一片。
 3. 結果：一個**重演了專案代謝史**的知識庫，因果軌跡（轉移）完整。
 
+## 每片怎麼處理：跑真 capture（非 re-implement）＋ 循序傳累積（非平行）⭐
+0.6.6 的 history 退化成「每里程碑一條摘要」，兩個真因都在「每片怎麼處理」：
+
+**真因一：migrate 自己重做 dispatch、沒跑真代謝。**
+- migrate 一直在「**描述** knowie 的代謝」（自己一張 dispatch 判準表），不是「**跑** knowie 的代謝」。→ 產出「像 knowie 但非標準」（格式漂、history 變摘要）。
+- 解：**每片讓 AI 跑真 `capture`/`consolidate`**——扮演「那個時間點、剛做完這片、正在用 knowie 的開發者」**親身經歷**一次。好處：格式由真 `_core` 產生（不漂）、**history 自動只在轉移處**（capture 回流規則「只有 decision-transition→history」，不會每片一條）、DRY（不重複 capture 邏輯）。
+- → **migrate 瘦成 orchestrator**（遮罩/切片/往前播/跨片轉移偵測/how-leg/完整性）；**capture/consolidate ＝ per-slice 處理器**。migrate 砍掉自己那張 dispatch 表。
+
+**真因二：sub-agent 沒拿到「前面的狀態」（fresh 被做成 empty）。**
+- replay 是 **fold**：每片建在前面累積上、**對它偵測轉移**。**平行＝每 agent 沒前面狀態＝不能累積、不能偵測轉移＝退回斷開快照。fold 不能平行。**
+- 0.6.6 的 sub-agent「只給這片 git show」＝**沒給累積 base** → 看不到前面的決策 → **偵測不到 X→Y 轉移** → 只好寫成每片一條摘要。**這直接造成 history 退化。**
+- 解：**fresh ＝「沒看過未來」非「空的」**。每片 processor 要**載入累積 `knowledge/`（前面的狀態，masked-built、無未來洩漏、安全）** + 這片 masked 增量。**遮的只有未來**（git > N、最終 code），不是累積的過去。
+- 對應 snapshot：累積 base ＝ 最近 snapshot，下一片從它續播（見 [架構視角](2026-06-12-migrate架構視角-ES-CQRS-DDD.md)）。
+
+→ 兩個合起來：**循序往前疊、每片傳入累積 base、跑真 capture、只遮未來。** 這才修得了 history（領域事件需 IRL lift + 前面狀態才偵測得到轉移）。
+
 ## HITL：replay 是「訪談開發者」的機會，介入粒度＝dial
 逐片往前播，不只是給 AI 重建，也是**把人接進來**的最好時機。
 
