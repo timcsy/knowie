@@ -25,10 +25,10 @@ Don't hardcode a version-pair table — it rots. **Detect drift against the *cur
 
 ## Steps
 1. **Detect drift** — `.knowie.json` `structureVersion` + signals vs canon: foreign folders (`research/`, `design/`) → content to re-home; missing canon folders (`episodes/`, `skills/`); old conventions (`[[ ]]`, flat principles, no Key Extensions).
-2. **Quarantine existing curated files — their folder is *not* the truth.** Set aside what's in `history/` / `concepts/` / etc. Under *past* rules a file may be mis-homed by current rules (an episode-scene filed in `history/`; experience detail compressed into `history/`). Treat each as **raw material to fold in at the slice it belongs to** — re-judge by current rules; don't trust its old home or build around it.
+2. **Set the existing curated files aside — rebuild from the replay, not on top of them.** Don't re-judge them in the abstract here: you'll meet each piece *again during the replay* — in its contemporaneous form, at the slice where it was authored — and re-home it there by current rules (an episode-scene old-filed in `history/`, experience detail compressed into `history/`, …). Their old folder is not the truth.
 3. **Slice the history** — cut `git log` into an ordered list of time windows. Default granularity: **one slice per milestone / spec / meaningful commit cluster** (coarse = fewer passes, faster; finer = slower, more detail — the knob). The slice list is the deterministic skeleton; derive it from real boundaries (milestone tags, `specs/` dirs, commit-message arcs), not feel.
 4. **Replay forward — for each slice, in order, accumulate into the growing base:**
-   - read this slice's increment (its commits/diffs, specs added/changed in the window) + any quarantined material that belongs here;
+   - **read the contemporaneous `knowledge/` + specs at this slice — the author's *own* why, captured then (the richest source)**: `git show <commit>:knowledge/…` + the window's specs. Commits/diffs supply the what/how. The contemporaneous `knowledge/` is also where *old-rule* curation surfaces (e.g. a commit that archived experience into `history/`) — re-home it by current rules right here;
    - dispatch it (table below): concepts that emerged → `concepts/`; **the scene of this slice → `episodes/`** (how-leg → a commit/spec in this window); decisions made → `history/`; lessons → `experience`;
    - **supersession**: if this slice *changes* an earlier decision, record the X→Y transition in `history/` (mark the old `superseded`, link forward) — this is what only forward replay catches;
    - **checkpoint** (commit) after the slice if confirmed, so work accumulates and is never re-rolled.
@@ -45,10 +45,10 @@ Don't hardcode a version-pair table — it rots. **Detect drift against the *cur
 - **`episodes/` = the lived scene** ("that time"); **`history/` = the decision** ("why it changed"). A slice produces both — emit both.
 - **The *how* leg is a pointer** — link the commit SHA / spec path; never copy code/spec in (root axiom 2; code stays the what's truth).
 
-## Mining each slice
-- `git log <range>` + messages → what changed and *why* in this window.
-- `git show <commit>:<path>` / the tree at the slice → the contemporaneous *what* the why was about.
-- `specs/` / `.specify/` added/changed in the window → design intent for `concepts/` and `history/`; link out, don't copy.
+## Mining each slice (the contemporaneous *why* first, code second)
+- **`git show <commit>:knowledge/*` — the project's *own* `knowledge/` as it stood in this window.** The richest source: the author's curated why *at that time*, under that time's rules. Watching it evolve slice to slice *is* the why growing — read this, don't reverse-engineer why from code alone. It's also where old-rule homings surface → re-distribute by current rules.
+- **`specs/` / `.specify/` in the window** → the contemporaneous design intent for `concepts/` and `history/`; link out, don't copy.
+- `git log <range>` + messages + diffs → the what/how and *why it changed* — supporting evidence under the contemporaneous why above.
 
 ## Guardrails
 - **Reproducible skeleton, bounded cost.** The slice list comes from git's real structure (stable across runs); granularity is the cost knob (milestone-coarse for speed, finer for fidelity). A thin base yields a thin (but correctly-shaped) result.

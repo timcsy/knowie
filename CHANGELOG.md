@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.4] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` reads the contemporaneous `knowledge/` + specs at each slice**, as the primary *why* source — the author's own curated why *at that time*, watched as it evolves slice to slice — instead of reverse-engineering why from code diffs. This also subsumes the old "quarantine" step: old-rule curation (e.g. experience archived into `history/`) surfaces in the contemporaneous `knowledge/` at the slice where it was authored and is re-homed there by current rules.
+
 ## [0.6.3] — 2026-06-12
 
 ### Changed
@@ -45,6 +51,7 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.4]: https://github.com/timcsy/knowie/releases/tag/v0.6.4
 [0.6.3]: https://github.com/timcsy/knowie/releases/tag/v0.6.3
 [0.6.2]: https://github.com/timcsy/knowie/releases/tag/v0.6.2
 [0.6.1]: https://github.com/timcsy/knowie/releases/tag/v0.6.1
