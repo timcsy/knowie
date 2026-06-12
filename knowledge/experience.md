@@ -2,6 +2,13 @@
 
 ## 教訓
 
+### 外部框架（理論＋競品）是照出「stated-why ⊊ real-why」的鏡子
+- **理論說**：知識從內部長——想出來（Thinking→draft）、做中學（Doing→回流）。
+- **實際發生**：拿**外部框架當鏡子**照既有知識，抓到內部兩條線抓不到的：(1) **CALM 定理**照出延伸原則 6 的 real-why（單調化→協調自由）遠超 stated-why（可審計）；(2) **event sourcing/CQRS** 重新命名 history/三檔/蒸餾/根公理二，白送一套理論的詞彙與預測力；(3) 純演繹**預測**出 `history/NNN` 計數器 bug（沒踩到就抓到）；(4) **競品也是鏡子**——MiMoCode 照出「護城河是三軸非機制」、LLM Wiki 照出「人在環不獨特」（修正自我認知）。
+- **解決方式**：把「外部鏡子」當**第三條輸入線**——不長新原料，而是**用外部參照重新處理既有知識**（＝認知科學的 **reconsolidation**：前兩條是 encoding，這條是 re-encoding；見 [記憶系統](concepts/記憶系統.md)）。理論與競品都算鏡子。
+- **教訓**：knowie 號稱管 why，卻可能對自己原則的 real-why 有盲點；外部框架是照盲點的鏡子，尤其能把 judge 的「事後偵測」升級成演繹**預測**失敗。
+- **來源**：多 agent 併發分析 2026-06-12（CALM/event-sourcing/NNN）+ 競品，見 `draft/多agent併發-git模型`、`draft/競品與生存空間`。
+
 ### 護城河是三軸（哲學），不是機制
 - **理論說**：knowie 的賣點是 distill / dream / skill 這些記憶機制。
 - **實際發生**：MiMoCode（小米）等大廠**獨立做出了**同一套機制（distill→skill、dream 代謝、SDD、markdown 記憶）並 production——機制是 table-stakes，不是差異化；當所有 agent 都自動記 what，光有機制等於跟風的弱複製。
