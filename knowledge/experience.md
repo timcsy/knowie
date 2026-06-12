@@ -33,7 +33,7 @@
 ### 寫的人對自己寫的有「可見性錯覺」（靠機械掃描補，不靠記性）
 - **理論說**：改了一個東西，相關的地方我自然會記得一起改。
 - **實際發生**：反覆「改了 A、忘了改 B」，因 A/B 在不同段/不同檔，腦裡覺得「那塊改完了」——這 session **三次**：skills-README 還寫舊投影機制、`記憶系統` 缺 KE 路標（我自己加強最多、卻沒確認它被找得到）、README 結構表停在「四個子目錄」（skill 表改了、結構表沒）。都是「**實作改了、它某處的說明沒跟上**」。
-- **解決方式**：靠 judge 的**機械掃描**（grep/ls：孤兒/死連結/KE/結構）補——`knowledge/` 內抓得到；`knowledge/` 外（README/docs vs code）是 gap，見 [docs-code 同步 gap](draft/2026-06-12-docs-code同步gap.md)（但那屬 what-consistency，不該硬塞進 judge）。
+- **解決方式**：靠 judge 的**機械掃描**（grep/ls：孤兒/死連結/KE/結構）補——`knowledge/` 內抓得到；`knowledge/` 外（README/docs vs code）是 gap，但那屬 **what-consistency、不該硬塞進 judge**（見下「why-lane 不掃 what-consistency」）。
 - **教訓**：「我覺得改完了」不可信；一致性要**結構化檢查、不靠作者的可見性**。這是 judge「偵測既成脫節」那半（vs next 的預防）。
 - **來源**：三次 judge 自我維護 2026-06-12。
 
@@ -148,6 +148,13 @@
 - **教訓**：**重複的知識會獨立漂移**——同一份事實（清單／編排／約定）寫在兩處，改一處不會更新另一處，是時間問題不是機率問題。這是 [分發非傾倒](concepts/分發非傾倒.md) 的對偶：分發是「一份輸入別坍縮成一處」，這條是「一份事實別複製成多處」；兩者同根——**唯一真實來源**。約定本身若只活在一個會被繞過的地方（README 沒被 update 裝），等於沒有來源。
 - **已落實**：fix/update（0.6.9）抽 `installReadmes` + 傳 language；後續修 `CORE_FILES`/`SUBDIR_READMES` 收斂。CLI/MCP 編排委派的較大重構 → [draft](draft/2026-06-12-CLI-MCP編排委派.md)。現場 → [episode](episodes/2026-06-12-CLI-MCP漂移審計.md)。
 - **來源**：battle 缺 subdir README 的 bug（使用者問「為何沒 README」「我是用 update 做的」）+ 三路並行漂移審計（2026-06-12）。
+
+### why-lane 不掃 what-consistency——一致性焦慮會誘 why-skill 越界顧 what
+- **理論說**：judge 既然對帳一致性，把套件自己的「docs 對不對得上 code」（README/docs vs `SKILL_NAMES`/`SUBDIRS`/結構）也納進來掃很自然。
+- **實際發生**：這 session 三次踩「改了機制、別處說明沒跟上」——skills-README 寫舊投影機制、記憶系統缺 KE 路標、README 結構表還寫「四子目錄」（漏 skills/）。前兩個在 `knowledge/` 內 judge 抓到了；第三個在 **README**，judge **掃不到**（judge 只掃 `knowledge/`）。一度想把 judge 擴成掃 docs-vs-code。
+- **解決方式**：認清 lane——docs-vs-code 是 **what-consistency**（像 linter，歸 code/工具），不是 knowie 的 **why-lane**（見 [why沒有oracle](concepts/why沒有oracle.md)：what 歸 code）。把 judge 擴去掃它＝越界進 what。要補就用普通 grep 測試（optional、不擋 merge），不是 knowie 的 why-skill。
+- **教訓**：知識庫的 why-lane 與工具的 what-lane 要分清；**一致性焦慮會誘使 why-skill 越界去顧 what，但那違反分工**。dogfood 的盲點（knowie 顧 `knowledge/`，但它自己的「套件 docs vs 套件 code」不在那迴圈裡、也不該靠 why-skill 顧）是**結構性 by-design，不是 bug**——它正好標出 knowie 的邊界在哪。
+- **來源**：本 session 三次 docs 跟不上、第三次在 README judge 掃不到（consolidate 自 `draft/docs-code同步gap`，已退場）。
 
 ## 關鍵延伸（主題觸發必讀）
 
