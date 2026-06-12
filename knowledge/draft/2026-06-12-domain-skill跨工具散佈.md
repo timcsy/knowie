@@ -47,6 +47,6 @@ knowledge/skills/X/SKILL.md          ← 唯一真相（小腦，committed）
 handshake snippet 現在漏指 `skills/`。補上 → 即使某工具沒被 symlink/不支援 SKILL.md，agent 也**知道小腦在那、能讀了照做**（「讀+照做」地板，與 symlink「自動調用」優化獨立，兩個都要）。
 
 ## 出口（待建/待驗）
-- 待建：consolidate/judge §5 加投影步驟（markdown 指令）；registry `skillsDir`；handshake 補指 `skills/`。
-- 待驗：symlink 在真實多工具/Windows 跑過；Codex/Gemini 真的讀到並用到 domain skill。
+- ✅ **機制已建（2026-06-12）**：capture 程序版加投影步驟（per-skill symlink、Windows copy 退化、非 CLI）；judge §5 加 re-ensure/heal；registry 加 `skillsDir`（claude-code/.claude/skills、agents-md/.agents/skills）；handshake snippet 補指 `knowledge/skills/`。
+- ⏳ **待驗（merge 後）**：symlink 在真實多工具/Windows 跑過；Codex/Gemini 真的讀到並用到 domain skill。
 - 不自造引擎——只接 agentskills.io 標準 + `.agents/skills/` 慣例（[協議非平台](../concepts/協議非平台.md)）。

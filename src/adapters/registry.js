@@ -7,6 +7,12 @@
  *   detect      — array of { type: 'file'|'dir', path } checks (OR logic)
  *   targets     — files to inject the Knowy reference into
  *   readsAgents — true if the tool also reads AGENTS.md
+ *   skillsDir   — (optional) where this tool loads agentskills.io SKILL.md skills from.
+ *                 Learned domain skills live in knowledge/skills/ (the single source) and are
+ *                 *projected* here (per-skill symlink, copy-fallback on Windows) by the AI when
+ *                 it consolidates a skill / during judge §5 — never by a CLI (the AI is present;
+ *                 see experience "在場的 AI 自己做"). Most SKILL.md tools read the cross-tool
+ *                 `.agents/skills` (via the agents-md entry); Claude Code reads `.claude/skills`.
  *   category    — 'ai' | 'spec' | 'standard'
  */
 export const TOOL_REGISTRY = [
@@ -17,6 +23,7 @@ export const TOOL_REGISTRY = [
     detect: [{ type: 'file', path: 'AGENTS.md' }],
     targets: [{ file: 'AGENTS.md', format: 'markdown' }],
     readsAgents: true,
+    skillsDir: '.agents/skills', // cross-tool SKILL.md location (Codex/Cursor/Gemini/Copilot/OpenCode…)
     category: 'standard',
     alwaysAvailable: true,
   },
@@ -28,6 +35,7 @@ export const TOOL_REGISTRY = [
     detect: [{ type: 'file', path: 'CLAUDE.md' }],
     targets: [{ file: 'CLAUDE.md', format: 'markdown' }],
     readsAgents: false,
+    skillsDir: '.claude/skills',
     category: 'ai',
   },
   {

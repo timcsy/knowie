@@ -78,7 +78,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] skill 化更嚴人確認（執行級）；記 **why-behind-skill** — capture 程序版
 - [x] 安裝到工具位置——**AI 固化時直接裝**到專案 skill 位置（B）。（CLI 批次安裝 installDomainSkills 一度建、又砍：純 no-op + 專案 scope 用不到；跨 checkout/泛化才需要 → 真要時再接）
 - [x] 觸發接進三 skill（next 預防＋消費 / capture 記錄 / judge §5 backstop＋抓過時 skill）
-- [ ] **跨工具散佈（內部 symlink 投影）**——「真要時」到了（2026 best practice：agentskills.io 跨工具標準 + `.agents/skills/` 慣例）。`knowledge/skills/` 為唯一源 → **AI 內部** per-skill symlink 投影到 `.claude/skills` + `.agents/skills` +偵測到的工具（consolidate 學時 + judge §5 heal；可逆故自動、**非 CLI**）；registry 復活 `skillsDir`；handshake 補指 `skills/`；Windows 退化 copy。設計脈絡 ←→ [domain-skill跨工具散佈](draft/2026-06-12-domain-skill跨工具散佈.md)
+- [x] **跨工具散佈（內部 symlink 投影）機制完成**（2026-06-12）——`knowledge/skills/` 為唯一源 → **AI 內部** per-skill symlink 投影到 `.claude/skills` + `.agents/skills`（capture 程序版固化時投影 + judge §5 re-ensure/heal；可逆故自動、**非 CLI**）；registry 加 `skillsDir`；handshake 補指 `skills/`；Windows 退化 copy。對標 agentskills.io + `.agents/skills/` 慣例。設計脈絡 ←→ [domain-skill跨工具散佈](draft/2026-06-12-domain-skill跨工具散佈.md)
   - [ ] symlink/Windows + 真實 Codex/Gemini 讀到並用到 domain skill（**驗證類，merge 後**）
 - [ ] **進化（outcome-based）**：用了結果爛 → 自動標記、人改寫——**驗證類**（要真實 skill 執行+結果才驗得到；過時/未用偵測已在 judge §5）
 - [ ] 在一個真實專案長出至少一個 domain skill（**驗證類，merge 後**）
