@@ -1,6 +1,6 @@
 {
   "name": "knowie",
-  "version": "0.6.9",
+  "version": "0.6.10",
   "description": "Give your AI a structured project brain",
   "type": "module",
   "bin": {

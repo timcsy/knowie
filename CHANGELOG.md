@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.10] — 2026-06-13
+
+### Changed
+
+- **`/knowie-migrate` no longer replays knowledge-base housekeeping as domain history.** A commit whose diff touches only `knowledge/` is an edit to the *old projection* (the old knowledge metabolism under old rules), not a domain event — in the event-sourcing frame migrate runs on (git = event log, `knowledge/` = projection), replay rebuilds the projection fresh from the **domain** events (code/spec/product), so re-enacting an old projection edit is a category error. Such commits now yield **no `history/` transition**: read the contemporaneous `knowledge/` state they left as reference, but re-home their content by current rules at its *original authoring slice* (an archived lesson → `experience`, where it was first learned) and ignore the move itself. This is the structural fix for the `history/001-early-lessons`-type regression — a knowledge-housekeeping commit ("M1 lessons archived experience → history/") was being mistaken for a domain decision and faithfully reproduced. Found dogfooding migrate on a real project.
+
 ## [0.6.9] — 2026-06-12
 
 ### Fixed
