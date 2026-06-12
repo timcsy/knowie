@@ -34,6 +34,7 @@
 - **決定性骨架 vs 語義層**：切片結構（決定性，git 給）+ 每片的語義判斷（LLM，但局部有錨）——天然把機械層和語義層分開了。
 
 ## 出口（待建/待驗）
-- 這是 migrate 的**模型重寫**，非措辭。寫成 skill 後待驗：battle 第四跑（replay 版）——episodes 集合穩不穩（重跑兩次差多少）、history 轉移有沒有自然長出來。
+- ✅ **已建進 migrate skill（0.6.3，2026-06-12）**：模型換成「切片 + 往前播 + 逐片疊」；保留層別判準/隔離/檔名/structureVersion gate。
+- ⏳ **待驗**：battle 第四跑（replay 版）——episodes 集合穩不穩（重跑兩次差多少）、history 轉移有沒有自然長出來。**這是這次模型賭注的驗收標準。**
 - 設計脈絡同族：[記憶系統](../concepts/記憶系統.md)（git＝原始因果基底）、[收斂](../concepts/收斂.md)（冪等是核心、現行 migrate 違反它）。
 - 待想：切片邊界怎麼自動抓（里程碑 tag？commit message 模式？spec 目錄？）；replay 中途人要不要每片確認（成本 vs 控制）。
