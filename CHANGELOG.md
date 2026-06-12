@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.6] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` masks the future *in-session* instead of relying on wording (or an external harness).** The previous skill contradicted itself — it told the AI to replay forward without peeking, yet also to read the final state for drift-detection and quarantine, so the AI saw the ending and rationalized backward. Now: detect *minimally* (structureVersion + folder names, never content); `mv knowledge knowledge.old` so the working tree can't be peeked; replay each slice in a **fresh sub-agent given only that slice's past** (`git show <commit>:…`) — a clean context that never saw the ending *is* the mask (worktree-per-commit as a stronger fallback; an external harness only as last resort). The old base is kept aside for an end cross-check. HITL during replay is read + additive-only (no mid-replay re-deciding — that breaks monotonicity).
+
 ## [0.6.5] — 2026-06-12
 
 ### Changed
@@ -57,6 +63,7 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.6]: https://github.com/timcsy/knowie/releases/tag/v0.6.6
 [0.6.5]: https://github.com/timcsy/knowie/releases/tag/v0.6.5
 [0.6.4]: https://github.com/timcsy/knowie/releases/tag/v0.6.4
 [0.6.3]: https://github.com/timcsy/knowie/releases/tag/v0.6.3

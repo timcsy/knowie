@@ -1,6 +1,6 @@
 ---
 name: knowie-migrate
-description: Migrate a knowledge base to the current structure by replaying git history forward, slice by slice — accumulate, confirm
+description: Migrate a knowledge base by replaying git forward under a self-imposed mask — fresh per-slice sub-agents that never see the ending — then complete and confirm
 user-invocable: true
 argument-hint: "[empty = check this base for structure drift]"
 ---
@@ -9,58 +9,50 @@ argument-hint: "[empty = check this base for structure drift]"
 
 # Knowie Migrate
 
-Bring a knowledge base up to the current knowie **structure**. For an old base this is **replaying the project's metabolism forward over git** — not a one-shot snapshot judgment, and not folder-renaming. Slice the history into time windows, walk them **in chronological order**, and **accumulate** each slice's increment into the growing base. **Detect, propose, confirm** (never auto-apply).
+Bring a knowledge base up to the current structure by **replaying git forward, slice by slice** — reconstructing the project's why as it actually grew. The catch: with full repo access you'll read the *final* knowledge/code and rationalize backward (hindsight), and one session can't un-see the ending. So **mask the future with your own tools** (below) — no external runtime; the AI is present, so the AI masks itself. **Detect, propose, confirm.**
 
-(Pulling the latest skills/templates is the CLI's job — `knowie update`. Internal quality/rot is `judge`'s job. This skill is only **structure migration** — distinct from the CLI's `update`.)
+(CLI `knowie update` pulls skills/templates. `judge` does rot. This skill is only **structure migration**.)
 
-## Why replay forward, not judge the final state in one pass
-Looking at the *final* state and reconstructing everything in one giant judgment is **non-reproducible** (run it twice, get a different base) and **structurally blind to transitions**. Replaying forward fixes both:
-- **It's monotonic → it converges.** Walking forward you only *add* and mark *superseded* — never re-judge the whole. Re-running tidies to near no-op (knowie's core convergence invariant). The one-pass snapshot re-rolls the dice each time.
-- **Transitions (the heart of `history/`) are only visible forward.** `history/` records how X *became* Y. The final state shows only Y; you must watch the timeline to catch the moment X→Y. A snapshot pass misses this; replay grows `history/` naturally.
-- **It's anchored, so it's stable.** Each slice's episode/decision is pinned to a real commit window — not "whichever scenes the model felt were recall-worthy today." The skeleton (which slices, in what order) is deterministic from git; only per-slice wording varies.
-- **It's how knowie was meant to grow.** Normal use feeds knowie incrementally as you build. git is the record of that building. Replaying it = feeding knowie the history it never got — the right reconstruction, not archaeology by hindsight.
+## Why forward + masked (the whole point)
+Judging the final state in one pass is non-reproducible and blind to *transitions*. Replaying forward is monotonic → it converges; and **transitions (the heart of `history/`) are only visible forward** — the end state shows only Y, never the X→Y. But forward only works if you genuinely **don't see the future**: seeing the ending makes you rationalize the outcome instead of *inferring* the why the author had under uncertainty. This is inverse-RL on the git trajectory — infer the reward/why behind the behavior — and inference needs the future masked.
 
-## Detection stays robust to minor changes
-Don't hardcode a version-pair table — it rots. **Detect drift against the *current canon*, derived live**: canon = what `_core` ("Structure") describes + the refreshed `.templates/`. `structureVersion` in `.knowie.json` is a cheap hint, not the truth. Tool `version` is irrelevant.
+## Mask the future yourself (in-session, no harness)
+1. **Move the old knowledge aside first** — `mv knowledge knowledge.old` (it's in git; safe). The working `knowledge/` is now empty, so you can't accidentally read the old final state. `knowledge.old/` is a final-state reference for the **end cross-check only** — do not read it during the replay.
+2. **Detect minimally** — only `.knowie.json` `structureVersion` + folder names. **Do NOT read content to detect drift** — reading the final content *is* the contamination (the old skill's bug). Absent/old `structureVersion` or foreign folders (`research/`, `design/`) → migrate.
+3. **Replay each slice in a fresh sub-agent that only sees that slice's past.** A clean per-slice context that has never seen the ending **is the mask.** Give the sub-agent only: `git show <commit>:knowledge/…` + the slice's specs + its commit messages/diff. Instruct it: *do not read the working tree's final code/knowledge*; infer this slice's why; emit the dispatch. You (parent) write its output into `knowledge/`, then move to the next slice.
+   - If a sub-agent still leaks (peeks at final code), escalate: hand it a **worktree checked out at the commit** (`git worktree add`) so the future physically isn't there. An external masking harness is the last resort, not the first.
 
 ## Steps
-1. **Detect drift** — `.knowie.json` `structureVersion` + signals vs canon: foreign folders (`research/`, `design/`) → content to re-home; missing canon folders (`episodes/`, `skills/`); old conventions (`[[ ]]`, flat principles, no Key Extensions).
-2. **Set the existing curated files aside — rebuild from the replay, not on top of them.** Don't re-judge them in the abstract here: you'll meet each piece *again during the replay* — in its contemporaneous form, at the slice where it was authored — and re-home it there by current rules (an episode-scene old-filed in `history/`, experience detail compressed into `history/`, …). Their old folder is not the truth.
-3. **Slice the history** — cut `git log` into an ordered list of time windows. Default granularity: **one slice per milestone / spec / meaningful commit cluster** (coarse = fewer passes, faster; finer = slower, more detail — the knob). The slice list is the deterministic skeleton; derive it from real boundaries (milestone tags, spec dirs whatever the tool, commit-message arcs), not feel.
-4. **Replay forward — for each slice, in order, accumulate into the growing base:**
-   - **read the contemporaneous `knowledge/` + design intent at this slice — the author's *own* why, captured then (the richest source)**: `git show <commit>:knowledge/…` + whatever spec/plan the project kept (tool-detected; may be none — see Mining). Commits/diffs supply the what/how. The contemporaneous `knowledge/` is also where *old-rule* curation surfaces (e.g. a commit that archived experience into `history/`) — re-home it by current rules right here;
-   - dispatch it (table below): concepts that emerged → `concepts/`; **the scene of this slice → `episodes/`** (how-leg → a commit/spec in this window); decisions made → `history/`; lessons → `experience`;
-   - **supersession**: if this slice *changes* an earlier decision, record the X→Y transition in `history/` (mark the old `superseded`, link forward) — this is what only forward replay catches;
-   - **checkpoint** (commit) after the slice if confirmed, so work accumulates and is never re-rolled.
-5. **Propose each slice's plan; the human confirms** (irreversible semantic → propose, don't decide). Reversible file moves are yours.
-6. **Complete the canon, then bump `structureVersion` — a hard final gate.** All canon subdirs (incl. `skills/`) with READMEs; **Key Extensions** tables on the three files; `[](path)` links; root/derived principles. Filenames in the base's language (see core). **Then set `.knowie.json` `structureVersion` to the current value (`"2"` as of this skill) and *verify* the field is present and correct.** The CLI never sets it; if you rewrite `.knowie.json`, don't drop the field.
+1. **Detect minimally** (above) → drift or no-op.
+2. **`mv knowledge knowledge.old`** + scaffold a fresh empty `knowledge/` (the canon subdirs).
+3. **Slice** `git log` into an ordered list of windows — milestone tags / spec dirs appearing / commit-message arcs. Deterministic skeleton; the cost knob is granularity (coarse = milestones, faster).
+4. **Replay forward**, one masked sub-agent per slice (above). Each: infer the why; dispatch (table below) — concepts that emerged → `concepts/`; the scene → `episodes/` (how-leg → a commit in the window); decisions → `history/`; **a decision that changes an earlier one → an X→Y transition in `history/`** (mark old `superseded`); lessons → `experience`. Parent writes + **checkpoints** (commit) after each slice.
+5. **Propose, human confirms** the irreversible-semantic moves (per slice if they want — see HITL note). Reversible writes are yours.
+6. **Complete the canon, then bump `structureVersion`** — all subdirs incl. `skills/` with READMEs; **Key Extensions** tables on the three files; `[](path)` links; root/derived principles; **filenames in the base's language** (see core). Set `.knowie.json` `structureVersion` to current (`"2"`) and **verify it's present**. Then **cross-check against `knowledge.old/`**: did the new base capture the old base's content, re-homed by current rules? Finally drop/keep `knowledge.old/` per the human.
 
-## Dispatch — which layer (the crux: a scene is not a decision)
+## Dispatch — which layer (a scene is not a decision)
 | Recovered in a slice | Home | NOT |
 |---|---|---|
 | A recurring concept / pattern (projects onto all three perspectives) | `concepts/` | |
-| The **recall-worthy scene** — what building *that* slice was like (why + how + which concepts), how-leg → the slice's commit/spec | **`episodes/`** | ❌ `history/` |
+| The **recall-worthy scene** — what building *that* slice was like (why + how + which concepts), how-leg → the commit | **`episodes/`** | ❌ `history/` |
 | A **decision transition** + rejected options ("chose X over Y because Z") | `history/` | ❌ `episodes/` |
 | A distilled lesson (four-part) | `experience` | ❌ `history/` |
-- **`episodes/` = the lived scene** ("that time"); **`history/` = the decision** ("why it changed"). A slice produces both — emit both.
-- **The *how* leg is a pointer** — link the commit SHA / spec path; never copy code/spec in (root axiom 2; code stays the what's truth).
+- `episodes/` = the lived scene ("that time"); `history/` = the decision ("why it changed"). A slice produces both.
+- The *how* leg is a **pointer** — commit SHA / spec path; never copy code/spec in (root axiom 2).
 
-## Mining each slice (the contemporaneous *why* first, code second)
-- **`git show <commit>:knowledge/*` — the project's *own* `knowledge/` as it stood in this window.** The richest source: the author's curated why *at that time*, under that time's rules. Watching it evolve slice to slice *is* the why growing — read this, don't reverse-engineer why from code alone. It's also where old-rule homings surface → re-distribute by current rules.
-- **The contemporaneous design intent, *wherever the project kept it*** → detect the spec tool by its marker (`.specify/` = SpecKit · `openspec/` = OpenSpec · `.kiro/specs/` = Kiro · or another) and read its specs in the window; else check `docs/` / commit messages / PR descriptions. **If there's none — e.g. the work was planned in an ephemeral plan-mode, nothing committed — that's fine:** the intent then lives in commit messages + the contemporaneous `knowledge/` (above). Never assume a specific tool, or that a spec file exists at all. Link out, don't copy.
-- `git log <range>` + messages + diffs → the what/how and *why it changed* — supporting evidence under the contemporaneous why above.
+## HITL during replay (read + additive only — don't break monotonicity)
+Replaying forward jogs the author's memory — the richest why (real intent, dead-ends) is in their head, unwritten. So the human may **read** the replay and **add** missing why (you write it as annotation). But **no re-deciding / cutting / reshaping mid-replay** — that's a retraction, it breaks the monotonic accumulation and cascades (butterfly). Curation (cut/merge/reshape) is a *separate later pass* on the finished faithful base. Additive = safe; alteration = defer.
 
 ## Guardrails
-- **Reproducible skeleton, bounded cost.** The slice list comes from git's real structure (stable across runs); granularity is the cost knob (milestone-coarse for speed, finer for fidelity). A thin base yields a thin (but correctly-shaped) result.
-- **Migrate once, then maintain — don't re-run from scratch.** Replay accumulates + checkpoints; improving the base afterward is `judge`'s/the human's job, not another full re-roll.
+- **Don't read the final state during replay** — that's the contamination. Old knowledge is moved aside; final code is masked per slice (sub-agent / worktree).
 - **Reconstruct for judgment, don't import the what** — write why + pointers only.
-- **Degrade gracefully.** No git, or history too shallow → fall back to current-state-vs-canon (one pass). Replay is the engine when git is present, not a precondition.
-- **The human confirms.** Replay makes each slice's proposal rich; irreversible moves are the human's call.
+- **Degrade gracefully** — no git, or too shallow → fall back to current-state-vs-canon (one pass, no masking possible).
+- **The human confirms** irreversible moves.
 
 ## Invariants
-- **Never change what the knowledge means** — only move/reshape/recover, on confirmation.
-- **No backward-compat burden, but no *silent* break** — old/absent `structureVersion` surfaces loudly and offers migration, never passes silently.
-- **A minor knowie change must not force a migration** — no real structural drift → no-op.
-- **Old curated files are material, not truth** — re-judge by current rules at the right slice; don't preserve a stale home.
-- **Episodes anchor to slices, not whim** — one scene per meaningful slice, pinned to its commits; re-running should yield roughly the same set.
-- **Not done until canon is complete** — missing Key Extensions / `skills/`; filenames not in the base's language; `structureVersion` absent or ≠ current → unfinished.
+- **Never change what the knowledge means** — move/reshape/recover on confirmation.
+- **No silent break** — old/absent `structureVersion` surfaces loudly.
+- **A minor knowie change must not force a migration** — no real drift → no-op.
+- **Old curated files are material, not truth** — re-judge by current rules at the right slice; never preserve a stale home in place.
+- **Episodes anchor to slices, not whim** — re-running should yield roughly the same set; if it doesn't, the future wasn't masked.
+- **Not done until** canon complete (Key Extensions / `skills/` / base-language filenames / `structureVersion` = current) and the old base cross-checked.
