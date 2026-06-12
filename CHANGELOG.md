@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.12] — 2026-06-13
+
+### Changed
+
+- **`/knowie-migrate` now emphatically dates everything by the git commit date, never the run date.** A migrated episode came out dated to the day migrate *ran* (today) instead of when the feature actually happened — live capture stamps *today*, and replaying you fall into that muscle memory and silently corrupt the timeline. The per-slice rule is now a prominent warning with the lookup command (`git show -s --format=%cs <commit>`), applied to filename prefixes, `> 日期：` body lines, and how-leg dates, plus a dedicated invariant. Every date is a *past* git date, never now.
+
 ## [0.6.11] — 2026-06-13
 
 ### Changed

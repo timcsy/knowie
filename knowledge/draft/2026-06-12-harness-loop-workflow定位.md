@@ -37,6 +37,28 @@ while not done(goal):                    # loop engineering：對 goal 排程
 - **兩層單位**：[endeavor](2026-06-11-能否跨領域-endeavor為單位.md)（整個志業）＝ knowie **組織** why 的單位；**development atom**（一顆 loop）＝ knowie **包裹** work 的單位。一個 endeavor 由許多 atom 組成。
 - **接 git/transaction**：原子 ＝ 一個 transaction ＝ 一個 git commit（原子性）；邊界讀寫在 commit/merge 點；狀態在邊界才可見 ＝ [多agent併發](2026-06-12-多agent併發-git模型.md) 推過的 release consistency。
 
+## 最小模型：loop = flow + knowledge（fold 的二分）⭐
+把 development atom 再提煉一層——一個 loop 只有兩極：
+- **flow** ＝ 執行單元（過去叫 atom / transaction / block / step）：一步怎麼算。
+- **knowledge** ＝ 持久基底（過去叫 global variable / state / memory）：跨步累積的東西。
+
+兩者一起運作才成 loop，本質是 **fold**：`loop = reduce(flow, knowledge₀)`（flow＝折疊函式、knowledge＝accumulator）。三面獨立鏡子指同一拆解 → 照 [收斂](../concepts/收斂.md) 判準（多條獨立推導指同一根 ＝ 可能是真根）：**FP**＝fold（migrate「replay is a fold」）、**RL**＝flow 是 policy 一步 / knowledge 是 world model+reward+replay buffer、**ES**＝flow 是 event handler / knowledge 是 projection+log。
+
+**「memory → knowledge」這個改名在做真工，不是換字**——這是整個拆法的價值核心：
+- 過去的 state/memory ＝ 扁平的 **what**（dumb、無結構、無 why）。
+- knowie 的 knowledge ＝ 被代謝過的 **why**（三視角／因果 history／蒸餾原則／自我對帳）。
+- 差別決定 loop 會不會壞：flow + **dumb memory** ＝ 脆弱（drift／reward-hack／自相矛盾／遺忘，正是邊睡邊跑最大風險）；flow + **knowledge** ＝ 收斂、跨圈一致。→ **「memory 升級成 knowledge」就是 knowie 的全部 value-add。**
+
+**兩極靠讀寫循環接合**（loop 之所以「轉」）：
+```
+knowledge ──(next, 讀)──▶ flow ──(capture/consolidate, 寫)──▶ knowledge
+```
+讀（knowledge→flow，`next`）讓 flow 不無視已學；寫（flow→knowledge，`capture/consolidate`）讓 flow 的學習不每圈蒸發。**這正是記憶循環 encode→consolidate→retrieve**——少了寫每圈歸零、少了讀 knowledge 是死的。所以更完整：**loop ＝ flow + knowledge + 連接兩者的代謝**。
+
+兩個校正：
+- **「flow」丟了 commit 邊界的承重性**：atom/transaction 自帶「原子地在邊界提交狀態」，而那個邊界正是 knowledge 被一致更新的點（fold 一步／git commit／DB transaction commit）。也許 flow＝序列、atom＝一格（flow 是 atom 的串接），別讓 flow 取代 atom 模糊掉邊界。
+- **二分夠不夠？control 和 goal 化約進 knowledge**：`for` 迴圈還有條件/迭代器（control）和為何而跑（goal）。漂亮的化約是——**flow 是唯一 compute，knowledge 是一切持久基底（狀態+目標+約束+歷史），loop 從「flow 反覆消費/更新 knowledge」湧現**；goal 是 knowledge、policy（next）讀 knowledge、authority（人在環/ring 0）在邊界 interrupt（見 [多agent併發](2026-06-12-多agent併發-git模型.md)）。二分成立，但要明講 knowledge 把 goal/約束/control 都吃進去。
+
 ## 逐一配對
 - **× Harness**：harness 閘檢查「動作准不准跑」（安全/授權），**不檢查**「合不合 why/原則/教訓」——後者是 knowie（next 餵 why、judge 語義對帳）。**harness 是動作閘，knowie 是 why 閘。** 且 knowie 跨廠商 → 騎在任何 harness 上。
 - **× Loop engineering ── 最強配對**：「邊睡邊跑、對 goal、沒人在每一圈」＝ drift/reward-hack/遺忘風險最大處。knowie 供它最缺三樣：**持久 goal**（vision/roadmap，非 ephemeral）、**約束**（principles 護欄、防漂/防抄捷徑）、**跨圈記憶+語義驗證**（capture/consolidate 複利每圈所學、judge 每圈 verify，超出 harness 的動作閘）。→ **knowie ＝ run-while-you-sleep loop 的龍骨 + 長期記憶**。loop 生 helper ＝ 多 agent → 套 [多agent併發](2026-06-12-多agent併發-git模型.md) 的 git 併發模型。
@@ -63,6 +85,7 @@ knowie **不跑 loop/不排程/不編排/不自主追 goal**——被動 groundi
 
 ## 出口
 - 定位洞見（已成熟核心：「knowie ＝ autonomous loop 的對齊龍骨 + 長期記憶」）。
+- **2026-06-13 提煉**：loop = flow + knowledge（fold 二分）+ 接合的讀寫代謝；「memory→knowledge」是 value-add。比 development atom 更精煉的最小模型，把 knowie 精準擺在 knowledge 那一極。仍隨整條 draft defer（同下）。
 - ⏸ **2026-06-12 consolidate：考慮升 vision 核心想法，決定 defer（留 draft）**。理由：(1) 結構定位雖穩，但說服力全靠未驗的 drift-prevention——沒接過真 loop 前升 vision ＝ 拿 draft 當定論（同 history/002 的坑）；SDD 能進 vision 是「已在用」，loop 這條還沒。(2) vision 核心想法已長（SDD/FUSE/endeavor/handover），避免催肥。
 - **升 vision 的觸發**：接一個真 loop（next 餵 goal/約束、judge 每圈 verify、consolidate 複利）跑一輪、drift 真防住 → 那是「已在用」信號 → 再升。
 - 待驗：上述真實 loop 整合。
