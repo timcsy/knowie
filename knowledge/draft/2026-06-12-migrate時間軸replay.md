@@ -33,8 +33,9 @@
 - **「別重擲」**：replay 是累積的、可逐片 commit → 不需要 re-run from scratch，重擲骰子的問題自動消失（呼應「migrate 一次→commit→維護，不是可重擲函數」）。
 - **決定性骨架 vs 語義層**：切片結構（決定性，git 給）+ 每片的語義判斷（LLM，但局部有錨）——天然把機械層和語義層分開了。
 
-## 出口（待建/待驗）
-- ✅ **已建進 migrate skill（0.6.3，2026-06-12）**：模型換成「切片 + 往前播 + 逐片疊」；保留層別判準/隔離/檔名/structureVersion gate。
-- ⏳ **待驗**：battle 第四跑（replay 版）——episodes 集合穩不穩（重跑兩次差多少）、history 轉移有沒有自然長出來。**這是這次模型賭注的驗收標準。**
+## 出口（已建 / 部分已驗）
+- ✅ **已建進 migrate skill（0.6.3–0.6.5，2026-06-12）**：模型「切片 + 往前播 + 逐片疊」；每片以當時 knowledge/+spec 為主要 why（0.6.4）；spec 來源 tool-agnostic + plan-mode 降級（0.6.5）。
+- ✅ **核心賭注已驗（battle 真跑 2026-06-12）**：history 長出**真實決策轉移**（如 002 schema 反轉：plan 原案重建表 → 撞 FK/PRAGMA → 改保留 CHECK+佔位值）——snapshot 法結構上產不出。見 experience「決策轉移只從往前播長出來」。episodes 也錨在 9 個里程碑。
+- ⏳ **剩收斂性待驗**：重跑**兩次**比對 episodes/history 集合差多少。錨在里程碑**應**穩，但只有二跑能證。**這是模型欠的最後一個驗收。**
 - 設計脈絡同族：[記憶系統](../concepts/記憶系統.md)（git＝原始因果基底）、[收斂](../concepts/收斂.md)（冪等是核心、現行 migrate 違反它）。
 - 待想：切片邊界怎麼自動抓（里程碑 tag？commit message 模式？spec 目錄？）；replay 中途人要不要每片確認（成本 vs 控制）。

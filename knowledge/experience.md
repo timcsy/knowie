@@ -2,6 +2,13 @@
 
 ## 教訓
 
+### 驗證：決策轉移真的只從「往前播」長出來（snapshot 看不到）
+- **理論說（賭注）**：把 git 史往前播、逐片疊，會長出 snapshot 法**結構上看不到**的「決策轉移」（`history/` 的精髓）；snapshot 看終局只看得到結果 Y，看不到 X→Y。
+- **實際發生**：battle 真實跑 replay 版（migrate 0.6.3），history 長出**三條真實轉移**。最強一條（`002`）：X＝plan 原案「重建 submissions 表、移 content CHECK」→ 動手撞 `votes` FK + SQLite PRAGMA 在交易內 no-op → Y＝「保留 CHECK + 佔位值 + type 判別欄位」。**看最終 schema 永遠生不出這條**——只有讀到 plan 寫的 X、再走到反轉它的 commit，才看得到。賭注成立。
+- **解決方式**：已是 migrate 的模型（切片 + 往前播 + 逐片疊，見 [draft/migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md)）；這條驗證了它最決定性的理由。
+- **教訓**：有些知識（因果轉移）**結構上只在時間軸上可見**，從終局反推抓不到。這不只對 migrate——它說明 knowie 本該被**逐步**餵養（轉移在發生當下被捕捉），事後一次補只能靠 replay 補回。⏳ 仍待驗：**收斂性**（重跑兩次是否一致），這是 replay 模型欠的最後一個驗收。
+- **來源**：battle replay-model 真實跑 2026-06-12（history 002 schema 反轉）。
+
 ### 遷移的價值在「用 git/specs 重建過去、分對層」，不是搬資料夾
 - **理論說**：migrate 把舊結構搬成新結構（資料夾改名、三檔重塑）就完成了。
 - **實際發生**：發佈後**第一次真實遷移**（battle 專案）——做了資料夾改名 + root/derived 原則 + `[]()` 連結（tech-stack 還留了 commit how-leg，git 時光機運作了），但 **`episodes/` 空、`concepts/` 稀疏、無 Key Extensions、`structureVersion` 沒 bump、`skills/` 沒建**。而 battle 的過去**明明在 git（M1–M3 commit）和 specs 裡**——migrate 走了捷徑、沒去重建。
