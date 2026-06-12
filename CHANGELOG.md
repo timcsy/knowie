@@ -2,11 +2,21 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.8] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` slices along git structure, not by guessing.** Replay now walks the `--first-parent` mainline, one slice per merge/PR — the mainline *is* the decision timeline (DDD domain events; a branch's internal commits are the *how* of one decision), so boundaries are git-structural and re-running yields the same skeleton. This removes the non-determinism a semantic (LLM-read) slicer would smuggle back in, and handles the common reality that history is a messy DAG, not a clean line (pure-linear no-merge history falls back to commit-runs; rebased history is *more* linear, not less).
+- **`/knowie-migrate` treats the adoption commit as a phase boundary.** migrate quietly serves two operations with very different evidence — *structure migration* (knowie present from day 1) and *archaeological backfill* (knowie adopted midway). The seam is the first commit that introduces `knowledge/`: coarse slices before it (no contemporaneous knowledge — reconstruct from code/spec/PR, mark the why as inferred), fine slices after (read the contemporaneous `knowledge/`, the author's strongest why). Reading the old `knowledge/` is now enrichment-when-present, never a precondition — most real adoptions are midway, so the pre-adoption stretch is the common case.
+- **`/knowie-migrate` separates stated-why from inferred-why, and never fabricates.** A why the author recorded is authoritative; a why reconstructed from a diff is marked as conjecture (HITL targets those first); a commit with no recoverable why is logged as an `episodes/` scene with no `history/` transition — an honest gap beats a confident fiction (why has no oracle; git can't verify it).
+- **`/knowie-migrate` distinguishes correcting the record from re-deciding the past.** The monotonicity ban is only on re-litigating what the project actually decided (hindsight overruling history); fixing a *transcription error* (a slice mis-recorded what happened — e.g. a `history/` transition pointing at a decision the base never recorded, which `/knowie-judge` catches) is allowed — fix it and re-checkpoint. Checkpoint-per-slice plus periodic judge are the cascade firebreak.
+
 ## [0.6.7] — 2026-06-12
 
 ### Changed
 
 - **`/knowie-capture` now fires on its own** (reliance + topic-pivot signals) instead of waiting to be asked: the moment you cite a criterion/lesson/decision as established, that reliance is proof it's load-bearing — verify it's captured, and if not, capture it now (a vivid discussion only *feels* stored). **`/knowie-judge` adds a "conceptual dead references" check** — named ideas cited as established but with no file/heading defining them, the mechanical backstop for the same gap. Together they guard against insights that get discussed but never captured.
+- **`/knowie-migrate` now runs the real metabolism per slice instead of re-implementing it.** Each masked slice runs `/knowie-capture` (as the developer who just finished that slice would) — so the output is standard-format and `history/` only gets real decision-*transitions*, not a summary per slice. And the per-slice sub-agent is **sequential, carrying the accumulated base forward** (fresh = unseen-future, not empty) — without the prior state it can't detect transitions, which is why earlier runs degraded `history/` to per-milestone summaries.
 
 ## [0.6.6] — 2026-06-12
 
