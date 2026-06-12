@@ -2,6 +2,13 @@
 
 ## 教訓
 
+### 遷移的價值在「用 git/specs 重建過去、分對層」，不是搬資料夾
+- **理論說**：migrate 把舊結構搬成新結構（資料夾改名、三檔重塑）就完成了。
+- **實際發生**：發佈後**第一次真實遷移**（battle 專案）——做了資料夾改名 + root/derived 原則 + `[]()` 連結（tech-stack 還留了 commit how-leg，git 時光機運作了），但 **`episodes/` 空、`concepts/` 稀疏、無 Key Extensions、`structureVersion` 沒 bump、`skills/` 沒建**。而 battle 的過去**明明在 git（M1–M3 commit）和 specs 裡**——migrate 走了捷徑、沒去重建。
+- **解決方式**：把 git/spec **考古重建**從「歧義時的輔助」升成 migrate 的**核心**：走 git log+diff+specs 重建過去 → 分發到正確的層（**現場→episode、決策→history，別混**）→ 補完 canon。skill 措辭得**明確命令**做考古，否則 AI 合理地走捷徑（[why沒有oracle](concepts/why沒有oracle.md)：落實全壓在 skill 措辭）。
+- **教訓**：遷移是**一次性把既有過去正確結晶的機會**；「richness 靠後續代謝長」**用錯地方**了——**未來**的新材料靠代謝，**過去**已在 git/specs 裡、該由 migrate 重建。留白 episodes ＝ 沒做完。
+- **來源**：battle 真實遷移驗證 2026-06-12（發佈後第一個回饋）。
+
 ### 寫的人對自己寫的有「可見性錯覺」（靠機械掃描補，不靠記性）
 - **理論說**：改了一個東西，相關的地方我自然會記得一起改。
 - **實際發生**：反覆「改了 A、忘了改 B」，因 A/B 在不同段/不同檔，腦裡覺得「那塊改完了」——這 session **三次**：skills-README 還寫舊投影機制、`記憶系統` 缺 KE 路標（我自己加強最多、卻沒確認它被找得到）、README 結構表停在「四個子目錄」（skill 表改了、結構表沒）。都是「**實作改了、它某處的說明沒跟上**」。
