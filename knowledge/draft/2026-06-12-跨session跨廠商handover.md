@@ -1,6 +1,7 @@
 # knowie 當「跨 session / 跨廠商」的 handover 層
 
 > 2026-06-12 設計討論。draft，未定案（多為已實裝、但沒被講清楚的賣點）。
+> ✅ **定位已進 vision 核心想法**（2026-06-12 consolidate）：「跨 session／跨廠商的 why 交接層」。**真實 Codex↔Claude 跨廠商交接仍未驗**（見出口），留此。
 > 怎麼冒出來的：問「在不同 session 切換、甚至不同廠商 AI（Codex/Claude）交接，knowie 勝任嗎」。
 > 這是 [協議非平台](../concepts/協議非平台.md) 最鋒利的一句兌現，但目前只隱含、沒明講成 handover use case。
 
