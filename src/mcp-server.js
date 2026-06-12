@@ -219,11 +219,11 @@ async function handleKnowieJudge(args) {
   const projectPath = args.project_path || process.cwd();
   const { readFile } = await import('node:fs/promises');
   const { join } = await import('node:path');
-  const { KNOWLEDGE_DIR } = await import('./constants.js');
+  const { KNOWLEDGE_DIR, CORE_FILES } = await import('./constants.js');
 
   // Read knowledge files
   const files = {};
-  for (const name of ['principles.md', 'vision.md', 'experience.md']) {
+  for (const name of CORE_FILES) {
     try {
       files[name] = await readFile(join(projectPath, KNOWLEDGE_DIR, name), 'utf-8');
     } catch {
@@ -291,11 +291,11 @@ async function handleKnowieNext(args) {
   const projectPath = args.project_path || process.cwd();
   const { readFile, readdir } = await import('node:fs/promises');
   const { join } = await import('node:path');
-  const { KNOWLEDGE_DIR } = await import('./constants.js');
+  const { KNOWLEDGE_DIR, CORE_FILES } = await import('./constants.js');
 
   // Read knowledge files
   const files = {};
-  for (const name of ['principles.md', 'vision.md', 'experience.md']) {
+  for (const name of CORE_FILES) {
     try {
       files[name] = await readFile(join(projectPath, KNOWLEDGE_DIR, name), 'utf-8');
     } catch {

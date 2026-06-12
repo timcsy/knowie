@@ -1,18 +1,9 @@
 import { mkdir, copyFile, writeFile, access } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import {
-  KNOWLEDGE_DIR, KNOWIE_CONFIG, CORE_FILES, SUBDIRS,
+  KNOWLEDGE_DIR, KNOWIE_CONFIG, CORE_FILES, SUBDIRS, SUBDIR_READMES,
   PACKAGE_ROOT, VERSION, STRUCTURE_VERSION, TEMPLATES_DIR
 } from './constants.js';
-
-// Subdirectories that get a README (excludes .templates)
-const SUBDIR_READMES = {
-  concepts: 'concepts-README.md',
-  episodes: 'episodes-README.md',
-  skills: 'skills-README.md',
-  history: 'history-README.md',
-  draft: 'draft-README.md',
-};
 
 async function exists(p) {
   try { await access(p); return true; } catch { return false; }

@@ -141,11 +141,19 @@
 - **何時該加一個新 meta skill（判準）**：當它是「**distinct 且反覆的人類 invocation 意圖、而既有 skill 的框架沒服務到**」才 earn 得起；否則折進既有 skill 或砍。套三次：路線錯了→折進 judge（無 distinct invocation）；health→砍（與 judge 重複）；consolidate→加（人主動固化，既有沒服務）。（domain skill 的判準不同：recurrence → 程序自習得。）
 - **來源**：這次重構（redesign/protocol-skills）+ judge 試跑 + consolidate（原 crystallize）決策。
 
+### 同一編排實作兩遍必漂移——解法是單一 source + 委派，不是靠對齊警覺
+- **理論說**：CLI 和 MCP 是兩個入口，各自實作 init/update 的編排很自然；小心點保持一致就好。
+- **實際發生**：`knowie update` 在 `commands/update.js`（CLI）和 `mcp-server.js`（MCP）各寫一遍，漂了——MCP 那條忘了傳 language、兩條都沒裝 subdir README（README 是檔名/格式約定的唯一來源 → battle 的 history 套成日期前綴、draft 漏日期前綴）。順手審計又抓到同一病灶的近親：`CORE_FILES` 在 `mcp-server.js` 硬寫死兩次（改名會靜默讀舊檔）、`SUBDIR_READMES` 沒從 `SUBDIRS` 導出（加 subdir 要改兩處）、init 的 CLI/MCP 語言寫法分歧。
+- **解決方式**：別逐個對齊（靠警覺撐不住），**消掉重複**——清單提到單一常數（`constants.js`）、編排抽共用函式讓 MCP handler **委派**而非各抄一份（CLI 包互動層、MCP 直呼非互動核心）。已做：抽 `installReadmes()` 兩端共用、`CORE_FILES`/`SUBDIR_READMES` 收斂進 constants、import 取代 inline。
+- **教訓**：**重複的知識會獨立漂移**——同一份事實（清單／編排／約定）寫在兩處，改一處不會更新另一處，是時間問題不是機率問題。這是 [分發非傾倒](concepts/分發非傾倒.md) 的對偶：分發是「一份輸入別坍縮成一處」，這條是「一份事實別複製成多處」；兩者同根——**唯一真實來源**。約定本身若只活在一個會被繞過的地方（README 沒被 update 裝），等於沒有來源。
+- **已落實**：fix/update（0.6.9）抽 `installReadmes` + 傳 language；後續修 `CORE_FILES`/`SUBDIR_READMES` 收斂。CLI/MCP 編排委派的較大重構 → [draft](draft/2026-06-12-CLI-MCP編排委派.md)。現場 → [episode](episodes/2026-06-12-CLI-MCP漂移審計.md)。
+- **來源**：battle 缺 subdir README 的 bug（使用者問「為何沒 README」「我是用 update 做的」）+ 三路並行漂移審計（2026-06-12）。
+
 ## 關鍵延伸（主題觸發必讀）
 
 | 觸發關鍵字 | MUST 讀 |
 |---|---|
 | 命名 / 捕捉非發明 / 私語 / 批次結晶 | `concepts/蒸餾.md` |
 | 必要繁瑣 vs 冗餘 / 落實 / 機率性執行者 | `concepts/why沒有oracle.md` |
-| 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision | `concepts/分發非傾倒.md` |
+| 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision / 唯一真實 / 重複漂移 | `concepts/分發非傾倒.md` |
 | 認知失調 / 路線錯了 / 認錯 / 失敗模式 / 合理化維持 | `concepts/讓認錯變便宜.md` |

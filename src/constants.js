@@ -22,6 +22,15 @@ export const TEMPLATES_DIR = '.templates';
 
 export const CORE_FILES = ['principles.md', 'vision.md', 'experience.md'];
 export const SUBDIRS = ['concepts', 'episodes', 'skills', 'history', 'draft', TEMPLATES_DIR];
+// Subdirs that get an orientation README → its template name (excludes .templates).
+// Kept next to SUBDIRS so adding a subdir surfaces both lists in one place.
+export const SUBDIR_READMES = {
+  concepts: 'concepts-README.md',
+  episodes: 'episodes-README.md',
+  skills: 'skills-README.md',
+  history: 'history-README.md',
+  draft: 'draft-README.md',
+};
 
 export const SKILLS_SOURCE = join(PACKAGE_ROOT, 'skills');
 export const SKILLS_TARGET = '.claude/skills';
