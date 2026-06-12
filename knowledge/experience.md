@@ -2,6 +2,13 @@
 
 ## 教訓
 
+### 在場的 AI 自己做，CLI 只給「AI 不在場」的自舉（反覆失敗模式）
+- **理論說**：把功能包成 CLI 很自然——可測、可重跑、像個正經工具。
+- **實際發生**：**反覆**把「AI 已在場、用自己的檔案工具就能做」的事塞進 CLI——健康儀表板（砍）、skill 安裝逼 CLI（改 AI 直接裝）、`installDomainSkills`（砍）、`knowie sync`（否決）。**四次同一個錯**。CLI 是「AI 還沒在場」的東西；在場還發明 CLI ＝ 多餘 + **逆協議非平台**（把行為從可攜的 skill markdown 搬進綁定的 runtime）。
+- **解決方式**：判準——**行為住在 skill（markdown，AI 執行）；CLI 只留給「AI 不在場」的工具自舉**（`init`/`update` 裝 package skill）。可逆的動作（symlink／搬檔）AI 在場就自動做（延伸原則 5）。
+- **教訓**：要加 CLI 前先問「**AI 現在在場嗎？在場就讓它做**」。這是我反覆犯、該被擋下的觸發（見 [收斂](concepts/收斂.md) 失敗模式）。
+- **來源**：四次（2026-06），最近一次 domain skill symlink 投影否決 `knowie sync`。
+
 ### 外部框架（理論＋競品）是照出「stated-why ⊊ real-why」的鏡子
 - **理論說**：知識從內部長——想出來（Thinking→draft）、做中學（Doing→回流）。
 - **實際發生**：拿**外部框架當鏡子**照既有知識，抓到內部兩條線抓不到的：(1) **CALM 定理**照出延伸原則 6 的 real-why（單調化→協調自由）遠超 stated-why（可審計）；(2) **event sourcing/CQRS** 重新命名 history/三檔/蒸餾/根公理二，白送一套理論的詞彙與預測力；(3) 純演繹**預測**出 `history/NNN` 計數器 bug（沒踩到就抓到）；(4) **競品也是鏡子**——MiMoCode 照出「護城河是三軸非機制」、LLM Wiki 照出「人在環不獨特」（修正自我認知）。
