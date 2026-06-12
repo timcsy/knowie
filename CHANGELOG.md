@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.7] — 2026-06-12
+
+### Changed
+
+- **`/knowie-capture` now fires on its own** (reliance + topic-pivot signals) instead of waiting to be asked: the moment you cite a criterion/lesson/decision as established, that reliance is proof it's load-bearing — verify it's captured, and if not, capture it now (a vivid discussion only *feels* stored). **`/knowie-judge` adds a "conceptual dead references" check** — named ideas cited as established but with no file/heading defining them, the mechanical backstop for the same gap. Together they guard against insights that get discussed but never captured.
+
 ## [0.6.6] — 2026-06-12
 
 ### Changed
@@ -63,6 +69,7 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.7]: https://github.com/timcsy/knowie/releases/tag/v0.6.7
 [0.6.6]: https://github.com/timcsy/knowie/releases/tag/v0.6.6
 [0.6.5]: https://github.com/timcsy/knowie/releases/tag/v0.6.5
 [0.6.4]: https://github.com/timcsy/knowie/releases/tag/v0.6.4
