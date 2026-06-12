@@ -22,6 +22,7 @@
 - `history/` = causal trail (why things became what they are).
 - `draft/` = short-term memory: undecided things; decays by default, consolidated only when repeatedly used.
 - `episodes/` = episodic memory: full lived experiences worth recalling — the scene behind an experience lesson, **or the brainstorming behind a consolidated draft** (*why* we explored it this way). Most fade; only the recall-worthy are kept.
+- **Filenames follow the base's language** (`knowledge/.knowie.json` → `language`): for a `zh-TW` base, name new `concepts/` / `episodes/` / `history/` files in that language (Han characters), not English (`distillation.md`), matching what's already there. Content language follows the same setting.
 
 ## Two intake lines
 - **Thinking → `draft`**: undecided thoughts (problems / designs / insights) — incubate, then **dispatch on exit** (next bullet).
