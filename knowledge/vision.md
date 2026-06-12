@@ -90,6 +90,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] 偵測到舊結構 → detect/propose/confirm 手動遷移（不自動改）
 - [x] 明示 breaking、不靜默（CLI `structureBehind` 警告 + 修掉「CLI 自動升 version＝靜默 breaking」的 bug）
 - [x] **git 時光機**：re-home 有歧義時，用 `git log`/`git show` 還原當時的 knowledge/code/spec；舊 base 的 git log ＝ 可蒸餾成 `history/` 的因果軌跡；留 commit 指針補「how 腿」（四護欄：脈絡非 import what／有界非考古／優雅降級／人仍確認）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)
+- [ ] **時間軸 replay 重構（in-flight，0.6.3→0.6.8）**：把 migrate 從「看終局一次判斷」改成「順 git 往前播、逐片疊、遮罩未來、跑真代謝」；含 first-parent 切片 + adoption 相位邊界 + 兩種聲音 why。battle 真跑已驗「決策轉移只從往前播長出來」，但亂史/cascade/推錯 why 等常態破口待真實驗。設計脈絡 ←→ [時間軸replay](draft/2026-06-12-migrate時間軸replay.md)（幅射到 [預期問題](draft/2026-06-12-migrate預期問題.md)／[架構視角](draft/2026-06-12-migrate架構視角-ES-CQRS-DDD.md)／[遮罩harness](draft/2026-06-12-遮罩harness設計.md)）
 - [ ] 真實舊專案（research/design/history era）遷移驗證（驗證類，merge 後）
 
 **FUSE 掛載驗證**（北極星，仍未證）— adapter 從 `[]()` 結構衍生 graph、把 knowie 的 why 層掛上 LLM Wiki / Obsidian / 向量後端；軟介面硬化到「可被多方實作」。設計脈絡 ←→ [檢索機制-graph還是path](draft/2026-06-07-檢索機制-graph還是path.md)。
