@@ -7,6 +7,7 @@ All notable changes to knowie are documented here. Format based on [Keep a Chang
 ### Changed
 
 - **`/knowie-capture` now fires on its own** (reliance + topic-pivot signals) instead of waiting to be asked: the moment you cite a criterion/lesson/decision as established, that reliance is proof it's load-bearing — verify it's captured, and if not, capture it now (a vivid discussion only *feels* stored). **`/knowie-judge` adds a "conceptual dead references" check** — named ideas cited as established but with no file/heading defining them, the mechanical backstop for the same gap. Together they guard against insights that get discussed but never captured.
+- **`/knowie-migrate` now runs the real metabolism per slice instead of re-implementing it.** Each masked slice runs `/knowie-capture` (as the developer who just finished that slice would) — so the output is standard-format and `history/` only gets real decision-*transitions*, not a summary per slice. And the per-slice sub-agent is **sequential, carrying the accumulated base forward** (fresh = unseen-future, not empty) — without the prior state it can't detect transitions, which is why earlier runs degraded `history/` to per-milestone summaries.
 
 ## [0.6.6] — 2026-06-12
 
