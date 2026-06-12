@@ -33,7 +33,7 @@
 ### 寫的人對自己寫的有「可見性錯覺」（靠機械掃描補，不靠記性）
 - **理論說**：改了一個東西，相關的地方我自然會記得一起改。
 - **實際發生**：反覆「改了 A、忘了改 B」，因 A/B 在不同段/不同檔，腦裡覺得「那塊改完了」——這 session **三次**：skills-README 還寫舊投影機制、`記憶系統` 缺 KE 路標（我自己加強最多、卻沒確認它被找得到）、README 結構表停在「四個子目錄」（skill 表改了、結構表沒）。都是「**實作改了、它某處的說明沒跟上**」。
-- **解決方式**：靠 judge 的**機械掃描**（grep/ls：孤兒/死連結/KE/結構）補——`knowledge/` 內抓得到；`knowledge/` 外（README/docs vs code）是 gap，見 [docs-code 同步 gap](draft/2026-06-12-docs-code同步gap.md)（但那屬 what-consistency，不該硬塞進 judge）。
+- **解決方式**：靠 judge 的**機械掃描**（grep/ls：孤兒/死連結/KE/結構）補——`knowledge/` 內抓得到；`knowledge/` 外（README/docs vs code）是 gap，但那屬 **what-consistency、不該硬塞進 judge**（見下「why-lane 不掃 what-consistency」）。
 - **教訓**：「我覺得改完了」不可信；一致性要**結構化檢查、不靠作者的可見性**。這是 judge「偵測既成脫節」那半（vs next 的預防）。
 - **來源**：三次 judge 自我維護 2026-06-12。
 
@@ -141,11 +141,34 @@
 - **何時該加一個新 meta skill（判準）**：當它是「**distinct 且反覆的人類 invocation 意圖、而既有 skill 的框架沒服務到**」才 earn 得起；否則折進既有 skill 或砍。套三次：路線錯了→折進 judge（無 distinct invocation）；health→砍（與 judge 重複）；consolidate→加（人主動固化，既有沒服務）。（domain skill 的判準不同：recurrence → 程序自習得。）
 - **來源**：這次重構（redesign/protocol-skills）+ judge 試跑 + consolidate（原 crystallize）決策。
 
+### 同一編排實作兩遍必漂移——解法是單一 source + 委派，不是靠對齊警覺
+- **理論說**：CLI 和 MCP 是兩個入口，各自實作 init/update 的編排很自然；小心點保持一致就好。
+- **實際發生**：`knowie update` 在 `commands/update.js`（CLI）和 `mcp-server.js`（MCP）各寫一遍，漂了——MCP 那條忘了傳 language、兩條都沒裝 subdir README（README 是檔名/格式約定的唯一來源 → battle 的 history 套成日期前綴、draft 漏日期前綴）。順手審計又抓到同一病灶的近親：`CORE_FILES` 在 `mcp-server.js` 硬寫死兩次（改名會靜默讀舊檔）、`SUBDIR_READMES` 沒從 `SUBDIRS` 導出（加 subdir 要改兩處）、init 的 CLI/MCP 語言寫法分歧。
+- **解決方式**：別逐個對齊（靠警覺撐不住），**消掉重複**——清單提到單一常數（`constants.js`）、編排抽共用函式讓 MCP handler **委派**而非各抄一份（CLI 包互動層、MCP 直呼非互動核心）。已做：抽 `installReadmes()` 兩端共用、`CORE_FILES`/`SUBDIR_READMES` 收斂進 constants、import 取代 inline。
+- **教訓**：**重複的知識會獨立漂移**——同一份事實（清單／編排／約定）寫在兩處，改一處不會更新另一處，是時間問題不是機率問題。這是 [分發非傾倒](concepts/分發非傾倒.md) 的對偶：分發是「一份輸入別坍縮成一處」，這條是「一份事實別複製成多處」；兩者同根——**唯一真實來源**。約定本身若只活在一個會被繞過的地方（README 沒被 update 裝），等於沒有來源。
+- **已落實**：fix/update（0.6.9）抽 `installReadmes` + 傳 language；後續修 `CORE_FILES`/`SUBDIR_READMES` 收斂。CLI/MCP 編排委派的較大重構 → [draft](draft/2026-06-12-CLI-MCP編排委派.md)。現場 → [episode](episodes/2026-06-12-CLI-MCP漂移審計.md)。
+- **來源**：battle 缺 subdir README 的 bug（使用者問「為何沒 README」「我是用 update 做的」）+ 三路並行漂移審計（2026-06-12）。
+
+### why-lane 不掃 what-consistency——一致性焦慮會誘 why-skill 越界顧 what
+- **理論說**：judge 既然對帳一致性，把套件自己的「docs 對不對得上 code」（README/docs vs `SKILL_NAMES`/`SUBDIRS`/結構）也納進來掃很自然。
+- **實際發生**：這 session 三次踩「改了機制、別處說明沒跟上」——skills-README 寫舊投影機制、記憶系統缺 KE 路標、README 結構表還寫「四子目錄」（漏 skills/）。前兩個在 `knowledge/` 內 judge 抓到了；第三個在 **README**，judge **掃不到**（judge 只掃 `knowledge/`）。一度想把 judge 擴成掃 docs-vs-code。
+- **解決方式**：認清 lane——docs-vs-code 是 **what-consistency**（像 linter，歸 code/工具），不是 knowie 的 **why-lane**（見 [why沒有oracle](concepts/why沒有oracle.md)：what 歸 code）。把 judge 擴去掃它＝越界進 what。要補就用普通 grep 測試（optional、不擋 merge），不是 knowie 的 why-skill。
+- **教訓**：知識庫的 why-lane 與工具的 what-lane 要分清；**一致性焦慮會誘使 why-skill 越界去顧 what，但那違反分工**。dogfood 的盲點（knowie 顧 `knowledge/`，但它自己的「套件 docs vs 套件 code」不在那迴圈裡、也不該靠 why-skill 顧）是**結構性 by-design，不是 bug**——它正好標出 knowie 的邊界在哪。
+- **來源**：本 session 三次 docs 跟不上、第三次在 README judge 掃不到（consolidate 自 `draft/docs-code同步gap`，已退場）。
+
+### projection 編輯不是 domain event——纏很久的 regression 缺的是範疇模型，不是更強措辭
+- **理論說**：migrate replay 要忠實重現 git 每個 commit 做的事，包括作者對 `knowledge/` 的整理。
+- **實際發生**：battle 真跑 migrate，切片 7 撞到 commit「experience.md 瘦身 — M1 教訓歸檔至 history/」，AI 把這個**純 `knowledge/` 維護 commit 當 domain 決策忠實重現**，又長出 `history/001-early-lessons`——這個 regression 從 0.6.2 用「quarantine 措辭」擋、纏到 0.6.10 還在。措辭防線一直擋不死。
+- **解決方式**：换**範疇模型**而非更強措辭。ES 視角（[記憶系統](concepts/記憶系統.md)：git＝原始因果基底）：**git＝event log、`knowledge/`＝projection**。replay 是「從 **domain events**（code/spec/產品）**重建** projection」。只碰 `knowledge/` 的 commit ＝**舊 projection 的編輯**、不是 event → 不產 history 轉移（重播它＝拿過時的 view 更新疊到剛重建的 view 上＝範疇錯誤）。舊規則 curation 的**內容**在原始作者切片用**現規則**重判（教訓→experience），**搬移動作忽略**。判準：寫 history 前問「是專案的 why 變了，還是有人只是重組知識庫？」
+- **教訓**：**有些 bug 不是措辭沒寫好，是缺一個結構性範疇區分**（domain event vs projection edit）。這是「[有些 bug 是執行層的、協議層解不了]」的姊妹——那條是「跳到對的層」，這條是「**留在協議層，但要對的範疇模型，不是更響亮的禁令**」。一個 regression 反覆用措辭擋不死 → 該懷疑缺的是模型不是字句。
+- **來源**：battle 真跑 migrate 切片 7（2026-06-13），使用者截圖抓到 `001-m1-early-lessons` 又冒出。設計脈絡 ←→ [migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md)。
+
 ## 關鍵延伸（主題觸發必讀）
 
 | 觸發關鍵字 | MUST 讀 |
 |---|---|
 | 命名 / 捕捉非發明 / 私語 / 批次結晶 | `concepts/蒸餾.md` |
 | 必要繁瑣 vs 冗餘 / 落實 / 機率性執行者 | `concepts/why沒有oracle.md` |
-| 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision | `concepts/分發非傾倒.md` |
+| 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision / 唯一真實 / 重複漂移 | `concepts/分發非傾倒.md` |
 | 認知失調 / 路線錯了 / 認錯 / 失敗模式 / 合理化維持 | `concepts/讓認錯變便宜.md` |
+| migrate / replay / projection 編輯 / 範疇錯誤 / event sourcing | `concepts/記憶系統.md` + `draft/2026-06-12-migrate時間軸replay.md` |

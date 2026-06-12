@@ -2,6 +2,20 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.10] — 2026-06-13
+
+### Changed
+
+- **`/knowie-migrate` no longer replays knowledge-base housekeeping as domain history.** A commit whose diff touches only `knowledge/` is an edit to the *old projection* (the old knowledge metabolism under old rules), not a domain event — in the event-sourcing frame migrate runs on (git = event log, `knowledge/` = projection), replay rebuilds the projection fresh from the **domain** events (code/spec/product), so re-enacting an old projection edit is a category error. Such commits now yield **no `history/` transition**: read the contemporaneous `knowledge/` state they left as reference, but re-home their content by current rules at its *original authoring slice* (an archived lesson → `experience`, where it was first learned) and ignore the move itself. This is the structural fix for the `history/001-early-lessons`-type regression — a knowledge-housekeeping commit ("M1 lessons archived experience → history/") was being mistaken for a domain decision and faithfully reproduced. Found dogfooding migrate on a real project.
+
+## [0.6.9] — 2026-06-12
+
+### Fixed
+
+- **`knowie update` now re-ensures the subdir READMEs** (`concepts/`, `episodes/`, `history/`, `draft/`, `skills/` + `knowledge/README.md`). Previously update only refreshed the `.tmpl` core templates into `.templates/`, so a base set up or refreshed via `update` (rather than a full `init`) had **no subdir READMEs at all** — and those READMEs are where the filename/format conventions live (`history/` = `NNN-slug`, `episodes/`+`draft/` = `YYYY-MM-DD-slug`). With the conventions absent, downstream metabolism guessed formats wrong (e.g. `history/` files date-prefixed instead of numbered, `draft/` files missing the date prefix). The README-copy logic is now factored into a shared `installReadmes()` — `init` copies never-overwrite, `update` refreshes to latest, both heal a base that's missing them.
+- **`knowie update` now refreshes templates in the base's language**, not English. The MCP `knowie_update` path called `installTemplates` without the language, defaulting to `en` and overwriting a `zh-TW` base's `.templates/*.tmpl` with English. It now passes `config.language` (the CLI `update` already did).
+- **Removed duplicated single-source-of-truth lists found in a drift audit** (the same class of bug as the README gap above): `CORE_FILES` was hardcoded twice inline in `src/mcp-server.js` (the judge/next handlers) — now imported from `constants.js`, so renaming a core file can't silently read a stale name. `SUBDIR_READMES` was defined locally in `scaffold.js` — now in `constants.js` next to `SUBDIRS`, so adding a subdir surfaces both lists in one place. And `_core.md`'s filename-language rule now lists `draft/` (it already applies in practice) and states the `skills/` + canonical-filename exception explicitly.
+
 ## [0.6.8] — 2026-06-12
 
 ### Changed

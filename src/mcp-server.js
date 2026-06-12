@@ -147,6 +147,7 @@ async function handleKnowieInit(args) {
 async function handleKnowieUpdate(args) {
   const projectPath = args.project_path || process.cwd();
   const { installTemplates } = await import('./templates.js');
+  const { installReadmes } = await import('./scaffold.js');
   const { installSkills } = await import('./skills.js');
   const { detectTools } = await import('./adapters/detect.js');
   const { getToolById } = await import('./adapters/registry.js');
@@ -163,11 +164,17 @@ async function handleKnowieUpdate(args) {
     return 'Error: .knowie.json not found. Run knowie_init first.';
   }
 
+  const configLang = config.language || 'en';
   const report = [];
 
-  // Update managed files
-  const templates = await installTemplates(projectPath);
+  // Update managed files (in the base's language, not the default)
+  const templates = await installTemplates(projectPath, configLang);
   report.push(`✓ Updated ${templates.length} templates`);
+
+  // Re-ensure orientation READMEs (managed files carrying the format
+  // conventions) — refresh to latest, and heal a base that's missing them.
+  const readmes = await installReadmes(projectPath, configLang, { overwrite: true });
+  report.push(`✓ Refreshed ${readmes.created.length} subdir READMEs`);
 
   const skills = await installSkills(projectPath);
   report.push(`✓ Updated ${skills.length} skills`);
@@ -212,11 +219,11 @@ async function handleKnowieJudge(args) {
   const projectPath = args.project_path || process.cwd();
   const { readFile } = await import('node:fs/promises');
   const { join } = await import('node:path');
-  const { KNOWLEDGE_DIR } = await import('./constants.js');
+  const { KNOWLEDGE_DIR, CORE_FILES } = await import('./constants.js');
 
   // Read knowledge files
   const files = {};
-  for (const name of ['principles.md', 'vision.md', 'experience.md']) {
+  for (const name of CORE_FILES) {
     try {
       files[name] = await readFile(join(projectPath, KNOWLEDGE_DIR, name), 'utf-8');
     } catch {
@@ -284,11 +291,11 @@ async function handleKnowieNext(args) {
   const projectPath = args.project_path || process.cwd();
   const { readFile, readdir } = await import('node:fs/promises');
   const { join } = await import('node:path');
-  const { KNOWLEDGE_DIR } = await import('./constants.js');
+  const { KNOWLEDGE_DIR, CORE_FILES } = await import('./constants.js');
 
   // Read knowledge files
   const files = {};
-  for (const name of ['principles.md', 'vision.md', 'experience.md']) {
+  for (const name of CORE_FILES) {
     try {
       files[name] = await readFile(join(projectPath, KNOWLEDGE_DIR, name), 'utf-8');
     } catch {
