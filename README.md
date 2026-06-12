@@ -108,12 +108,13 @@ Start with just `principles.md`. Your AI benefits from the first file you fill i
 
 Templates include guided comments — no blank page anxiety.
 
-Four subdirectories hold the rest:
+Five subdirectories hold the rest:
 
 | Directory | Holds |
 |-----------|-------|
-| `concepts/` | Recurring core concepts — the three files keep only pointers, detail lives here |
+| `concepts/` | Recurring core concepts — the three files keep only pointers, detail lives here (semantic memory) |
 | `episodes/` | Recall-worthy full scenes behind a lesson or decision (episodic memory) |
+| `skills/` | Learned domain skills — repeated work distilled into reusable capability (procedural memory / cerebellum); projected into your AI tool's skill dir |
 | `history/` | The causal trail — why things became what they are (decisions, rejected options) |
 | `draft/` | Short-term memory — undecided ideas still forming |
 
@@ -191,6 +192,8 @@ npx knowie update
 This updates skills and templates to the latest version. **Your knowledge files are never modified** — only managed files (skills, templates) are updated. It also detects any new AI tools you've added since last time.
 
 > Re-running `npx knowie init` is also safe — it does the same thing and skips existing files.
+
+If the knowledge **structure** itself moves on between versions, `npx knowie update` still won't touch your files — it flags the drift loudly, and you run `/knowie-migrate` (inside your AI) to migrate, proposing each move for your confirmation. Breaking changes are surfaced, never applied silently.
 
 ## Design
 
