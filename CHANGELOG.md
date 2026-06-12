@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.5] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` no longer assumes SpecKit.** Design intent is sourced tool-agnostically: detect the spec tool by its marker (`.specify/` SpecKit, `openspec/` OpenSpec, `.kiro/specs/` Kiro, or others), else fall back to `docs/` / commit messages / PR descriptions — and **gracefully accept there may be none** (e.g. ephemeral plan-mode, nothing committed), in which case the intent lives in commit messages + the contemporaneous `knowledge/`. The primary *why* source is always the contemporaneous `knowledge/`; spec/plan is secondary and may be absent.
+
 ## [0.6.4] — 2026-06-12
 
 ### Changed
@@ -51,6 +57,7 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.5]: https://github.com/timcsy/knowie/releases/tag/v0.6.5
 [0.6.4]: https://github.com/timcsy/knowie/releases/tag/v0.6.4
 [0.6.3]: https://github.com/timcsy/knowie/releases/tag/v0.6.3
 [0.6.2]: https://github.com/timcsy/knowie/releases/tag/v0.6.2
