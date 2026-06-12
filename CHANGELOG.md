@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.2] — 2026-06-12
+
+### Changed
+
+- **`/knowie-migrate` handles old-rule content + language + completeness** (from a second real-world migration). It now: (1) **quarantines existing curated files first** and re-judges each by current rules — an existing file's folder is not authoritative (e.g. lessons archived into `history/` under old rules belong in `experience`); (2) re-distributes content the git trail compressed under *past* rules, instead of replaying old homings; (3) **names files in the base's language** (`.knowie.json` `language`) — shared convention now stated in core (applies to capture / consolidate / migrate); (4) treats the **`structureVersion` bump as a hard final gate** with the explicit current value, and verifies the field is present (it was being dropped).
+
 ## [0.6.1] — 2026-06-12
 
 ### Changed
@@ -33,5 +39,6 @@ The knowledge layout changed. **Your knowledge is never touched automatically.**
 - Links are plain `[](path)` (grep-verifiable, no resolver); the graph/backlinks are derived, not stored.
 - `knowie update` (CLI) only refreshes managed files (skills/templates) and never touches your knowledge or its structure version.
 
+[0.6.2]: https://github.com/timcsy/knowie/releases/tag/v0.6.2
 [0.6.1]: https://github.com/timcsy/knowie/releases/tag/v0.6.1
 [0.6.0]: https://github.com/timcsy/knowie/releases/tag/v0.6.0
