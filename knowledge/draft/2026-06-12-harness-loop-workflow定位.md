@@ -49,6 +49,15 @@ while not done(goal):                    # loop engineering：對 goal 排程
 ## 戰略順風（同 SDD 理）
 harness/loop 引擎爆量且**平台綁定**（各家自己的）。它們越紅、越自主、越邊睡邊跑，**越需要一個不被綁進單一 harness 的、可攜的持久 why 層** ＝ knowie（跨廠商 markdown，[協議非平台](../concepts/協議非平台.md)）。**loop engineering 越火，knowie 接口越被需要。**（補強 [競品與生存空間](2026-06-06-競品與生存空間.md)。）
 
+## 下一階：nested / recursive engineering（順風的更強版）
+抽象階梯：`prompt → harness → loop → ???`，每階多一層 indirection。loop 的「生 helper」**已隱含巢狀**；把巢狀本身變設計對象 ＝ nested/recursive engineering。**它已半到**——2026 的「orchestration + goal decomposition into subtasks」就是它，只差還沒結晶成品牌名（名字是 fashion，**結構是必然**）。
+- **它 engineer 的是 agent 的 call stack**：層間 ABI（sub-goal 下、結果上）、frame 隔離、深度/base case、return-value 往上 merge（見 [knowie是一台機器](2026-06-12-knowie是一台機器.md)）。
+- **knowie 已提供遞迴需要的層間契約**：ABI ＝ 原子邊界、heap/stack ＝ `knowledge/`/draft、return-merge ＝ consolidate、防 overflow ＝ consolidate-on-return。
+- **比 loop 更強的順風（組合爆炸）**：遞迴讓「保持一致」組合爆炸——每層 drift、結果要一致 merge 上來、共享 why 要跨整棵樹一致。扁平 loop 也許短到不用 knowie；**深遞迴 stack 沒有共享持久 why + consolidation 紀律就維持不了一致** → knowie 從「有幫助」變「必要」。
+- **巢狀 + 平行 ＝ atom 樹**：knowie 同時有巢狀軸（call stack/ABI）和平行軸（[多agent併發](2026-06-12-多agent併發-git模型.md) 的 git 併發模型）——整棵樹的模型都有。
+- **最深一句**：執行的抽象階梯一直爬，但 **knowie 不是其中一階，是每一階底下那個不變的 grounding**。階梯越高越遞迴，底下的「持久共享 why + 層間契約」越不可少。knowie 賭的不是某一階，是「不管爬到哪階都要 grounding」。
+- 誠實：名字不可預測（未必叫 Recursive Engineering）；knowie 仍不跑遞迴（記憶/契約層，引擎是別人的）。
+
 ## 誠實邊界
 knowie **不跑 loop/不排程/不編排/不自主追 goal**——被動 grounding，**互補非替代**；每圈快狀態（context window）歸 harness、不歸 knowie（同 [handover](2026-06-12-跨session跨廠商handover.md) 界線）。
 
