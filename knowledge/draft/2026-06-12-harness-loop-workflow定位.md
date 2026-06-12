@@ -36,5 +36,7 @@ harness/loop 引擎爆量且**平台綁定**（各家自己的）。它們越紅
 knowie **不跑 loop/不排程/不編排/不自主追 goal**——被動 grounding，**互補非替代**；每圈快狀態（context window）歸 harness、不歸 knowie（同 [handover](2026-06-12-跨session跨廠商handover.md) 界線）。
 
 ## 出口
-- 定位洞見（已成熟核心：「knowie ＝ autonomous loop 的對齊龍骨 + 長期記憶」），可考慮回流 vision 定位；但**整體未驗**（沒真的接一個 loop engine 跑），先孵。
-- 待驗：真的把 knowie 接上一個 loop（next 餵 goal/約束、judge 每圈 verify、consolidate 複利）跑一輪，看 drift 防不防得住。
+- 定位洞見（已成熟核心：「knowie ＝ autonomous loop 的對齊龍骨 + 長期記憶」）。
+- ⏸ **2026-06-12 consolidate：考慮升 vision 核心想法，決定 defer（留 draft）**。理由：(1) 結構定位雖穩，但說服力全靠未驗的 drift-prevention——沒接過真 loop 前升 vision ＝ 拿 draft 當定論（同 history/002 的坑）；SDD 能進 vision 是「已在用」，loop 這條還沒。(2) vision 核心想法已長（SDD/FUSE/endeavor/handover），避免催肥。
+- **升 vision 的觸發**：接一個真 loop（next 餵 goal/約束、judge 每圈 verify、consolidate 複利）跑一輪、drift 真防住 → 那是「已在用」信號 → 再升。
+- 待驗：上述真實 loop 整合。
