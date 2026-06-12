@@ -156,6 +156,13 @@
 - **教訓**：知識庫的 why-lane 與工具的 what-lane 要分清；**一致性焦慮會誘使 why-skill 越界去顧 what，但那違反分工**。dogfood 的盲點（knowie 顧 `knowledge/`，但它自己的「套件 docs vs 套件 code」不在那迴圈裡、也不該靠 why-skill 顧）是**結構性 by-design，不是 bug**——它正好標出 knowie 的邊界在哪。
 - **來源**：本 session 三次 docs 跟不上、第三次在 README judge 掃不到（consolidate 自 `draft/docs-code同步gap`，已退場）。
 
+### projection 編輯不是 domain event——纏很久的 regression 缺的是範疇模型，不是更強措辭
+- **理論說**：migrate replay 要忠實重現 git 每個 commit 做的事，包括作者對 `knowledge/` 的整理。
+- **實際發生**：battle 真跑 migrate，切片 7 撞到 commit「experience.md 瘦身 — M1 教訓歸檔至 history/」，AI 把這個**純 `knowledge/` 維護 commit 當 domain 決策忠實重現**，又長出 `history/001-early-lessons`——這個 regression 從 0.6.2 用「quarantine 措辭」擋、纏到 0.6.10 還在。措辭防線一直擋不死。
+- **解決方式**：换**範疇模型**而非更強措辭。ES 視角（[記憶系統](concepts/記憶系統.md)：git＝原始因果基底）：**git＝event log、`knowledge/`＝projection**。replay 是「從 **domain events**（code/spec/產品）**重建** projection」。只碰 `knowledge/` 的 commit ＝**舊 projection 的編輯**、不是 event → 不產 history 轉移（重播它＝拿過時的 view 更新疊到剛重建的 view 上＝範疇錯誤）。舊規則 curation 的**內容**在原始作者切片用**現規則**重判（教訓→experience），**搬移動作忽略**。判準：寫 history 前問「是專案的 why 變了，還是有人只是重組知識庫？」
+- **教訓**：**有些 bug 不是措辭沒寫好，是缺一個結構性範疇區分**（domain event vs projection edit）。這是「[有些 bug 是執行層的、協議層解不了]」的姊妹——那條是「跳到對的層」，這條是「**留在協議層，但要對的範疇模型，不是更響亮的禁令**」。一個 regression 反覆用措辭擋不死 → 該懷疑缺的是模型不是字句。
+- **來源**：battle 真跑 migrate 切片 7（2026-06-13），使用者截圖抓到 `001-m1-early-lessons` 又冒出。設計脈絡 ←→ [migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md)。
+
 ## 關鍵延伸（主題觸發必讀）
 
 | 觸發關鍵字 | MUST 讀 |
@@ -164,3 +171,4 @@
 | 必要繁瑣 vs 冗餘 / 落實 / 機率性執行者 | `concepts/why沒有oracle.md` |
 | 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision / 唯一真實 / 重複漂移 | `concepts/分發非傾倒.md` |
 | 認知失調 / 路線錯了 / 認錯 / 失敗模式 / 合理化維持 | `concepts/讓認錯變便宜.md` |
+| migrate / replay / projection 編輯 / 範疇錯誤 / event sourcing | `concepts/記憶系統.md` + `draft/2026-06-12-migrate時間軸replay.md` |
