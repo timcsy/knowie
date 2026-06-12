@@ -20,6 +20,23 @@ Model
 ## knowie 的位置：正交的「持久 grounding」，在 stack **底下**
 這三層全是**執行機制**（怎麼跑）。knowie 是它們該扎根的**持久 why**。關係＝**前促發、後對帳+固化**。
 
+## development atom：統一的耦合面（為何配所有引擎是同一招）
+把**一次 loop 當成一顆不透明的「開發原子」**，knowie 在原子**外面**做事——像 for 迴圈把全域狀態放迴圈外：
+```
+# knowie 持有全域狀態：knowledge/ ＝ 累加器 + 此 endeavor 的 why/goal/約束
+while not done(goal):                    # loop engineering：對 goal 排程
+    prime(atom, from=knowledge)          # next：把 why/goal/約束讀進原子
+    result = run_atom()                  # harness/SDD/plan：原子 body，knowie 不進去
+    knowledge = reconcile+consolidate(knowledge, result)  # judge + capture/consolidate：寫回
+```
+**knowie ＝ `run_atom()` 以外的一切**（迴圈的持久狀態 + 邊界讀寫）。
+
+- **不透明 ＝ 可攜的原因**：原子內部（think→act→observe / spec→code / plan→execute）是**平台特定**的；但**邊界介面統一**（prime 進 / reconcile+consolidate 出）。knowie 只依賴邊界、不依賴內部 → **換引擎不用改**。這是 [協議非平台](../concepts/協議非平台.md) FUSE 命題的 precise 版：knowie 定邊界協議，原子（operation）可插拔。
+- **同一招配三者**：SDD ＝ 一次 spec→code、plan ＝ 一次 plan→execute、loop ＝ 一圈 iteration——都是一顆原子，knowie 都只在兩端做事。所以下面「逐一配對」其實是**同一個介面的三個投影**。
+- **粒度旋鈕 ＝ 校正頻率**：原子越大 → knowie 只在結束才 reconcile → 內部可能先漂；越小 → 邊界越頻繁 → grounding 越密、drift 越小。**「一顆原子多大」是 loop/harness 的設計選擇**；對 run-while-you-sleep，把原子設成「一圈 iteration」→ knowie 每圈 prime+verify。
+- **兩層單位**：[endeavor](2026-06-11-能否跨領域-endeavor為單位.md)（整個志業）＝ knowie **組織** why 的單位；**development atom**（一顆 loop）＝ knowie **包裹** work 的單位。一個 endeavor 由許多 atom 組成。
+- **接 git/transaction**：原子 ＝ 一個 transaction ＝ 一個 git commit（原子性）；邊界讀寫在 commit/merge 點；狀態在邊界才可見 ＝ [多agent併發](2026-06-12-多agent併發-git模型.md) 推過的 release consistency。
+
 ## 逐一配對
 - **× Harness**：harness 閘檢查「動作准不准跑」（安全/授權），**不檢查**「合不合 why/原則/教訓」——後者是 knowie（next 餵 why、judge 語義對帳）。**harness 是動作閘，knowie 是 why 閘。** 且 knowie 跨廠商 → 騎在任何 harness 上。
 - **× Loop engineering ── 最強配對**：「邊睡邊跑、對 goal、沒人在每一圈」＝ drift/reward-hack/遺忘風險最大處。knowie 供它最缺三樣：**持久 goal**（vision/roadmap，非 ephemeral）、**約束**（principles 護欄、防漂/防抄捷徑）、**跨圈記憶+語義驗證**（capture/consolidate 複利每圈所學、judge 每圈 verify，超出 harness 的動作閘）。→ **knowie ＝ run-while-you-sleep loop 的龍骨 + 長期記憶**。loop 生 helper ＝ 多 agent → 套 [多agent併發](2026-06-12-多agent併發-git模型.md) 的 git 併發模型。
