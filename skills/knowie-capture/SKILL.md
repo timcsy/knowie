@@ -26,6 +26,11 @@ Split the input into *which kinds* of knowledge it produced, then route each pie
 - **Don't collapse dimensions.** One discussion usually spans perspectives — don't shove it all into `vision`. Route each piece to where it belongs.
 - **When unsure if it's settled → `draft/`, not the three files.** (Captured ≠ committed.)
 
+## Fire without being asked — reliance and pivot are the signals
+The misses come from never running capture, not from running it wrong. Two signals should make you capture *on your own*, before being asked:
+- **Reliance ≠ captured.** The moment you cite a criterion / lesson / decision as if it's established — "as we decided X", "per X", "this echoes X" — that reliance *is* proof X is load-bearing. **Stop and check X is actually in the base; if not, capture it now.** A vivid, agreed discussion is **not** capture — an idea fresh in context only *feels* stored, and the one you're actively relying on is the most dangerous miss.
+- **Topic pivot.** When the thread changes subject, sweep what just got decided/learned for anything not yet in the base — a discussion abandoned for the next question is where capture is lost. (judge backstops both with a mechanical scan for cited-but-uncaptured names.)
+
 ## Procedural capture — repeated *doing* → a candidate skill
 A second mode: not dispatching a discussion, but noticing you've done the **same operation repeatedly** (scrape-build a dataset, batch-translate…). That's procedural memory forming — capture it.
 - **Notice + record a candidate** → a `draft/` block: what the task is + *how* you did it this time. (A candidate is still data/undecided → it incubates in `draft/` like anything else.)
