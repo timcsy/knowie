@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.6.13] — 2026-06-13
+
+### Changed
+
+- **`/knowie-migrate` no longer dresses rejected options as transitions.** A re-run produced `history/` entries like "001 — 否決 ORM" framed as an X→Y transition ("old: (candidate) ORM → new: raw SQL"), with one numbered entry per rejection — but a never-adopted candidate was never *in force*, so nothing is `superseded`; it's a **tombstone** (what was considered, why declined, thaw condition), not a transition. The skill now states the distinction sharply: only a decision that *was actually in force and then changed* gets a numbered transition; a rejected option is a tombstone and tombstones may be grouped into one catalog (per milestone), not one `NNN` each. The tell: if there's no prior decision this supersedes, it's a tombstone. (Found dogfooding — same family as the projection-edit miss: what belongs in `history/`, and in what shape.)
+
 ## [0.6.12] — 2026-06-13
 
 ### Changed
