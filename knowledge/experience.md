@@ -163,6 +163,13 @@
 - **教訓**：**有些 bug 不是措辭沒寫好，是缺一個結構性範疇區分**（domain event vs projection edit）。這是「[有些 bug 是執行層的、協議層解不了]」的姊妹——那條是「跳到對的層」，這條是「**留在協議層，但要對的範疇模型，不是更響亮的禁令**」。一個 regression 反覆用措辭擋不死 → 該懷疑缺的是模型不是字句。
 - **來源**：battle 真跑 migrate 切片 7（2026-06-13），使用者截圖抓到 `001-m1-early-lessons` 又冒出。設計脈絡 ←→ [migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md)。
 
+### 把 migrate 當冪等函數修是用錯標準——它是生成重建，不是可重擲函數
+- **理論說**：migrate 跟 judge/capture 一樣是 knowie skill，所以也該收斂——「再跑近乎 no-op」，run-to-run 不一致就是 bug，用更精準的措辭逼它穩。
+- **實際發生**：照這標準修了一長串（projection-edit／日期／墓碑…），但每跑 battle 又冒新差異；0.6.10 vs 0.6.12 同邏輯卻 history 組織天差地遠。打地鼠打不完、且沒有「修完」的信號。癥結：**judge/capture/next operate on 既有 knowledge（有界、可檢查、會收斂）；migrate 用 IRL 從 git 推不可驗證的 why**——而 [why 沒有 oracle](concepts/why沒有oracle.md)，所以它的產出**本質是抽樣、不是固定點**。拿冪等標準要求它是範疇錯誤。
+- **解決方式**：認下 migrate 的本性＝**一次性生成重建 → 人策展（HITL）→ 維護**，不是冪等函數。差異分兩型：**第一型可定義範疇錯**（維護當決策、否決當轉移、今天當 git 日期）有正解 → 寫規則、會收斂、繼續修；**第二型本質判斷變異**（怎麼分組/命名/強調哪個 why）無單一正解 → **交 HITL 策展，不再用越來越細的措辭追**（追它就是[鐘擺失敗]）。品質閘＝good-enough + 人策展，不是 determinism。
+- **教訓**：**不是所有 knowie skill 都該收斂**——收斂屬於「整理既有」的 skill；「推不可驗證 why 的生成重建」本質非冪等，硬追 determinism 會無止境打地鼠。先分清一條產出該不該收斂，再決定用規則還是 HITL。
+- **來源**：本 session migrate 修復長弧 + 0.6.10/0.6.12 兩跑變異 + 收斂會計討論（2026-06-13，使用者拍板「偏向認下一次性重建」）。設計脈絡 ←→ [migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md)。
+
 ## 關鍵延伸（主題觸發必讀）
 
 | 觸發關鍵字 | MUST 讀 |
