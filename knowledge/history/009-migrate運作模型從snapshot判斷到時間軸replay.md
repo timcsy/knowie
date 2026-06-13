@@ -19,6 +19,9 @@
 ## 狀態
 ✅ 模型已建進 `/knowie-migrate`（0.6.3→0.6.13）、battle 真跑驗核心（真 transition 長出來、projection-edit regression 消失）。本性框寫進 SKILL 頂部。**roadmap 項仍 in-flight**（真實舊專案的廣度驗證未完），故 [replay 設計 draft](../draft/2026-06-12-migrate時間軸replay.md) 及衛星留作在建脈絡、未退場。
 
+## 後續（2026-06-13，0.7.0）
+本條的「認下非冪等、不要求收斂」是**當時**的決議。同日使用者選「先做出來」→ migrate 重寫成 **encoder-decoder**（結構極=bidirectional encoder、why 極=平行 causal-masked decoder、反芻對固定 git 收斂）。**這軟化了本條一半**：**結構層其實能收斂**（encoder 全局一次算 + 反芻），**why 層仍是抽樣**（why 沒 oracle 不變）。**待 battle A/B 驗**；驗過再正式修訂本條的轉移內容。設計脈絡見 [replay draft 下一代架構](../draft/2026-06-12-migrate時間軸replay.md)。
+
 ## Pointer
 - 設計脈絡：[時間軸replay](../draft/2026-06-12-migrate時間軸replay.md)（幅射到 [預期問題](../draft/2026-06-12-migrate預期問題.md)／[架構視角 ES/CQRS/DDD](../draft/2026-06-12-migrate架構視角-ES-CQRS-DDD.md)／[遮罩harness](../draft/2026-06-12-遮罩harness設計.md)）
 - 教訓：experience「決策轉移只從往前播長出來」、「projection 編輯不是 domain event」、「把 migrate 當冪等函數修是用錯標準」

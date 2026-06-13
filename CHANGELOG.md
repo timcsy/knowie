@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.7.0] — 2026-06-13
+
+### Changed
+
+- **`/knowie-migrate` rewritten as an encoder-decoder over git** (was a sequential masked fold). The old model carried an accumulated base forward slice-by-slice (an RNN hidden state) — slow, and long-range transitions got diluted into the lossy base and missed. The rewrite splits the work the way a Transformer does: a **bidirectional structure pass** (the encoder — reads the whole history, emits *only* structure: slicing + the transition/tombstone/projection-edit classification; never any why, so it can see everything without rationalizing), **parallel causal-masked sub-agents** (the decoder — one per slice, each blind to its own future, recovering the author's why-under-uncertainty by running the real metabolism locally), a **merge** (assemble the masked whys into the structure; fill the cross-slice *transition* whys, which legitimately span both endpoints), and **rumination** (re-read against git — the fixed text — until it converges; HITL is a denoising step). Parallelism is now safe because transition-detection moved up to the encoder, so masked slices do only local why and need no carried base — reframing the old "sequential, never parallel" rule rather than contradicting it. Git dates + `--first-parent` order are the positional encoding (structural, not cosmetic). The prior patch-rules (mask-the-future, projection-edit≠event, tombstone≠transition, dates-from-git, two-voices, re-bootstrap, adoption-phase) are preserved but **fold into the phases as properties** rather than standing as separate bullets — the skill is shorter and generated from the architecture. **Structure can now converge** (encoder + rumination against fixed evidence); **why stays a sample** (no oracle). **Unverified — a big rewrite; needs A/B against the prior model on a real project before it's trusted.** (`structureVersion` unchanged — the knowledge structure is the same; only migrate's process changed.)
+
 ## [0.6.13] — 2026-06-13
 
 ### Changed
