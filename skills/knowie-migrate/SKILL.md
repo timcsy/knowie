@@ -13,6 +13,13 @@ Bring a knowledge base up to the current structure by **replaying git forward, s
 
 (CLI `knowie update` pulls skills/templates. `judge` does rot. This skill is only **structure migration**.)
 
+## What migrate is (its nature — don't chase determinism)
+migrate is a **one-shot generative reconstruction → human curation (HITL) → then maintain**, **NOT an idempotent function**. Unlike `judge`/`capture`/`next` (which operate on *existing* knowledge — bounded, checkable, "re-run ≈ no-op"), migrate **infers unverifiable why from the git trajectory** (IRL), and why has no oracle — so its output is a *sample*, not a fixed point. Re-running yields a different-but-valid reconstruction; that is expected, not a bug. Two kinds of difference, handled differently:
+- **Type 1 — definable category errors** (a knowledge-housekeeping commit written as a transition; a rejected option dressed as X→Y; today's date instead of git's): these have a *right answer* → encode as rules, they converge. Keep fixing these.
+- **Type 2 — inherent judgment variance** (how to group/name/which why to emphasize): no single right answer → **handled by HITL curation, NOT by ever-sharper prose rules** (chasing it is the pendulum trap). 
+
+So the quality gate is **good-enough + human curation**, not determinism. Don't hold migrate to convergence/idempotence — that standard fits the skills operating on existing knowledge, not a reconstruction of inferred why.
+
 ## Why forward + masked (the whole point)
 Judging the final state in one pass is non-reproducible and blind to *transitions*. Replaying forward is monotonic → it converges; and **transitions (the heart of `history/`) are only visible forward** — the end state shows only Y, never the X→Y. But forward only works if you genuinely **don't see the future**: seeing the ending makes you rationalize the outcome instead of *inferring* the why the author had under uncertainty. This is inverse-RL on the git trajectory — infer the reward/why behind the behavior — and inference needs the future masked.
 
