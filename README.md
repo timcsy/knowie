@@ -4,6 +4,8 @@
 
 **Your AI reads your code. Knowie teaches it your thinking.**
 
+📖 **[Hands-on tutorial](docs/tutorial.md)** · **[Why I built it](docs/origin-story.md)** _(both in Traditional Chinese)_
+
 ---
 
 ## The Problem
@@ -41,6 +43,8 @@ That's it. Knowie creates the files, detects your AI tools, and connects everyth
 > ```bash
 > npx knowie init --yes
 > ```
+
+> **New here?** Walk through a whole project end-to-end in the **[hands-on tutorial](docs/tutorial.md)** (in Traditional Chinese).
 
 ## What Changes
 

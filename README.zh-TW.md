@@ -4,6 +4,8 @@
 
 **你的 AI 讀得懂程式碼。Knowie 教它讀懂你的想法。**
 
+📖 **[完整實操教學](docs/tutorial.md)** · **[我為什麼開發 Knowie](docs/origin-story.md)**
+
 ---
 
 ## 問題
@@ -41,6 +43,8 @@ npx knowie init
 > ```bash
 > npx knowie init --yes
 > ```
+
+> **第一次用？** 看 **[完整實操教學](docs/tutorial.md)**，帶你從零把一個專案走一遍。
 
 ## 差別在哪
 
