@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.7.1] — 2026-06-17
+
+### Docs
+
+- **README + docs reworked for release.** Repositioned against the now-hot landscape in plain language (AI memory / LLM wikis / autonomous loops — "they manage memory or automation; Knowie holds the *why*"), with the key anti-lock-in points: it's yours and travels (Markdown + git), it sits underneath not in the way, and it wraps any round of work (spec / agent loop / plan mode) without being tied to an engine. Added a concise "full loop" (setup once → `next` → a round → `judge` → `capture`/`consolidate` → repeat), honest 0.x/beta labelling (the daily loop is solid; `/knowie-migrate` is beta), a dogfood note (Knowie is built using Knowie), and surfaced the tutorial / origin-story / video-intro links at the top. Fixed stale facts in `docs/` (`.knowie.json` location, removal markers, the real `specify init` command, version references) and aligned the tutorial with the real end-to-end workflow. No code changes.
+
 ## [0.7.0] — 2026-06-13
 
 ### Changed
