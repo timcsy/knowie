@@ -60,27 +60,32 @@ That's it. Knowie creates the files, detects your AI tools, and connects everyth
 
 **One person. One project. 150+ features. Still coherent.**
 
+And Knowie is built using Knowie — its own reasoning lives in its own `knowledge/`. (Early days, version 0.x: the everyday files-and-`/knowie-judge` loop is solid; newer pieces like `/knowie-migrate` are still beta.)
+
 That's the bar Knowie is designed for. Whether you're starting fresh or arriving at feature #40 wondering why the AI keeps re-suggesting things you already decided against — this is what it's for.
 
 ## Where Knowie Fits
 
-The AI coding landscape has grown many layers. Knowie occupies one specific layer:
+Most AI coding tools right now are about **memory** or **automation**. Knowie adds the piece they leave out — and works alongside all of them.
 
-| Layer | Manages | Examples |
-|-------|---------|----------|
-| Harness | How the agent runs (retry, validation, workflows) | Claude Code, agent SDKs |
-| Context engineering | What goes into the LLM context *right now* | RAG, @-mentions, repo grep |
-| Memory systems | Auto-extracted facts persisted across sessions | mem0, Letta, ChatGPT memory |
-| Spec tools | Per-feature contracts | SpecKit, OpenSpec, Kiro Specs |
-| **Knowie** | **Human-curated, project-level *why* — durable across sessions, specs, and tools** | — |
+| What's popular now | What it does | What it leaves out |
+|---|---|---|
+| **AI memory** (mem0, Letta, ChatGPT memory) | Remembers *what was said* — collected automatically, kept inside one vendor | The *why* — and it's often hard to check |
+| **LLM wikis / knowledge bases** | Organize *what's known* about your code | A backbone: what the project is actually *for* |
+| **Autonomous agents / "loops"** (the run-while-you-sleep kind) | *Do the work* toward a goal | Whether they're still on track — and memory between runs |
+| **Spec tools** (SpecKit, OpenSpec, Kiro) | Pin down *each feature* | The shared thread across all features |
 
-**vs spec tools:** Specs are per-feature. Knowie is the shared layer *across* all specs — so spec #20 still respects the principle set in spec #1. Spec tools make each feature rigorous; Knowie keeps the project coherent.
+**Knowie holds the *why*** — the reasoning that decides which memory matters, what the project is for, and whether the work is still on course.
 
-**vs memory systems:** Memory systems auto-extract and accumulate (often with noise you can't audit). Knowie is explicitly human-authored — every line is something you can point at and stand behind. `/knowie-judge` gives you a feedback loop no black-box memory system offers.
+Three things make it different:
 
-**vs context engineering:** Context engineering decides *what to load right now*. Knowie decides *what stays true across every query*. Different axis.
+- **It's yours, and it goes everywhere.** Knowie is just Markdown in your git repo — not a service you log into. It works with every AI tool and vendor, even ones that can't see each other.
+- **It sits underneath, not in the way.** Keep your memory tool, your wiki, your agent loop — Knowie is the *why* layer beneath them, not a replacement. (The closest tool, "ADR for AI," links decisions to code but stays flat — no vision, no lessons, no health check.)
+- **It wraps how you work, not what you use.** However a round of work looks — a spec, an autonomous agent run, or just thinking through a plan — Knowie plugs in the same way: it feeds the *why* in before, and folds what you learned back in after. It never runs the work itself, so it's never tied to one tool or workflow. Swap your engine; your *why* stays put.
 
-They can coexist. Use a RAG system for code retrieval, a memory system for personal history, and Knowie for the curated "why." Different layers, different jobs.
+**You write it, so you can trust it.** Every line is there on purpose, not auto-scraped noise — and `/knowie-judge` keeps it honest. No black-box memory tool does that.
+
+Mix and match: a search tool for finding code, a memory tool for personal history, Knowie for the curated *why*. Different jobs.
 
 **When Knowie isn't the right fit:**
 - You need automatic fact extraction from conversations → use a memory system
@@ -97,6 +102,8 @@ Knowie is safe to add at any point:
 - **Works alongside existing docs** — `knowledge/` complements your README, wiki, or ADRs
 
 Start with just `principles.md`. Your AI benefits from the first file you fill in.
+
+**Already deep into a project?** `/knowie-migrate` can rebuild the *why* straight from your git history — replaying it commit by commit, so you don't start from a blank page. It's new (beta): it suggests, you review, and your existing notes are kept safe in `knowledge.old/`.
 
 ## How It Works
 
@@ -131,7 +138,7 @@ These commands run **inside your AI chat** (not in the terminal). For AI tools w
 | `/knowie-consolidate` | Human-initiated: consolidate a ripe draft out to the long-term tier |
 | `/knowie-next` | Plan the next step, grounded in principles, vision, and experience |
 | `/knowie-judge` | Health check: coherence, alignment with code, rot detection — then tidy |
-| `/knowie-migrate` | Migrate the knowledge base when the structure version moves on |
+| `/knowie-migrate` | Adopting Knowie on a project that already has history? Rebuild the *why* from your git log (beta) |
 
 `/knowie-judge` is the core feedback loop. It catches when your vision contradicts your experience, your principles don't match your code, or your files have gone stale. Results: 🟢 healthy, 🟡 worth watching, 🔴 needs action — with specific quotes and suggestions.
 
@@ -150,6 +157,8 @@ Knowie sits *underneath* your spec tool, not in a pipeline with it:
 ```
 
 Every spec shares the same principles, vision, and lessons. `/knowie-next` detects installed spec tools and hands off naturally — Knowie provides the *why*, your spec tool provides the *what*, AI handles the *how*.
+
+A spec is just one example of "a round of work." The same wrapping holds for an autonomous agent loop or a plain plan-mode session: Knowie feeds the *why* in before, and folds what changed back in after. It's not a spec-tool feature — it's how Knowie meets *any* workflow.
 
 ## Supported Tools
 
@@ -200,7 +209,7 @@ If the knowledge **structure** itself moves on between versions, `npx knowie upd
 - **Plain Markdown** — no proprietary format, no lock-in
 - **Human-authored** — every line is auditable, not auto-extracted noise
 - **No npm dependencies** — Node.js built-ins only
-- **Tool-agnostic** — works with any AI tool that reads files
+- **Tool- and workflow-agnostic** — works with any AI tool that reads files, and wraps any way of working (spec, agent loop, or plan mode)
 - **Progressive** — start with three files, add skills/MCP/subdirectories when ready
 
 ## Why Three Files?
