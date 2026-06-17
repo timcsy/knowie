@@ -62,7 +62,7 @@ npx knowie init
 
 ## 實戰驗證
 
-**一個人。一個專案。150+ 個功能。依然一致。**
+**一個人。一個專案。200+ 個功能。依然一致。**
 
 而且 Knowie 自己就是用 Knowie 開發的——它的推理活在它自己的 `knowledge/` 裡。（還很早，0.x 版：日常的「三份檔 + `/knowie-judge`」這套已經穩；像 `/knowie-migrate` 這種較新的還是 beta。）
 

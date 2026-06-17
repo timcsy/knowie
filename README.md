@@ -62,7 +62,7 @@ That's it. Knowie creates the files, detects your AI tools, and connects everyth
 
 ## Proven in Practice
 
-**One person. One project. 150+ features. Still coherent.**
+**One person. One project. 200+ features. Still coherent.**
 
 And Knowie is built using Knowie — its own reasoning lives in its own `knowledge/`. (Early days, version 0.x: the everyday files-and-`/knowie-judge` loop is solid; newer pieces like `/knowie-migrate` are still beta.)
 
