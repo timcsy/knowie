@@ -4,7 +4,7 @@
 
 **你的 AI 讀得懂程式碼。Knowie 教它讀懂你的想法。**
 
-🎬 **[影片介紹](https://youtu.be/EYDFtX37CVQ)** · 📖 **[完整實操教學](docs/tutorial.md)** · **[我為什麼開發 Knowie](docs/origin-story.md)**
+📖 **[完整實操教學](docs/tutorial.md)** · **[我為什麼開發 Knowie](docs/origin-story.md)** · 🎬 **[影片介紹](https://youtu.be/EYDFtX37CVQ)**
 
 ---
 
