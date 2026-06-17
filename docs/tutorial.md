@@ -495,6 +495,8 @@ AI 實作              → 照規格寫 code（同時參考 knowledge/）
 
 > 不想自己想「這該記去哪」？**`/knowie-capture`** 會把一段討論／想法**自動分發**到對的地方（原則、願景、經驗、概念、`draft/`…）。當 `draft/` 裡的想法醞釀成熟、你想主動把它固化出去，用 **`/knowie-consolidate`**。
 
+> **這個循環不綁任何工具。** 上面用 SpecKit 當例子，但「一輪工作」可以是任何東西——一份 spec、一次自主 agent loop、或只是 plan mode 想一遍。Knowie 的接法都一樣：**做之前餵「為什麼」進去（`/knowie-next`）、做之後把改了什麼收回來（`/knowie-capture`、`/knowie-judge`）**。它從不自己跑那段工作，只在前後兩端接——所以你換引擎、換工具，知識庫照樣用。
+
 每次更新，你的 AI 就更懂你一點。
 
 ---

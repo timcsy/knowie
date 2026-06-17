@@ -77,10 +77,11 @@ npx knowie init
 
 **Knowie 握的是「為什麼」**——那條決定「哪段記憶重要、專案為了什麼、工作還在不在軌道上」的推理。
 
-兩點讓它不一樣：
+三點讓它不一樣：
 
 - **它是你的，而且到哪都能用。** Knowie 就是你 git repo 裡的 Markdown——不是一個要你登入的服務。所以它能搭配每一種 AI 工具和廠商，連那些彼此看不到對方的也行。
 - **它在底下托著，不擋路。** 你的記憶工具、wiki、agent loop 都留著——Knowie 是它們底下的「為什麼」層，不是來取代。（最接近的工具「ADR for AI」把決策連到程式碼，但很扁平——沒有願景、沒有教訓、沒有健康檢查。）
+- **它包住你「怎麼工作」，不管你用什麼。** 不管一輪工作長什麼樣——一份 spec、一次自主 agent 跑、還是只是想一遍 plan——Knowie 都用同一種方式接：前面餵「為什麼」進去，後面把學到的收回來。它從不自己跑那段工作，所以**不綁任何工具或工作流**。換掉你的引擎，你的「為什麼」原封不動。
 
 **你自己寫的，所以信得過。** 每一行都是你刻意放的，不是自動抓來的雜訊——而 `/knowie-judge` 會幫你看它有沒有走樣。黑箱記憶工具做不到這件事。
 
@@ -157,6 +158,8 @@ Knowie 在你的規格工具**底下**，不是跟它串在 pipeline 裡：
 
 每份規格都共享同一套原則、願景、教訓。`/knowie-next` 會偵測已安裝的規格工具並自然接手——Knowie 提供*為什麼*，規格工具提供*做什麼*，AI 處理*怎麼做*。
 
+規格只是「一輪工作」的一個例子。同樣的包法也適用於自主 agent loop、或單純的 plan mode：Knowie 前面餵「為什麼」、後面收回改了什麼。這不是規格工具專屬的功能——這是 Knowie 接上**任何**工作流的方式。
+
 ## 支援的工具
 
 **25+ 種 AI 工具**自動連結：Claude Code、Cursor、Windsurf、GitHub Copilot、Codex、Gemini、Kiro、Amazon Q、Cline、Roo Code、Kilo Code、Aider、Continue、Augment、Amp、Devin、Warp、Zed、OpenCode、Qodo、JetBrains AI、Tabnine、Replit、Bolt.new
@@ -206,7 +209,7 @@ npx knowie update
 - **純 Markdown**——沒有專屬格式，不鎖定
 - **人工撰寫**——每一行都可審計，不是自動萃取的雜訊
 - **無 npm 依賴**——只用 Node.js 內建模組
-- **工具無關**——任何能讀檔案的 AI 工具都能用
+- **工具與工作流都無關**——任何能讀檔案的 AI 工具都能用，也包得住任何工作方式（spec、agent loop、或 plan mode）
 - **漸進式**——先從三份檔案開始，準備好了再加 skills / MCP / 子目錄
 
 ## 為什麼是三份檔案？

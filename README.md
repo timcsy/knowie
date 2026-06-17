@@ -77,10 +77,11 @@ Most AI coding tools right now are about **memory** or **automation**. Knowie ad
 
 **Knowie holds the *why*** — the reasoning that decides which memory matters, what the project is for, and whether the work is still on course.
 
-Two things make it different:
+Three things make it different:
 
 - **It's yours, and it goes everywhere.** Knowie is just Markdown in your git repo — not a service you log into. It works with every AI tool and vendor, even ones that can't see each other.
 - **It sits underneath, not in the way.** Keep your memory tool, your wiki, your agent loop — Knowie is the *why* layer beneath them, not a replacement. (The closest tool, "ADR for AI," links decisions to code but stays flat — no vision, no lessons, no health check.)
+- **It wraps how you work, not what you use.** However a round of work looks — a spec, an autonomous agent run, or just thinking through a plan — Knowie plugs in the same way: it feeds the *why* in before, and folds what you learned back in after. It never runs the work itself, so it's never tied to one tool or workflow. Swap your engine; your *why* stays put.
 
 **You write it, so you can trust it.** Every line is there on purpose, not auto-scraped noise — and `/knowie-judge` keeps it honest. No black-box memory tool does that.
 
@@ -157,6 +158,8 @@ Knowie sits *underneath* your spec tool, not in a pipeline with it:
 
 Every spec shares the same principles, vision, and lessons. `/knowie-next` detects installed spec tools and hands off naturally — Knowie provides the *why*, your spec tool provides the *what*, AI handles the *how*.
 
+A spec is just one example of "a round of work." The same wrapping holds for an autonomous agent loop or a plain plan-mode session: Knowie feeds the *why* in before, and folds what changed back in after. It's not a spec-tool feature — it's how Knowie meets *any* workflow.
+
 ## Supported Tools
 
 **25+ AI tools** connected automatically: Claude Code, Cursor, Windsurf, GitHub Copilot, Codex, Gemini, Kiro, Amazon Q, Cline, Roo Code, Kilo Code, Aider, Continue, Augment, Amp, Devin, Warp, Zed, OpenCode, Qodo, JetBrains AI, Tabnine, Replit, Bolt.new
@@ -206,7 +209,7 @@ If the knowledge **structure** itself moves on between versions, `npx knowie upd
 - **Plain Markdown** — no proprietary format, no lock-in
 - **Human-authored** — every line is auditable, not auto-extracted noise
 - **No npm dependencies** — Node.js built-ins only
-- **Tool-agnostic** — works with any AI tool that reads files
+- **Tool- and workflow-agnostic** — works with any AI tool that reads files, and wraps any way of working (spec, agent loop, or plan mode)
 - **Progressive** — start with three files, add skills/MCP/subdirectories when ready
 
 ## Why Three Files?
