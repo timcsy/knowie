@@ -4,7 +4,7 @@
 
 **Your AI reads your code. Knowie teaches it your thinking.**
 
-📖 **[Hands-on tutorial](docs/tutorial.md)** · **[Why I built it](docs/origin-story.md)** _(both in Traditional Chinese)_
+🎬 **[Video intro](https://youtu.be/EYDFtX37CVQ)** · 📖 **[Hands-on tutorial](docs/tutorial.md)** · **[Why I built it](docs/origin-story.md)** _(tutorial & story in Traditional Chinese)_
 
 ---
 
