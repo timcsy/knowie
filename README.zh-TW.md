@@ -42,6 +42,8 @@ npx knowie init
 > npx knowie init --yes
 > ```
 
+> **第一次用？** 看 **[完整實操教學](docs/tutorial.md)**，帶你從零把一個專案走一遍。
+
 ## 差別在哪
 
 **新手範例**——「加個登入功能」：
@@ -228,6 +230,11 @@ npx knowie update
 對應型別論中的判斷（Γ ⊢ t : A）和認識論中的[三視角主義](https://en.wikipedia.org/wiki/Triperspectivalism)。三個互相依存、不可化約的視角。
 
 </details>
+
+## 深入了解
+
+- **[完整實操教學](docs/tutorial.md)** — 用 Knowie 從零開發一個專案，一步一步走
+- **[我為什麼開發 Knowie](docs/origin-story.md)** — 背後的故事：三份檔案，以及它們如何意外地匯合成同一個結構
 
 ## 授權
 

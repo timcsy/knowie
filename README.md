@@ -42,6 +42,8 @@ That's it. Knowie creates the files, detects your AI tools, and connects everyth
 > npx knowie init --yes
 > ```
 
+> **New here?** Walk through a whole project end-to-end in the **[hands-on tutorial](docs/tutorial.md)** (in Traditional Chinese).
+
 ## What Changes
 
 **Beginner example** — "Add user login":
@@ -227,6 +229,11 @@ Every decision has three parts: what's *correct* (principles), what you're *buil
 
 Maps to *judgment* in type theory (Γ ⊢ t : A) and [triperspectivalism](https://en.wikipedia.org/wiki/Triperspectivalism). Three co-dependent, irreducible perspectives.
 </details>
+
+## Learn more
+
+- **[Hands-on tutorial](docs/tutorial.md)** — build a project from scratch with Knowie, step by step (in Traditional Chinese)
+- **[Why I built Knowie](docs/origin-story.md)** — the story behind it: three files, and how they turned out to be one structure (in Traditional Chinese)
 
 ## License
 
