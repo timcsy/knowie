@@ -164,6 +164,32 @@ Knowie 在你的規格工具**底下**，不是跟它串在 pipeline 裡：
 
 規格只是「一輪工作」的一個例子。同樣的包法也適用於自主 agent loop、或單純的 plan mode：Knowie 前面餵「為什麼」、後面收回改了什麼。這不是規格工具專屬的功能——這是 Knowie 接上**任何**工作流的方式。
 
+## 完整流程（從頭到尾怎麼跑）
+
+**設定（一次）：**
+
+1. 裝好環境 —— Node、你的 AI 工具，以及（選配）一個 spec 工具。*（作者的一鍵捷徑：[`npx prespec`](https://www.npmjs.com/package/prespec)；或各自手動裝。）*
+2. *（選配 —— 只有用 SDD 才需要）* `specify init . --ai claude --ai-skills`，然後在 AI 裡跑 `/speckit.constitution`（例如 *「使用 TDD。請用繁體中文撰寫規格文件與回答」*）。
+3. `npx knowie init`，再 `/knowie-init` 把知識填進去。*（已經有歷史的舊專案？`/knowie-migrate` 從 git 重建「為什麼」—— beta。）*
+
+**每一輪（重複）：**
+
+```
+/knowie-next   → 規劃這一輪（基於原則／願景／經驗）
+   ↓
+做一輪          → SpecKit（specify → plan → tasks → implement）、一個 agent loop、或就只是 plan mode
+   ↓
+/knowie-judge  → 對齊知識庫 + 健康檢查
+   ↓
+有新想法？聊一聊，然後 /knowie-capture → draft    ·    draft 太多？/knowie-consolidate
+   ↓
+回到 /knowie-next
+```
+
+沒有新想法時，就是 next → 做一輪 → judge → next → 做一輪 → judge…… Knowie 不在意你用哪個引擎跑那一輪——它只在前後兩端接。
+
+完整一步步的版本在 **[實操教學](docs/tutorial.md)**。
+
 ## 支援的工具
 
 **25+ 種 AI 工具**自動連結：Claude Code、Cursor、Windsurf、GitHub Copilot、Codex、Gemini、Kiro、Amazon Q、Cline、Roo Code、Kilo Code、Aider、Continue、Augment、Amp、Devin、Warp、Zed、OpenCode、Qodo、JetBrains AI、Tabnine、Replit、Bolt.new

@@ -164,6 +164,32 @@ Every spec shares the same principles, vision, and lessons. `/knowie-next` detec
 
 A spec is just one example of "a round of work." The same wrapping holds for an autonomous agent loop or a plain plan-mode session: Knowie feeds the *why* in before, and folds what changed back in after. It's not a spec-tool feature — it's how Knowie meets *any* workflow.
 
+## The full loop (how it's used end to end)
+
+**Setup (once):**
+
+1. Set up your environment — Node, your AI tool, and (optionally) a spec tool. *(The author's one-command shortcut: [`npx prespec`](https://www.npmjs.com/package/prespec); or install each manually.)*
+2. *(Optional — only if you use SDD)* `specify init . --ai claude --ai-skills`, then in your AI run `/speckit.constitution` (e.g. *"use TDD; write specs and answers in Traditional Chinese"*).
+3. `npx knowie init`, then `/knowie-init` to fill in your knowledge. *(Existing project with history? `/knowie-migrate` rebuilds the why from git — beta.)*
+
+**Each round (repeat):**
+
+```
+/knowie-next   → plan this round (grounded in principles / vision / experience)
+   ↓
+do one round   → SpecKit (specify → plan → tasks → implement), an agent loop, or just plan mode
+   ↓
+/knowie-judge  → realign the knowledge base + health check
+   ↓
+new idea? chat it through, then /knowie-capture → draft    ·    draft piling up? /knowie-consolidate
+   ↓
+back to /knowie-next
+```
+
+No new ideas? It's simply next → round → judge → next → round → judge… Knowie doesn't care which engine runs the round — it only meets it at the two ends.
+
+Full step-by-step walkthrough in the **[tutorial](docs/tutorial.md)**.
+
 ## Supported Tools
 
 **25+ AI tools** connected automatically: Claude Code, Cursor, Windsurf, GitHub Copilot, Codex, Gemini, Kiro, Amazon Q, Cline, Roo Code, Kilo Code, Aider, Continue, Augment, Amp, Devin, Warp, Zed, OpenCode, Qodo, JetBrains AI, Tabnine, Replit, Bolt.new
