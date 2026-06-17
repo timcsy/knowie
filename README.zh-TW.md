@@ -170,7 +170,7 @@ Knowie 在你的規格工具**底下**，不是跟它串在 pipeline 裡：
 
 1. 裝好環境 —— Node、你的 AI 工具，以及（選配）一個 spec 工具。*（作者的一鍵捷徑：[`npx prespec`](https://www.npmjs.com/package/prespec)；或各自手動裝。）*
 2. *（選配 —— 只有用 SDD 才需要）* `specify init . --ai claude --ai-skills`，然後在 AI 裡跑 `/speckit.constitution`（例如 *「使用 TDD。請用繁體中文撰寫規格文件與回答」*）。
-3. `npx knowie init`，再 `/knowie-init` 把知識填進去。*（已經有歷史的舊專案？`/knowie-migrate` 從 git 重建「為什麼」—— beta。）*
+3. 把 `npx knowie init --yes` 直接貼進 AI CLI 聊天視窗（它會幫你在終端機跑、免互動），再 `/knowie-init` 把知識填進去。*（已經有歷史的舊專案？`/knowie-migrate` 從 git 重建「為什麼」—— beta。）*
 
 **每一輪（重複）：**
 

@@ -170,7 +170,7 @@ A spec is just one example of "a round of work." The same wrapping holds for an 
 
 1. Set up your environment — Node, your AI tool, and (optionally) a spec tool. *(The author's one-command shortcut: [`npx prespec`](https://www.npmjs.com/package/prespec); or install each manually.)*
 2. *(Optional — only if you use SDD)* `specify init . --ai claude --ai-skills`, then in your AI run `/speckit.constitution` (e.g. *"use TDD; write specs and answers in Traditional Chinese"*).
-3. `npx knowie init`, then `/knowie-init` to fill in your knowledge. *(Existing project with history? `/knowie-migrate` rebuilds the why from git — beta.)*
+3. Paste `npx knowie init --yes` straight into your AI CLI chat (it runs in the terminal for you, no prompts), then `/knowie-init` to fill in your knowledge. *(Existing project with history? `/knowie-migrate` rebuilds the why from git — beta.)*
 
 **Each round (repeat):**
 
