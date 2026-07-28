@@ -2,6 +2,12 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.7.2] — 2026-07-28
+
+### Changed
+
+- **Reflow discipline tightened: a completion is not a transition.** Three real-project dogfoods (`history/010`) surfaced two failure modes that dogfood alone couldn't — `history/` used as a changelog (LearnNews: 31 entries in 5 days, many just "increment shipped / tests green" dressed under a "Transition" heading) and `vision/` used as an append-only log (VizGPT: 738-line roadmap, every finished stage sedimenting its delivery notes / obsolete "current state" / lifted caveats inline). Same disease — a completion that never *exits*, settling in the wrong tier. Fixes: **capture** adds a `Completion ≠ transition` test (a milestone earns a `history/` entry only when it *revealed a pivot*; delete the delivery/test lines — if an "old → new, and why" remains it's history, else it's a commit/CHANGELOG + `episodes` scene whose lesson reflows to `experience`); **judge** §2 adds a vision "stays forward-looking?" structure check and §5 strengthens vision tidy to *redeem-and-retire, then converge* (a done item collapses to a one-line result + a `history/` pointer; detail retires to `episodes`/`history`, `<details>`-collapsing is a symptom not the fix; keep the body's modes apart — stable positioning + live roadmap + a thin milestone index); **history-README** (en + zh-TW) closes the "milestone = completion" loophole and adds a "not here" section. `structureVersion` unchanged (skill/template behavior only; the knowledge structure is the same — existing bases keep working, they just get sharper guidance). See `history/011`.
+
 ## [0.7.1] — 2026-06-17
 
 ### Docs
