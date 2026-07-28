@@ -15,12 +15,13 @@ Take a chunk of thinking (a finished discussion, an idea) and **dispatch** it in
 Split the input into *which kinds* of knowledge it produced, then route each piece by maturity. Writing ≠ dumping into one file.
 
 ## Tests — per piece of the input
-- **Which perspective?** normative → `principles` · situational → `vision` · existential → `experience` · a recurring root → a `concepts/` file · a "why it changed" → `history/`.
+- **Which perspective?** normative → `principles` · situational → `vision` · existential → `experience` · a recurring root → a `concepts/` file · a decision that *supersedes* a prior one, or a rejected option → `history/` (a **transition**, not a completion — see below).
 - **Which kind → which exit?** (recognition chain: problem → design → experience)
   - *Experience* (a verified lesson / a pitfall hit) → `experience`; its full scene, if recall-worthy → `episodes` (link them, and link the episode out to the *how* it produced — spec / PR / commit — point out, don't copy; pin a commit for a regenerable spec). Note experience's main source is *doing*'s reflow, not draft.
   - *Design* (a proposal / mechanism) → can't be settled until built+used → park as a `draft/` topic block; **when mature, its exit is the vision roadmap** (a human commits to building it), not direct consolidation. On promotion the roadmap item gets **acceptance criteria** and a **two-way link** to the draft; the draft stays as the in-flight rationale (don't delete it) until the item is done, then it reflows + retires (see judge §4).
   - *Problem* (an open question) → `draft/` topic block; its exit is finding an answer (→ becomes a design or experience).
   - *Rejected option* → tombstone in `history/` with the reason — the richest why; don't drop it for the conclusion alone.
+  - *Completion ≠ transition.* "Shipped X / tests green / increment done" is **not** `history/` — even under a "Transition" heading. Its home is the commit / CHANGELOG (the *how*-leg) + the exploration scene (`episodes`); its lesson reflows to `experience`. A milestone earns a `history/` entry **only when it revealed a pivot** — a prior decision or assumption changed — and then the entry records *that pivot*, not the delivery list. **Test:** delete the delivery/test lines; if an "old → new, and why it changed" remains, it's history — if only "we finished it" remains, it isn't (one `history/` entry per shipped increment is the smell).
 
 ## Two reflexes
 - **Don't collapse dimensions.** One discussion usually spans perspectives — don't shove it all into `vision`. Route each piece to where it belongs.
