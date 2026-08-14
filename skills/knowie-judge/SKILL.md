@@ -22,7 +22,7 @@ Scan each core file's Key Extensions table for topics the scope hits (or, if emp
 
 ## 3. Detect rot — mechanically, not from memory
 - **Orphans**: any sub-file no Key Extensions table points to.
-- **Dead links**: any pointer to a file that's gone or renamed.
+- **Dead links**: any pointer to a file that's gone or renamed. Skip link syntax inside inline code or fenced blocks — those are *illustrations* of a link, not pointers, and counting them gives a false positive on any file that documents the convention.
 - **Conceptual dead references**: dead links, one level up — a *named* criterion / lesson / concept cited as established ("see X", "echoes X", "the X principle") that has no file or heading defining it. grep the citations against the actual concept/lesson titles; a name relied on but never captured is the failure mode where a vivid discussion was mistaken for a stored one (capture's reliance trigger backstopped here). Flag it → it should be captured.
 - **Stale**: entries referencing deleted code, finished milestones, resolved problems.
 - **Backlinks (derive, don't require `[[ ]]`)**: the same scan inverted — `grep '](path'` gives a node's inbound links. Surface them on request, and flag a *materialized* back-edge that's asymmetric (A links B, but an intended B→A is missing). Links are plain `[](path)`; the graph is derived, not stored (see principle 8).

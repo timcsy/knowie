@@ -107,9 +107,9 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] 投影 symlink 一律**相對路徑**（VizGPT 實測是絕對路徑，換 checkout 就全斷）；judge §5 掃到絕對路徑直接修回（可逆 → 自動）
 - [x] 順手修：`init --yes` 的 `selectedIds` 沒去重，既有 `AGENTS.md` 會讓 `agents-md` 在 config 裡出現兩次（MCP 那條有 `new Set`、CLI 沒有——又一個 CLI/MCP 漂移）
 
-**知識條目的形狀（模板 + `_core`）** — ✅ 0.7.3 完成。experience 模板加「不適用的時候／相關」、concept 命名採斷言式、教訓寫判準不寫做法、強調預算，四項進 `_core` + 雙語模板。回頭套用到 knowie 自己：跑 `update` 收齊 managed files、砍掉 `concepts/README` 那張已漂的索引表（每個概念檔本來就自帶一句話，索引是複述）、孤兒 draft 接進 principles 路由；**沒做**既有內容的強調瘦身——那個數字後來被證明分不開好壞，追它就是追一個非鑑別指標。設計脈絡 ←→ [知識條目的形狀](draft/2026-08-14-知識條目的形狀.md)。
+**知識條目的形狀（模板 + `_core`）** — ✅ 0.7.3 完成。experience 模板加「不適用的時候／相關」、concept 命名採斷言式、教訓寫判準不寫做法、強調預算，四項進 `_core` + 雙語模板。回頭套用到 knowie 自己：跑 `update` 收齊 managed files、砍掉 `concepts/README` 那張已漂的索引表（每個概念檔本來就自帶一句話，索引是複述）、孤兒 draft 接進 principles 路由；**沒做**既有內容的強調瘦身——那個數字後來被證明分不開好壞，追它就是追一個非鑑別指標。命名那條的轉移見 [history/013](history/013-概念命名從名詞式到斷言式.md)；現場與量測見 [episode](episodes/2026-08-14-五專案外推審計.md)。
 
-**judge 再機械一階** — ✅ 0.7.3 完成。**四條**採用（舊欄位寫成進度／vision 勾選比／整層孤兒率／教訓缺來源，加檔名禁空白），**兩條否決**（檔名轉移詞、強調密度）→ 墓碑見 [history/012](history/012-否決兩條機械檢查-檔名詞彙與強調密度.md)。六庫 fixture 驗收零誤報。設計脈絡 ←→ [judge再機械一階](draft/2026-08-14-judge再機械一階.md)。
+**judge 再機械一階** — ✅ 0.7.3 完成。**四條**採用（舊欄位寫成進度／vision 勾選比／整層孤兒率／教訓缺來源，加檔名禁空白），**兩條否決**（檔名轉移詞、強調密度）→ 墓碑見 [history/012](history/012-否決兩條機械檢查-檔名詞彙與強調密度.md)。六庫 fixture 驗收零誤報。現場與量測見 [episode](episodes/2026-08-14-五專案外推審計.md)。
 
 **FUSE 掛載驗證**（北極星，仍未證）— adapter 從 `[]()` 結構衍生 graph、把 knowie 的 why 層掛上 LLM Wiki / Obsidian / 向量後端；軟介面硬化到「可被多方實作」。設計脈絡 ←→ [檢索機制-graph還是path](draft/2026-06-07-檢索機制-graph還是path.md)。
 - [ ] 一個 adapter 把 knowie 結構餵進一個後端（如 Obsidian / LLM Wiki），graph/backlink 由後端衍生
@@ -127,5 +127,5 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 | 開放問題 / ROI / 失敗模式 / 協議版本 | `draft/` |
 | 外部驗證 / 證據在別的 repo / domain skill 兌現 / 跨專案 skill / skill origin | [draft/2026-08-14-驗證證據在外部repo](draft/2026-08-14-驗證證據在外部repo.md) |
 | managed 檔覆蓋 / update 洗掉本地慣例 / README 客製 / 慣例回不來 / 邊界之外 | [draft/2026-08-14-managed檔覆蓋衝突](draft/2026-08-14-managed檔覆蓋衝突.md) |
-| 知識條目形狀 / concept 命名 / 四段式升版 / 不適用的時候 / 強調預算 | [draft/2026-08-14-知識條目的形狀](draft/2026-08-14-知識條目的形狀.md) |
-| judge 機械檢查 / history 檔名形狀 / vision 勾選比 / 整層孤兒 / 相對路徑 | [draft/2026-08-14-judge再機械一階](draft/2026-08-14-judge再機械一階.md) |
+| 知識條目形狀 / concept 命名 / 四段式升版 / 不適用的時候 / 強調預算 | [history/013-概念命名從名詞式到斷言式](history/013-概念命名從名詞式到斷言式.md) |
+| judge 機械檢查 / vision 勾選比 / 整層孤兒 / 被否決的兩條 | [history/012-否決兩條機械檢查-檔名詞彙與強調密度](history/012-否決兩條機械檢查-檔名詞彙與強調密度.md) |
