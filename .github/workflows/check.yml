@@ -1,0 +1,83 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# What-consistency only. These are plain greps, not knowie's why-lane:
+# judge checks knowledge/, this checks that the *package* agrees with itself
+# (see knowledge/experience.md, "why-lane 不掃 what-consistency").
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '18'
+
+      - name: Syntax-check every source file
+        run: |
+          fail=0
+          for f in $(git ls-files '*.js' '*.mjs'); do
+            node --check "$f" || { echo "::error file=$f::syntax error"; fail=1; }
+          done
+          exit $fail
+
+      - name: Package installs cleanly into a fresh project
+        run: |
+          npm pack --dry-run
+          repo=$PWD
+          tmp=$(mktemp -d)
+          cd "$tmp"
+          touch AGENTS.md CLAUDE.md          # two tools → skillDirs should resolve to two dirs
+          node "$repo/bin/knowie.js" init --yes
+          for f in principles.md vision.md experience.md .knowie.json README.md \
+                   concepts/README.md episodes/README.md skills/README.md \
+                   history/README.md draft/README.md; do
+            test -e "knowledge/$f" || { echo "::error::init did not produce knowledge/$f"; exit 1; }
+          done
+          node -e '
+            const c = JSON.parse(require("fs").readFileSync("knowledge/.knowie.json", "utf8"));
+            const want = [".agents/skills", ".claude/skills"];
+            if (JSON.stringify(c.skillDirs) !== JSON.stringify(want)) {
+              console.error("::error::skillDirs is " + JSON.stringify(c.skillDirs) + ", expected " + JSON.stringify(want));
+              process.exit(1);
+            }
+            if (new Set(c.tools).size !== c.tools.length) {
+              console.error("::error::duplicate tool ids in .knowie.json: " + JSON.stringify(c.tools));
+              process.exit(1);
+            }
+          '
+          node "$repo/bin/knowie.js" update --yes   # update must be safe to re-run
+
+      - name: Managed files agree with their templates — both directions
+        run: |
+          lang=$(node -p "require('./knowledge/.knowie.json').language")
+          # Read the subdir→template mapping from constants.js so this check can't
+          # drift from the code that installs them.
+          pairs=$(node --input-type=module -e '
+            import { SUBDIR_READMES } from "./src/constants.js";
+            console.log(Object.entries(SUBDIR_READMES).map(([d, t]) => d + "/README.md:" + t).join("\n"));
+            console.log("README.md:knowledge-README.md");
+          ')
+          fail=0
+          while IFS=: read -r local tmpl; do
+            [ -n "$local" ] || continue
+            l="knowledge/$local"; t="templates/$lang/$tmpl"
+            if [ ! -f "$l" ] || [ ! -f "$t" ]; then
+              echo "::warning::missing $l or $t"; continue
+            fi
+            if ! diff -q "$l" "$t" >/dev/null; then
+              fail=1
+              echo "::error file=$l::out of sync with $t"
+              echo "  ── if the local copy is BEHIND: run \`npx knowie update\`."
+              echo "  ── if the local copy is AHEAD (a convention was invented in this base"
+              echo "     and never reached the template): backport it to templates/ FIRST —"
+              echo "     \`update\` overwrites the local copy and the convention is lost."
+              diff "$l" "$t" | head -20
+            fi
+          done <<< "$pairs"
+          exit $fail

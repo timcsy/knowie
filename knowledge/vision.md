@@ -126,5 +126,6 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 | 記憶動態 / 回流 / 兩條輸入線 / 分層整理 | `_core` / capture / judge（已固化）；緣由見 [draft/2026-06-06-記憶動態](draft/2026-06-06-記憶動態.md) |
 | 開放問題 / ROI / 失敗模式 / 協議版本 | `draft/` |
 | 外部驗證 / 證據在別的 repo / domain skill 兌現 / 跨專案 skill / skill origin | [draft/2026-08-14-驗證證據在外部repo](draft/2026-08-14-驗證證據在外部repo.md) |
+| managed 檔覆蓋 / update 洗掉本地慣例 / README 客製 / 慣例回不來 / 邊界之外 | [draft/2026-08-14-managed檔覆蓋衝突](draft/2026-08-14-managed檔覆蓋衝突.md) |
 | 知識條目形狀 / concept 命名 / 四段式升版 / 不適用的時候 / 強調預算 | [draft/2026-08-14-知識條目的形狀](draft/2026-08-14-知識條目的形狀.md) |
 | judge 機械檢查 / history 檔名形狀 / vision 勾選比 / 整層孤兒 / 相對路徑 | [draft/2026-08-14-judge再機械一階](draft/2026-08-14-judge再機械一階.md) |
