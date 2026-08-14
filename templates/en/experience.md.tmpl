@@ -12,14 +12,32 @@
 ## Lessons
 
 <!--
-  Add a new section for each significant lesson. Use the four-part format:
-  1. What theory/expectation said
-  2. What actually happened
-  3. How you resolved it
-  4. The distilled lesson
+  Add a new section for each significant lesson.
 
-  This format forces you to articulate *why* something was surprising,
-  not just *what* happened.
+  Always: Actually happened · Lesson · Source.
+
+  Open with one of two, whichever fits:
+    - "Theory said"  — there was a gap between what you expected and what happened
+    - "How it hit"   — a procedural lesson with no gap ("I did this, and it saved
+                       me"). Forcing "Theory said" here invents a fake expectation,
+                       which is worse than an uneven format.
+
+  Optional, and usually worth the space:
+    - "Doesn't apply when" — the boundary. A lesson with no boundary gets
+      over-applied, and you end up rewriting it once per context instead of
+      sharpening it once.
+    - "Related" — sideways links to sibling lessons. Which family a lesson belongs
+      to is often more useful than the lesson.
+
+  Source is the leg that goes missing first, especially once you start adapting
+  this format. Drop it and the conclusion survives while the occasion that
+  produced it doesn't — you can no longer rebuild the thinking behind it.
+
+  Write the lesson as a *criterion*, not a *practice*. A practice ("split the
+  binding layer from rendering and it becomes testable") expires with the stack;
+  a criterion ("a measurer that changes what it measures isn't measuring it")
+  travels. A lesson is finished when it changes how some criterion gets written —
+  not when it has been written down.
 
   Lessons others commonly record (see if any hit something you've been through):
     1. Locate bugs with prints before reasoning about them
@@ -34,8 +52,9 @@
 - **Theory said**: [What you expected based on design, principles, or assumptions]
 - **Actually happened**: [What really occurred — be specific]
 - **Resolved by**: [How the gap was bridged — the fix, workaround, or insight]
-- **Lesson**: [One-sentence reusable pattern for next time]
-- **Source**: [Link to history/ entry or PR/commit, if available]
+- **Lesson**: [One-sentence reusable criterion for next time]
+- **Doesn't apply when**: [The boundary — where this stops being true. Optional, but it's what stops the lesson being over-applied]
+- **Source**: [Link to history/ entry, episode, or PR/commit]
 
 <!--
   Example:

@@ -5,7 +5,7 @@ import { installTemplates } from '../templates.js';
 import { installReadmes } from '../scaffold.js';
 import { installSkills } from '../skills.js';
 import { detectTools } from '../adapters/detect.js';
-import { getToolById } from '../adapters/registry.js';
+import { getToolById, getSkillDirs } from '../adapters/registry.js';
 import { injectHandshake } from '../adapters/handshake.js';
 import { confirm } from '../ui.js';
 import { resolveLanguage, t } from '../i18n.js';
@@ -94,6 +94,9 @@ export async function update(projectRoot, { yes = false } = {}) {
   const structureBehind = config.structureVersion !== STRUCTURE_VERSION;
   config.version = VERSION;
   config.tools = [...existingTools];
+  // Heal/refresh the skill-projection list (an older base has none; a newly added
+  // tool brings a new dir) — see getSkillDirs.
+  config.skillDirs = getSkillDirs([...existingTools]);
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 

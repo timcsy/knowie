@@ -81,7 +81,7 @@ async function handleKnowieInit(args) {
   const { installTemplates } = await import('./templates.js');
   const { installSkills } = await import('./skills.js');
   const { detectTools } = await import('./adapters/detect.js');
-  const { getToolById } = await import('./adapters/registry.js');
+  const { getToolById, getSkillDirs } = await import('./adapters/registry.js');
   const { injectHandshake } = await import('./adapters/handshake.js');
   const { readFile, writeFile } = await import('node:fs/promises');
   const { join } = await import('node:path');
@@ -135,6 +135,7 @@ async function handleKnowieInit(args) {
   // Don't stamp structureVersion onto an existing base (absence = older structure).
   config.language = config.language || lang;
   config.tools = [...new Set(toolIds)];
+  config.skillDirs = getSkillDirs(config.tools);
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 
@@ -150,7 +151,7 @@ async function handleKnowieUpdate(args) {
   const { installReadmes } = await import('./scaffold.js');
   const { installSkills } = await import('./skills.js');
   const { detectTools } = await import('./adapters/detect.js');
-  const { getToolById } = await import('./adapters/registry.js');
+  const { getToolById, getSkillDirs } = await import('./adapters/registry.js');
   const { injectHandshake } = await import('./adapters/handshake.js');
   const { readFile, writeFile, access } = await import('node:fs/promises');
   const { join } = await import('node:path');
@@ -208,6 +209,7 @@ async function handleKnowieUpdate(args) {
   // Update config
   config.version = VERSION;
   config.tools = [...existingTools];
+  config.skillDirs = getSkillDirs(config.tools);
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 

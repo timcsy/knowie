@@ -29,7 +29,9 @@ This directory holds the **causal trail** — why the project became what it is.
 ```
 
 ## File naming & date
-Numbered prefixes keep causal order: `001-...`, `002-...` (NNN is the key — don't put the date in the filename, that mixes two axes: number + time).
+Numbered prefixes keep causal order: `001-...`, `002-...` (NNN is the key — don't put the date in the filename, that mixes two axes: number + time). Use `-` instead of spaces; a space breaks half the links to the file.
+
+**Let the filename read as the diff**: `002-from-managed-paas-to-a-self-hosted-vps` tells you the transition without opening it. If you can't phrase the name as "from X to Y" (or "rejected X"), that's the tell you're looking at a completion, not a transition — see "Not here — a completion is not a transition" above.
 Put the date in the body (`> Date: YYYY-MM-DD`), to the **day**: time is over-precision — the NNN prefix already orders same-day transitions. (A date lets time-based health metrics like "root-principle churn rate" be computed.)
 
 ## Relationship to core files

@@ -103,22 +103,25 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] 驗證類 roadmap 項支援 `證據：<路徑或 repo>` 一行指標；judge 掃到路徑存在且非空 → **提出「可能已兌現，去確認」**（不自動勾，人定案）
 - [ ] `skills/` 分兩類：domain（綁 endeavor）vs endeavor-independent（`over-justify`／`commit-feature`／`visual-diff` 這類）；後者 `SKILL.md` frontmatter 可選 `origin: <repo>@<commit>`，judge §5 掃到就報「上游可能變了」
 - [ ] 不做同步機制／registry（會走回平台化）——只報，不搬
-- [ ] 修 `.agents/skills/` 從未被建立（capture skill 第 39 行承諾了、judge §5 說要 re-ensure，五個真實專案全無此目錄；四個專案註冊的 tools 是 `agents-md` 卻只投影到 `.claude/`）
-- [ ] 投影 symlink 一律**相對路徑**（VizGPT 實測是絕對路徑，換 checkout 就全斷）；judge §5 掃到絕對路徑直接修回（可逆 → 自動）
+- [x] 修 `.agents/skills/` 從未被建立——**根因不是措辭，是沒有枚舉來源**：投影是 AI 做的，而 `registry.js` 的 `skillsDir` 是 CLI 的資料，skill markdown 讀不到；`.knowie.json` 只記 tool id。所以 AI 只投影它自己讀的那個目錄。修法：`init`/`update`（CLI + MCP 四處，共用 `getSkillDirs()`）把解析後的清單寫進 `.knowie.json` → `skillDirs`，capture/judge 改成**枚舉它**。registry 仍是唯一來源，config 只承載它的投影。
+- [x] 投影 symlink 一律**相對路徑**（VizGPT 實測是絕對路徑，換 checkout 就全斷）；judge §5 掃到絕對路徑直接修回（可逆 → 自動）
+- [x] 順手修：`init --yes` 的 `selectedIds` 沒去重，既有 `AGENTS.md` 會讓 `agents-md` 在 config 裡出現兩次（MCP 那條有 `new Set`、CLI 沒有——又一個 CLI/MCP 漂移）
 
 **知識條目的形狀（模板 + `_core`）** — 五專案審計顯示條目的**命名／段落／強調**直接決定它能不能被召回和剪枝，而三個專案各自演化出同方向的改良（補「不適用的時候」）。三條獨立推導 ⇒ 夠格動模板。設計脈絡 ←→ [知識條目的形狀](draft/2026-08-14-知識條目的形狀.md)。
-- [ ] `_core` tests 補：concept 的名字要是**可拿來判文字的斷言**，不是可拿來歸檔的名詞（同步 `concepts-README` 模板 en + zh-TW）
-- [ ] `experience.md.tmpl` 升版：必要＝實際發生／教訓／來源；首段二選一＝理論說（有落差）或**怎麼撞到的**（程序型）；可選＝**不適用的時候**（邊界）、**相關**（橫向連結）
-- [ ] `_core` 補「強調是預算」：⚠️ 給「這裡我曾經錯過」、粗體給「這句本身是判準」（實測五專案粗體密度 0.37–0.81/行，最好的那份 concept 一頁 20+ 個 ⚠️）
-- [ ] 回過頭套用到 knowie 自己的 `knowledge/`（本次審計指出的病，knowie 自己也有）
+- [x] `_core` tests 補：concept 的名字要是**可拿來判文字的斷言**，不是可拿來歸檔的名詞（同步 `concepts-README` 模板 en + zh-TW）
+- [x] `_core` tests 補：教訓要寫成**判準**不是**做法**（做法隨技術棧過期，判準跨處境）
+- [x] `experience.md.tmpl` 升版（en + zh-TW）：必要＝實際發生／教訓／來源；首段二選一＝理論說（有落差）或**怎麼撞到的**（程序型）；可選＝**不適用的時候**（邊界）、**相關**（橫向連結）
+- [x] `_core` 補「強調是預算」：⚠️ 給「這裡我曾經錯過」、粗體給「這句本身是判準」（實測五專案粗體密度 0.37–0.81/行，最好的那份 concept 一頁 20+ 個 ⚠️）
+- [ ] 回過頭套用到 knowie 自己的 `knowledge/`（本次審計指出的病，knowie 自己也有）——**順序刻意在後**：先改 judge，再用新 judge 掃自己，讓工具告訴你哪裡要整理
 
 **judge 再機械一階** — 0.7.2 才用措辭收緊「完成不是轉移／vision 出列」，而五個真實專案顯示**病灶仍在，且每一條都能用一行 grep 抓到**。這是 [experience](experience.md)「有些 bug 是執行層的，協議層解不了」的第二次適用——差別是 judge 已經有執行層（§3 的 grep/ls），缺的只是把這幾條從判斷題下放成掃描題。設計脈絡 ←→ [judge再機械一階](draft/2026-08-14-judge再機械一階.md)。
-- [ ] `history/` 檔名不含轉移詞（從…到／改為／否決／推翻）→ 標黃；`## 轉移` 的「舊」欄位以「尚未／只有／僅為 draft」開頭 → 標紅
-- [ ] `vision` 的 `[x]:[ ]` 比 > ~3:1 → 出列機制沒在跑（實測 KnowField 37:1、semorphe 0.6:1）
-- [ ] 某層孤兒率 > 80% → 升級為結構性 🔴（實測 KnowField history 91/91 全孤兒，全庫只有 14 條連結）
-- [ ] 教訓缺「來源」→ 標黃（實測 semorphe 46/109、wewayfinders 19/73 有來源，違反根公理二）
-- [ ] 檔名禁空白（實測 ArduinoCAD 5 條死連結全因 `%20` 編碼不一致）
-- [ ] **驗收＝五專案 fixture**：KnowField 應全紅、semorphe/wewayfinders 應全綠（驗收資料已存在，不必等未來的使用）
+- [x] `## 轉移` 的「舊」欄位以「尚未／只有／僅為 draft／無」開頭 → 🔴（那不是舊決策，是進度條）
+- [x] `vision` 的 `[x]:[ ]` 比 > ~3:1 → 出列機制沒在跑
+- [x] 某層孤兒率 > 80% → 升級為結構性 🔴（不是 N 個 🟡）
+- [x] 教訓缺來源指標（`來源`／指向 `history/`、`episodes/`、commit 的連結）→ 🟡（根公理二）
+- [x] 檔名禁空白（`_core` + concepts/episodes/draft/history README 五處同步）
+- [x] **降級一條**：`history/` 檔名的轉移詞比對**不當紅旗**——六個真實庫跑下來**五個誤報**（`型別統一`／`改用`／`降級為`／`固化`／`先於` 全是真轉移，「轉移」的詞彙是開放集）。改成**命名提示**留給作者判斷。這是 [experience](experience.md)「把 migrate 當冪等函數修是用錯標準」的第一型/第二型在 judge 上的同一刀：可定義的範疇錯（舊欄位寫成進度）寫規則、判斷變異（這名字算不算轉移）交人。
+- [x] **驗收＝六庫 fixture 跑過**（2026-08-14）：KnowField 3 紅（舊欄位/孤兒率/勾選比）、ArduinoCAD 2 紅（勾選比 14.7、兩個帶空白檔名）、wewayfinders 1 紅（28/73 教訓缺來源）、**semorphe / VizGPT / knowie 全綠**。**零誤報**——每一條紅都是審計時人工確認過的真病灶。
 
 **FUSE 掛載驗證**（北極星，仍未證）— adapter 從 `[]()` 結構衍生 graph、把 knowie 的 why 層掛上 LLM Wiki / Obsidian / 向量後端；軟介面硬化到「可被多方實作」。設計脈絡 ←→ [檢索機制-graph還是path](draft/2026-06-07-檢索機制-graph還是path.md)。
 - [ ] 一個 adapter 把 knowie 結構餵進一個後端（如 Obsidian / LLM Wiki），graph/backlink 由後端衍生

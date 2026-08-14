@@ -282,3 +282,23 @@ export function getSelectableTools() {
 export function getToolById(id) {
   return TOOL_REGISTRY.find(t => t.id === id);
 }
+
+/**
+ * The skill-projection targets for a set of selected tools (deduped, stable order).
+ *
+ * Why this exists: projecting a learned skill is the *AI's* job (capture / judge §5),
+ * but the AI can't read this registry — so it had no list to enumerate and only ever
+ * projected into the one dir it knew (`.claude/skills`), silently skipping
+ * `.agents/skills` even on bases that registered `agents-md`. The CLI writes the
+ * resolved list into `knowledge/.knowie.json` → `skillDirs` so the skills have a
+ * source to enumerate. Registry stays the single source of truth; the config just
+ * carries a projection of it (see experience "重複的知識會獨立漂移").
+ */
+export function getSkillDirs(toolIds = []) {
+  const dirs = [];
+  for (const id of toolIds) {
+    const dir = getToolById(id)?.skillsDir;
+    if (dir && !dirs.includes(dir)) dirs.push(dir);
+  }
+  return dirs;
+}

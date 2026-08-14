@@ -28,13 +28,15 @@ export async function run(args) {
 
   const lang = await resolveLanguage(process.cwd()).catch(() => normalizeLanguage(detectLanguage()));
 
-  if (!cmd || flags.has('--help') || flags.has('-h')) {
-    console.log(buildHelp(lang));
+  // Version first: `knowie --version` has no command, so the help branch below
+  // would otherwise swallow it and print the whole help text instead.
+  if (flags.has('--version') || flags.has('-v')) {
+    console.log(VERSION);
     return;
   }
 
-  if (flags.has('--version') || flags.has('-v')) {
-    console.log(VERSION);
+  if (!cmd || flags.has('--help') || flags.has('-h')) {
+    console.log(buildHelp(lang));
     return;
   }
 

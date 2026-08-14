@@ -5,7 +5,7 @@ import { scaffoldKnowledge } from '../scaffold.js';
 import { installTemplates } from '../templates.js';
 import { installSkills } from '../skills.js';
 import { detectTools } from '../adapters/detect.js';
-import { getToolById, TOOL_REGISTRY } from '../adapters/registry.js';
+import { getToolById, getSkillDirs, TOOL_REGISTRY } from '../adapters/registry.js';
 import { injectHandshake } from '../adapters/handshake.js';
 import { confirm, multiSelect, select } from '../ui.js';
 import { detectLanguage, normalizeLanguage, t } from '../i18n.js';
@@ -65,8 +65,9 @@ export async function init(projectRoot, { yes = false } = {}) {
   let selectedIds;
 
   if (yes) {
-    // Auto mode: AGENTS.md + all detected tools
-    selectedIds = ['agents-md', ...detected];
+    // Auto mode: AGENTS.md + all detected tools (dedupe — an existing AGENTS.md
+    // makes agents-md show up in `detected` too, and it was landing twice in config)
+    selectedIds = [...new Set(['agents-md', ...detected])];
     if (selectedIds.length > 0) {
       const names = selectedIds.map(id => getToolById(id)?.name).filter(Boolean);
       console.log(`\n${t(lang, 'cli.init.detected')(names.join(', '))}`);
@@ -144,6 +145,9 @@ export async function init(projectRoot, { yes = false } = {}) {
   // older structure that /knowie-migrate should detect and migrate (then bump it).
   config.language = lang;
   config.tools = selectedIds;
+  // Where learned skills get projected — the AI can't read the registry, so give
+  // it the resolved list to enumerate (see getSkillDirs).
+  config.skillDirs = getSkillDirs(selectedIds);
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 

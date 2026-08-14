@@ -1,6 +1,6 @@
 # draft — short-term memory
 
-Things offloaded from discussion that aren't worth committing yet. **One topic per file**: `YYYY-MM-DD-topic.md`, plus a line of "how it came up".
+Things offloaded from discussion that aren't worth committing yet. **One topic per file**: `YYYY-MM-DD-topic.md` (`-` instead of spaces — a space breaks half the links to the file), plus a line of "how it came up".
 
 ## How it works (like short-term memory)
 - **Decays by default.** Untouched topics fade — forgetting is the feature, not a failure. Most should fade; only a few consolidate.
