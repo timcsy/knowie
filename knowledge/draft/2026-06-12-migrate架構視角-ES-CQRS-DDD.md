@@ -33,4 +33,4 @@
 ## 出口
 - lens，重新理解既有設計，不急回流。成熟用法：對外解釋 migrate「= rebuild CQRS read models by ES-replaying git, events lifted via IRL」。
 - **可行動的產出**：history bug 重新診斷成「投影技術事件、非領域事件」→ 修法已明（IRL lift + 循序傳累積 base），併進 migrate 重寫時用。
-- 四鏡頭（ES/Snapshot/CQRS/DDD）+ 先前（RL/CALM/atom）收斂於同一結構 ＝ [收斂](../concepts/收斂.md)「多面獨立鏡子→真根」又一例。
+- 四鏡頭（ES/Snapshot/CQRS/DDD）+ 先前（RL/CALM/atom）收斂於同一結構 ＝ [收斂](../concepts/發散的自我維護是在自動製造熵.md)「多面獨立鏡子→真根」又一例。

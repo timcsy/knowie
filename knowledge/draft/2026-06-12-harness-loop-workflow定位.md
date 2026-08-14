@@ -42,7 +42,7 @@ while not done(goal):                    # loop engineering：對 goal 排程
 - **flow** ＝ 執行單元（過去叫 atom / transaction / block / step）：一步怎麼算。
 - **knowledge** ＝ 持久基底（過去叫 global variable / state / memory）：跨步累積的東西。
 
-兩者一起運作才成 loop，本質是 **fold**：`loop = reduce(flow, knowledge₀)`（flow＝折疊函式、knowledge＝accumulator）。三面獨立鏡子指同一拆解 → 照 [收斂](../concepts/收斂.md) 判準（多條獨立推導指同一根 ＝ 可能是真根）：**FP**＝fold（migrate「replay is a fold」）、**RL**＝flow 是 policy 一步 / knowledge 是 world model+reward+replay buffer、**ES**＝flow 是 event handler / knowledge 是 projection+log。
+兩者一起運作才成 loop，本質是 **fold**：`loop = reduce(flow, knowledge₀)`（flow＝折疊函式、knowledge＝accumulator）。三面獨立鏡子指同一拆解 → 照 [收斂](../concepts/發散的自我維護是在自動製造熵.md) 判準（多條獨立推導指同一根 ＝ 可能是真根）：**FP**＝fold（migrate「replay is a fold」）、**RL**＝flow 是 policy 一步 / knowledge 是 world model+reward+replay buffer、**ES**＝flow 是 event handler / knowledge 是 projection+log。
 
 **「memory → knowledge」這個改名在做真工，不是換字**——這是整個拆法的價值核心：
 - 過去的 state/memory ＝ 扁平的 **what**（dumb、無結構、無 why）。

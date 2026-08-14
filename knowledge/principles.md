@@ -73,18 +73,23 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 
 | 觸發關鍵字 | MUST 讀 |
 |---|---|
-| 蒸餾 / raw→精 / 整理代謝 / 下沉上浮 / 命名 | `concepts/蒸餾.md` |
-| 收斂 / 發散 / 冪等 / 健康指標 / 母概念 | `concepts/收斂.md` |
-| why / what / ground truth / oracle / 必要繁瑣 | `concepts/why沒有oracle.md` |
-| 協議 / 平台 / POSIX / FUSE / 工具中立 / 軟硬介面 | `concepts/協議非平台.md` |
-| 記憶系統 / 記憶層 / 小腦 / 程序記憶 / 內隱記憶 / 促發 / 可回憶單元 / git 基底 | `concepts/記憶系統.md` |
-| 意義可追溯改寫 / 事件不可變 / log vs snapshot / event sourcing / 為何記 why / 為何 replay / 因果投影 | `concepts/意義可追溯改寫.md` |
-| AI 自動 vs 人在環 / 定案權 | `history/001-從自動到人在環.md` |
-| 記憶動態固化 / draft 固化 / roadmap 閘門 / 可建 vs 可驗 | `history/002-記憶動態從draft固化.md` |
-| 連結 / `[]()` / `[[ ]]` / graph / backlink / 檢索定位 | `history/003-連結慣例與檢索定位.md` |
-| 使命 / 為共識而記 / 可回溯 / 為誰而記 / 根公理修訂 | `history/004-補使命-根公理二鬆綁.md` |
-| skill 家族 / consolidate（原 crystallize）/ 何時加 skill / meta vs domain | `history/005-新增crystallize-skill家族成形.md` |
-| 命名 / history vs migrations / 為何不叫 | `history/006-為何叫history不叫migrations.md` |
-| consolidate / 固化 / crystallize 改名 / 編碼-固化-提取 / 記憶三階段 | `history/007-crystallize更名consolidate.md` |
-| migrate / update skill 改名 / skill vs CLI update / judge 為何不改 / Judgment | `history/008-update-skill更名migrate.md` |
-| migrate 運作模型 / snapshot→replay / 非冪等 / 一次性重建 + HITL | `history/009-migrate運作模型從snapshot判斷到時間軸replay.md` |
+| 蒸餾 / raw→精 / 整理代謝 / 下沉上浮 / 命名 | [concepts/蒸餾](concepts/提煉是每一層都在做的同一件事.md) |
+| 收斂 / 發散 / 冪等 / 健康指標 / 母概念 | [concepts/收斂](concepts/發散的自我維護是在自動製造熵.md) |
+| why / what / ground truth / oracle / 必要繁瑣 | [concepts/why沒有oracle](concepts/why沒有oracle.md) |
+| 協議 / 平台 / POSIX / FUSE / 工具中立 / 軟硬介面 | [concepts/協議非平台](concepts/協議非平台.md) |
+| 記憶系統 / 記憶層 / 小腦 / 程序記憶 / 內隱記憶 / 促發 / 可回憶單元 / git 基底 | [concepts/記憶系統](concepts/記憶系統.md) |
+| 意義可追溯改寫 / 事件不可變 / log vs snapshot / event sourcing / 為何記 why / 為何 replay / 因果投影 | [concepts/意義可追溯改寫](concepts/意義可追溯改寫.md) |
+| AI 自動 vs 人在環 / 定案權 | [history/001-從自動到人在環](history/001-從自動到人在環.md) |
+| 記憶動態固化 / draft 固化 / roadmap 閘門 / 可建 vs 可驗 | [history/002-記憶動態從draft固化](history/002-記憶動態從draft固化.md) |
+| 連結 / `[]()` / `[[ ]]` / graph / backlink / 檢索定位 | [history/003-連結慣例與檢索定位](history/003-連結慣例與檢索定位.md) |
+| 使命 / 為共識而記 / 可回溯 / 為誰而記 / 根公理修訂 | [history/004-補使命-根公理二鬆綁](history/004-補使命-根公理二鬆綁.md) |
+| skill 家族 / consolidate（原 crystallize）/ 何時加 skill / meta vs domain | [history/005-新增crystallize-skill家族成形](history/005-新增crystallize-skill家族成形.md) |
+| 命名 / history vs migrations / 為何不叫 | [history/006-為何叫history不叫migrations](history/006-為何叫history不叫migrations.md) |
+| consolidate / 固化 / crystallize 改名 / 編碼-固化-提取 / 記憶三階段 | [history/007-crystallize更名consolidate](history/007-crystallize更名consolidate.md) |
+| migrate / update skill 改名 / skill vs CLI update / judge 為何不改 / Judgment | [history/008-update-skill更名migrate](history/008-update-skill更名migrate.md) |
+| migrate 運作模型 / snapshot→replay / 非冪等 / 一次性重建 + HITL | [history/009-migrate運作模型從snapshot判斷到時間軸replay](history/009-migrate運作模型從snapshot判斷到時間軸replay.md) |
+| 外推驗證 / 真實專案 / n=2 / 先內省後外推 | [history/010-拿去真實專案測階段二外推驗證通過](history/010-拿去真實專案測階段二外推驗證通過.md) |
+| 完成不是轉移 / 回流紀律 / vision 出列 / history 當 changelog | [history/011-回流紀律收緊-完成不是轉移](history/011-回流紀律收緊-完成不是轉移.md) |
+| 可機械化 / 檢查降級 / 第一型 vs 第二型 / 被否決的檢查 / 解凍條件 | [history/012-否決兩條機械檢查-檔名詞彙與強調密度](history/012-否決兩條機械檢查-檔名詞彙與強調密度.md) |
+| 概念命名 / 名詞式 vs 斷言式 / 剪枝力 / god-concept 該拆不該改名 | [history/013-概念命名從名詞式到斷言式](history/013-概念命名從名詞式到斷言式.md) |
+| 可逆性邊界 / 延伸原則 5 的 real-why / JIT / CP-AP / kernel-user / 母概念候選（待人認定） | [draft/2026-06-27-自然語言即計算-三軸同源於可逆性邊界](draft/2026-06-27-自然語言即計算-三軸同源於可逆性邊界.md) |

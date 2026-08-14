@@ -4,7 +4,7 @@
 > 怎麼冒出來的：battle 真實遷移**第三跑**後嚴厲批評——deep migrate **不可重現、不收斂**（同 git/specs，run 2 出 9 個 episode、run 3 出 4 個；concepts/history 整組換）。使用者提：「從 git 橫切、順時間慢慢疊起來會不會比較穩妥？」→ 對，而且是理論正確。
 
 ## 致命傷（要解的）
-現行 migrate ＝「**看最終狀態 + 一次性整體判斷**」（snapshot judgment）。一個巨大判斷 = 高變異 → **每跑一次長出實質不同的知識庫**，違反 knowie 自己的 [收斂](../concepts/收斂.md)/冪等（「再跑該近乎 no-op」）。「重跑修問題」因此破產：它不收斂，只是重擲骰子。
+現行 migrate ＝「**看最終狀態 + 一次性整體判斷**」（snapshot judgment）。一個巨大判斷 = 高變異 → **每跑一次長出實質不同的知識庫**，違反 knowie 自己的 [收斂](../concepts/發散的自我維護是在自動製造熵.md)/冪等（「再跑該近乎 no-op」）。「重跑修問題」因此破產：它不收斂，只是重擲骰子。
 
 ## 新模型：時間軸 replay
 **把 git 當事件日誌，從頭往前播放；在每個時間切片把增量疊上去**，知識庫像專案當初那樣**逐步長出來**。
@@ -144,7 +144,7 @@ RL 鐵律：**不編輯 buffer 裡的經驗，從它學。** 人在中途寫＝�
 - **Transformer 贏 RNN 的兩理由＝migrate 兩痛**：(1) 平行（快）；(2) **直接長程依賴**——揭露 fold 一個沒講清的失敗模式：**長程 transition**（早期決策多片後才被推翻）最易被漏，因早決策**已稀釋進累積 base**（RNN long-range forgetting）。orchestrator 全局 attention 正是為此而生（處理第 8 片反轉時直接 attend 回第 2 片原決策、不經有損中介）。
 - **「平行卻遮罩」的紀律 ＝ causal attention masking**：Transformer decoder 平行算、但 causal mask 只准 attend 過去。於是兩極有精確名字——**why 極＝decoder（causal-masked，只看過去→因果忠實）；結構極＝encoder（bidirectional，雙向看整份→全局一致）。migrate ＝ encoder-decoder**。「結構合法看兩端、why 必須對未來盲」不是自創紀律，就是 encoder 雙向 / decoder causal-mask 的差別。
 - **git 日期/順序 ＝ positional encoding**：attention permutation-invariant，靠 positional encoding 補時序。拿掉日期/order，平行 orchestrator 就失去時間軸 → replay 崩。**這解釋日期/順序是結構必需，非格式潔癖**（為「日期用 git 當時」流的血在此是架構必需）。
-- **第四（五）面鏡子指同一結構**：DB 分片／OS／組語／RL／ES 之後，序列模型架構照得最準 → 照 [收斂](../concepts/收斂.md) 判準 + [knowie是一台機器](2026-06-12-knowie是一台機器.md)，強烈暗示這摸到 migrate 的**真實計算結構**，非類比湊的。
+- **第四（五）面鏡子指同一結構**：DB 分片／OS／組語／RL／ES 之後，序列模型架構照得最準 → 照 [收斂](../concepts/發散的自我維護是在自動製造熵.md) 判準 + [knowie是一台機器](2026-06-12-knowie是一台機器.md)，強烈暗示這摸到 migrate 的**真實計算結構**，非類比湊的。
 
 ## 出口（已建 / 部分已驗）
 - ✅ **已建進 migrate skill（0.6.3–0.6.5，2026-06-12）**：模型「切片 + 往前播 + 逐片疊」；每片以當時 knowledge/+spec 為主要 why（0.6.4）；spec 來源 tool-agnostic + plan-mode 降級（0.6.5）。
@@ -159,5 +159,5 @@ RL 鐵律：**不編輯 buffer 裡的經驗，從它學。** 人在中途寫＝�
   - **機械偵測檢查**：掃 history 有沒有四段式 experience 混進來、數轉移、舊規則殘留——**抓得到錯，不靠 AI 自覺**（解「沒偵測到」）；也當「新 base vs 舊 base」完整性 cross-check。
 - ✅ **收斂性：決議不要求冪等（2026-06-13 拍板）**。原以為要二跑比對證收斂——但釐清了 migrate **本性非冪等**：它用 IRL 推不可驗證的 why（[why 沒 oracle](../concepts/why沒有oracle.md)），產出是抽樣不是固定點。所以 run-to-run 變異分兩型：**第一型範疇錯**（projection-edit／墓碑／日期）有正解→規則→會收斂；**第二型判斷變異**（分組/命名/強調）無單一正解→交 HITL 策展，不追 determinism。**收斂非 migrate 的品質閘，good-enough + 人策展才是**（見 experience「把 migrate 當冪等函數修是用錯標準」）。遮罩 harness 也因此非必要——in-session 遮罩已擋住第一型 regression（projection-edit 跨兩跑不復發）。
 - 🔬 **diffusion 視角給「收斂」一個可測判準（2026-06-14）**：diffusion 收斂到**資料流形、不是單一點**。migrate 收斂到「所有與 git 一致的忠實重建」這個流形——**git 把「結構」維度釘窄、why 維度因無 oracle 而寬**。這正是「結構能收斂、why 是抽樣」的精確理由，且給出**可測預言**：**同版連跑兩次該落在同一流形——結構一致、why 措辭不同**。所以「同版連跑比 diff」（仍 optional、非 gating）**不是看「一不一樣」，是分層判讀**：結構一致 + why 異＝**健康**（符合本性）；**結構也不一致＝真 bug**（流形沒被 git 釘住，該修）。次要：guidance scale——反芻 re-ground 的強度有甜蜜點，**太低幻想 why、太高變謄寫 git**（違反 root axiom 2 point-out-not-copy），不是越貼 git 越好。diffusion 是 [意義可追溯改寫](../concepts/意義可追溯改寫.md) 的**過程視圖**（固定 condition＝log，反覆去噪落到流形）；Transformer 管存取模式、diffusion 管生成排程，兩軸互補（coarse-to-fine 排程＝為何結構相在 why 相之前）。
-- 設計脈絡同族：[記憶系統](../concepts/記憶系統.md)（git＝原始因果基底）、[收斂](../concepts/收斂.md)（冪等核心、現行 migrate 違反它）、[架構視角 ES/CQRS/DDD](2026-06-12-migrate架構視角-ES-CQRS-DDD.md)（history bug＝投影技術事件非領域事件）。
+- 設計脈絡同族：[記憶系統](../concepts/記憶系統.md)（git＝原始因果基底）、[收斂](../concepts/發散的自我維護是在自動製造熵.md)（冪等核心、現行 migrate 違反它）、[架構視角 ES/CQRS/DDD](2026-06-12-migrate架構視角-ES-CQRS-DDD.md)（history bug＝投影技術事件非領域事件）。
 - ✅ 切片邊界怎麼自動抓：**已答**——`--first-parent` mainline、一 merge/PR=一片（見上「四個常態破口」#1）。不靠 tag/commit-pattern 猜，靠 git 結構。

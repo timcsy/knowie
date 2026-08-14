@@ -40,7 +40,7 @@ knowledge/skills/X/SKILL.md          ← 唯一真相（小腦，committed）
 ## 工程坑
 - **per-skill symlink**（非整目錄）；**源 committed、投影 gitignore**。
 - **Windows**：symlink 易失敗 → skill 指令寫「失敗就 copy + 記需 re-sync」，AI 自己判斷退化（仍內部）。
-- **冪等**：re-ensure 可重跑、no-op-on-clean（對齊 [收斂](../concepts/收斂.md)）。
+- **冪等**：re-ensure 可重跑、no-op-on-clean（對齊 [收斂](../concepts/發散的自我維護是在自動製造熵.md)）。
 - **registry 復活 `skillsDir` 欄位**（每工具一個 skill 目錄；之前砍 installDomainSkills 時說「跨 checkout/泛化才需要 → 真要時再接」，現在就是真要時）——但**給 AI 當投影目標用，不是給 CLI**。
 
 ## 配套：handshake 補指 knowledge/skills/
