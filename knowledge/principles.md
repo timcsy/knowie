@@ -90,3 +90,4 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 | migrate 運作模型 / snapshot→replay / 非冪等 / 一次性重建 + HITL | [history/009-migrate運作模型從snapshot判斷到時間軸replay](history/009-migrate運作模型從snapshot判斷到時間軸replay.md) |
 | 外推驗證 / 真實專案 / n=2 / 先內省後外推 | [history/010-拿去真實專案測階段二外推驗證通過](history/010-拿去真實專案測階段二外推驗證通過.md) |
 | 完成不是轉移 / 回流紀律 / vision 出列 / history 當 changelog | [history/011-回流紀律收緊-完成不是轉移](history/011-回流紀律收緊-完成不是轉移.md) |
+| 可逆性邊界 / 延伸原則 5 的 real-why / JIT / CP-AP / kernel-user / 母概念候選（待人認定） | [draft/2026-06-27-自然語言即計算-三軸同源於可逆性邊界](draft/2026-06-27-自然語言即計算-三軸同源於可逆性邊界.md) |
