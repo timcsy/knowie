@@ -139,7 +139,8 @@
 - **解決方式**：完整性來自**生成式**（判準 + 不變量 + 根公理，讓 AI 推導），不是**窮舉**（列舉每種情況）；共享部分抽 `_core`、CLI 注入。
 - **教訓**：skill 該像一頁判準，不像一本手冊——窮舉長且脆，判準短且跨處境；但「必要的繁瑣」（堵漏洞的機制）要留，只是壓成一句。
 - **何時該加一個新 meta skill（判準）**：當它是「**distinct 且反覆的人類 invocation 意圖、而既有 skill 的框架沒服務到**」才 earn 得起；否則折進既有 skill 或砍。套三次：路線錯了→折進 judge（無 distinct invocation）；health→砍（與 judge 重複）；consolidate→加（人主動固化，既有沒服務）。（domain skill 的判準不同：recurrence → 程序自習得。）
-- **來源**：這次重構（redesign/protocol-skills）+ judge 試跑 + consolidate（原 crystallize）決策。
+- **擴張（2026-08-14）·同一條判準沒被套到相鄰器官**：這條當初只寫給 skill。五專案外推審計顯示**它對 `experience` 同樣成立、而沒有人把它搬過去**——教訓寫成**做法**（「把綁定層與算繪分離就能測」）會隨技術棧過期（換掉那個框架就死），寫成**判準**（「一個會改變被測對象的量測器，量到的不是被測對象」）才跨處境。判準式的極限形態是 semorphe 那條：查完六十年文獻後，它**改掉的不是結論，是驗收的寫法**（「訊息變好了」→「兩個數字都要記，而假警報只准下降」）。⇒ 驗收標準：**一條教訓完成的標誌，是它改掉了某個判準的寫法，不是它被記下來了。**（這也是「反覆使用的隱性判準會以為已固化」的變體——那條是用熟了以為記了，這條是**寫下了、卻沒套到隔壁器官**。）設計脈絡 ←→ [知識條目的形狀](draft/2026-08-14-知識條目的形狀.md)
+- **來源**：這次重構（redesign/protocol-skills）+ judge 試跑 + consolidate（原 crystallize）決策；擴張來自五專案外推審計 2026-08-14，現場 → [episode](episodes/2026-08-14-五專案外推審計.md)。
 
 ### 同一編排實作兩遍必漂移——解法是單一 source + 委派，不是靠對齊警覺
 - **理論說**：CLI 和 MCP 是兩個入口，各自實作 init/update 的編排很自然；小心點保持一致就好。
@@ -181,8 +182,9 @@
 
 | 觸發關鍵字 | MUST 讀 |
 |---|---|
-| 命名 / 捕捉非發明 / 私語 / 批次結晶 | `concepts/蒸餾.md` |
-| 必要繁瑣 vs 冗餘 / 落實 / 機率性執行者 | `concepts/why沒有oracle.md` |
-| 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision / 唯一真實 / 重複漂移 | `concepts/分發非傾倒.md` |
-| 認知失調 / 路線錯了 / 認錯 / 失敗模式 / 合理化維持 / 破壞性操作 / 異常輸出 / 確認分支 | `concepts/讓認錯變便宜.md` |
-| migrate / replay / projection 編輯 / 範疇錯誤 / event sourcing | `concepts/記憶系統.md` + `draft/2026-06-12-migrate時間軸replay.md` |
+| 命名 / 捕捉非發明 / 私語 / 批次結晶 | [concepts/蒸餾](concepts/蒸餾.md) |
+| 必要繁瑣 vs 冗餘 / 落實 / 機率性執行者 | [concepts/why沒有oracle](concepts/why沒有oracle.md) |
+| 寫入 / 固化 / 回流 / 維度坍縮 / dump 進 vision / 唯一真實 / 重複漂移 | [concepts/分發非傾倒](concepts/分發非傾倒.md) |
+| 認知失調 / 路線錯了 / 認錯 / 失敗模式 / 合理化維持 / 破壞性操作 / 異常輸出 / 確認分支 | [concepts/讓認錯變便宜](concepts/讓認錯變便宜.md) |
+| migrate / replay / projection 編輯 / 範疇錯誤 / event sourcing | [concepts/記憶系統](concepts/記憶系統.md) + [draft/2026-06-12-migrate時間軸replay](draft/2026-06-12-migrate時間軸replay.md) |
+| 教訓的形狀 / 判準式 vs 做法式 / 四段式 / 來源那條腿 / 強調預算 | [draft/2026-08-14-知識條目的形狀](draft/2026-08-14-知識條目的形狀.md) |

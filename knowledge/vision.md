@@ -82,7 +82,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] **跨工具散佈（內部 symlink 投影）機制完成**（2026-06-12）——`knowledge/skills/` 為唯一源 → **AI 內部** per-skill symlink 投影到 `.claude/skills` + `.agents/skills`（capture 程序版固化時投影 + judge §5 re-ensure/heal；可逆故自動、**非 CLI**）；registry 加 `skillsDir`；handshake 補指 `skills/`；Windows 退化 copy。對標 agentskills.io + `.agents/skills/` 慣例。設計脈絡 ←→ [domain-skill跨工具散佈](draft/2026-06-12-domain-skill跨工具散佈.md)
   - [ ] symlink/Windows + 真實 Codex/Gemini 讀到並用到 domain skill（**驗證類，merge 後**）
 - [ ] **進化（outcome-based）**：用了結果爛 → 自動標記、人改寫——**驗證類**（要真實 skill 執行+結果才驗得到；過時/未用偵測已在 judge §5）
-- [ ] 在一個真實專案長出至少一個 domain skill（**驗證類，merge 後**）
+- [x] **在一個真實專案長出至少一個 domain skill**（2026-08-14 確認：**5/5 專案兌現**——semorphe 12、VizGPT 7、ArduinoCAD 2、wewayfinders 2、KnowField 1）。兌現在 2026-07～08 就發生了，直到本次審計才被發現——**證據在別的 repo，judge 掃不到** → 見下方「驗證證據回收」。現場 → [episode](episodes/2026-08-14-五專案外推審計.md)
 
 **健康儀表板 → 併入 judge（不另做 CLI，2026-06-07 定）** — judge 本來就用 grep/ls 算機械指標（孤兒/死連結/計數，§3），已滿足「機械算、不靠 AI 自報」；語義/時序指標（冪等/趨平/churn）也是 judge 的。另做 `knowie health` CLI＝重複邏輯 + 把「分析知識內容」放進 CLI＝平台化（違反協議非平台）。**所以不做 CLI，judge 就是健康儀表板。**
 
@@ -99,6 +99,27 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] **時間軸 replay 重構（in-flight，0.6.3→0.6.8）**：把 migrate 從「看終局一次判斷」改成「順 git 往前播、逐片疊、遮罩未來、跑真代謝」；含 first-parent 切片 + adoption 相位邊界 + 兩種聲音 why。battle 真跑已驗「決策轉移只從往前播長出來」，但亂史/cascade/推錯 why 等常態破口待真實驗。設計脈絡 ←→ [時間軸replay](draft/2026-06-12-migrate時間軸replay.md)（幅射到 [預期問題](draft/2026-06-12-migrate預期問題.md)／[架構視角](draft/2026-06-12-migrate架構視角-ES-CQRS-DDD.md)／[遮罩harness](draft/2026-06-12-遮罩harness設計.md)）
 - [ ] 真實舊專案（research/design/history era）遷移驗證（驗證類，merge 後）
 
+**驗證證據回收（外部 repo）** — knowie 有一整批驗證類 roadmap 項，證據**天生在使用者的 repo 裡**（domain skill、next 召回、軟介面硬化、FUSE），而 judge 只掃 `knowledge/`（那是對的，why-lane 不掃 what）→ 結果是**系統性低估自己**：5/5 專案長出 domain skill，knowie 記成未達成。這是 [協議非平台](concepts/協議非平台.md) 的代價面。設計脈絡 ←→ [驗證證據在外部repo](draft/2026-08-14-驗證證據在外部repo.md)。
+- [ ] 驗證類 roadmap 項支援 `證據：<路徑或 repo>` 一行指標；judge 掃到路徑存在且非空 → **提出「可能已兌現，去確認」**（不自動勾，人定案）
+- [ ] `skills/` 分兩類：domain（綁 endeavor）vs endeavor-independent（`over-justify`／`commit-feature`／`visual-diff` 這類）；後者 `SKILL.md` frontmatter 可選 `origin: <repo>@<commit>`，judge §5 掃到就報「上游可能變了」
+- [ ] 不做同步機制／registry（會走回平台化）——只報，不搬
+- [ ] 修 `.agents/skills/` 從未被建立（capture skill 第 39 行承諾了、judge §5 說要 re-ensure，五個真實專案全無此目錄；四個專案註冊的 tools 是 `agents-md` 卻只投影到 `.claude/`）
+- [ ] 投影 symlink 一律**相對路徑**（VizGPT 實測是絕對路徑，換 checkout 就全斷）；judge §5 掃到絕對路徑直接修回（可逆 → 自動）
+
+**知識條目的形狀（模板 + `_core`）** — 五專案審計顯示條目的**命名／段落／強調**直接決定它能不能被召回和剪枝，而三個專案各自演化出同方向的改良（補「不適用的時候」）。三條獨立推導 ⇒ 夠格動模板。設計脈絡 ←→ [知識條目的形狀](draft/2026-08-14-知識條目的形狀.md)。
+- [ ] `_core` tests 補：concept 的名字要是**可拿來判文字的斷言**，不是可拿來歸檔的名詞（同步 `concepts-README` 模板 en + zh-TW）
+- [ ] `experience.md.tmpl` 升版：必要＝實際發生／教訓／來源；首段二選一＝理論說（有落差）或**怎麼撞到的**（程序型）；可選＝**不適用的時候**（邊界）、**相關**（橫向連結）
+- [ ] `_core` 補「強調是預算」：⚠️ 給「這裡我曾經錯過」、粗體給「這句本身是判準」（實測五專案粗體密度 0.37–0.81/行，最好的那份 concept 一頁 20+ 個 ⚠️）
+- [ ] 回過頭套用到 knowie 自己的 `knowledge/`（本次審計指出的病，knowie 自己也有）
+
+**judge 再機械一階** — 0.7.2 才用措辭收緊「完成不是轉移／vision 出列」，而五個真實專案顯示**病灶仍在，且每一條都能用一行 grep 抓到**。這是 [experience](experience.md)「有些 bug 是執行層的，協議層解不了」的第二次適用——差別是 judge 已經有執行層（§3 的 grep/ls），缺的只是把這幾條從判斷題下放成掃描題。設計脈絡 ←→ [judge再機械一階](draft/2026-08-14-judge再機械一階.md)。
+- [ ] `history/` 檔名不含轉移詞（從…到／改為／否決／推翻）→ 標黃；`## 轉移` 的「舊」欄位以「尚未／只有／僅為 draft」開頭 → 標紅
+- [ ] `vision` 的 `[x]:[ ]` 比 > ~3:1 → 出列機制沒在跑（實測 KnowField 37:1、semorphe 0.6:1）
+- [ ] 某層孤兒率 > 80% → 升級為結構性 🔴（實測 KnowField history 91/91 全孤兒，全庫只有 14 條連結）
+- [ ] 教訓缺「來源」→ 標黃（實測 semorphe 46/109、wewayfinders 19/73 有來源，違反根公理二）
+- [ ] 檔名禁空白（實測 ArduinoCAD 5 條死連結全因 `%20` 編碼不一致）
+- [ ] **驗收＝五專案 fixture**：KnowField 應全紅、semorphe/wewayfinders 應全綠（驗收資料已存在，不必等未來的使用）
+
 **FUSE 掛載驗證**（北極星，仍未證）— adapter 從 `[]()` 結構衍生 graph、把 knowie 的 why 層掛上 LLM Wiki / Obsidian / 向量後端；軟介面硬化到「可被多方實作」。設計脈絡 ←→ [檢索機制-graph還是path](draft/2026-06-07-檢索機制-graph還是path.md)。
 - [ ] 一個 adapter 把 knowie 結構餵進一個後端（如 Obsidian / LLM Wiki），graph/backlink 由後端衍生
 - [ ] 驗證「掛上去比純後端更好」（多了 why-邊）
@@ -110,6 +131,9 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 
 | 觸發關鍵字 | MUST 讀 |
 |---|---|
-| 競品 / Letta / Mem0 / agent memory / 協議定位 | `concepts/協議非平台.md` |
-| 記憶動態 / 回流 / 兩條輸入線 / 分層整理 | `_core` / capture / judge（已固化）；緣由見 `draft/記憶動態` |
-| 開放問題 / ROI / 失敗模式 / 跨專案層 / 協議版本 | `draft/` |
+| 競品 / Letta / Mem0 / agent memory / 協議定位 | [concepts/協議非平台](concepts/協議非平台.md) |
+| 記憶動態 / 回流 / 兩條輸入線 / 分層整理 | `_core` / capture / judge（已固化）；緣由見 [draft/2026-06-06-記憶動態](draft/2026-06-06-記憶動態.md) |
+| 開放問題 / ROI / 失敗模式 / 協議版本 | `draft/` |
+| 外部驗證 / 證據在別的 repo / domain skill 兌現 / 跨專案 skill / skill origin | [draft/2026-08-14-驗證證據在外部repo](draft/2026-08-14-驗證證據在外部repo.md) |
+| 知識條目形狀 / concept 命名 / 四段式升版 / 不適用的時候 / 強調預算 | [draft/2026-08-14-知識條目的形狀](draft/2026-08-14-知識條目的形狀.md) |
+| judge 機械檢查 / history 檔名形狀 / vision 勾選比 / 整層孤兒 / 相對路徑 | [draft/2026-08-14-judge再機械一階](draft/2026-08-14-judge再機械一階.md) |
