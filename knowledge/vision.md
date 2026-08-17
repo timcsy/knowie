@@ -127,5 +127,6 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 | 開放問題 / ROI / 失敗模式 / 協議版本 | `draft/` |
 | 外部驗證 / 證據在別的 repo / domain skill 兌現 / 跨專案 skill / skill origin | [draft/2026-08-14-驗證證據在外部repo](draft/2026-08-14-驗證證據在外部repo.md) |
 | managed 檔覆蓋 / update 洗掉本地慣例 / README 客製 / 慣例回不來 / 邊界之外 | [draft/2026-08-14-managed檔覆蓋衝突](draft/2026-08-14-managed檔覆蓋衝突.md) |
+| 跨專案複利 / 冷啟動 / 判準庫 / meta-endeavor / 召回率上界 / 母概念候選「邊界之外」 | [draft/2026-08-14-跨專案判準複利與冷啟動](draft/2026-08-14-跨專案判準複利與冷啟動.md) |
 | 知識條目形狀 / concept 命名 / 四段式升版 / 不適用的時候 / 強調預算 | [history/013-概念命名從名詞式到斷言式](history/013-概念命名從名詞式到斷言式.md) |
 | judge 機械檢查 / vision 勾選比 / 整層孤兒 / 被否決的兩條 | [history/012-否決兩條機械檢查-檔名詞彙與強調密度](history/012-否決兩條機械檢查-檔名詞彙與強調密度.md) |
