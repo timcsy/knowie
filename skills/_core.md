@@ -29,7 +29,7 @@
 - **Doing → action reflow**: a finished roadmap item reflows — lesson → `experience`, full scene → `episodes`, decision-transition → `history`. experience's main source is *doing*, not draft.
 
 ## Consolidating is dispatch, not relocation
-When anything leaves `draft/` (or an item finishes), **disperse it across every folder that applies — never move the block whole**: direction → roadmap/`experience` · recurring concept → `concepts/` · the **brainstorming scene (why we explored it this way, options weighed) → `episodes/`** · decision-transition → `history/`. The brainstorming scene is the easiest to lose — drop it and a future reader keeps the conclusion but forgets the *why behind the why*.
+When anything leaves `draft/` (or an item finishes), **disperse it across every folder that applies — never move the block whole**: direction → roadmap/`experience` · recurring concept → `concepts/` · the **brainstorming scene (why we explored it this way, options weighed) → `episodes/`** · decision-transition → `history/`. The brainstorming scene is the easiest to lose — drop it and a future reader keeps the conclusion but forgets the *why behind the why*. **Marking in place is not dispatch — it's weaker than relocation.** Annotating a draft `redeemed` / `done` leaves every pointer still aimed at short-term memory and the scene still unextracted (same symptom as folding a finished vision stage under `<details>`). Test: after the operation, is the file still where it was? Then nothing was dispatched.
 
 ## Invariants (MUST)
 - **Captured ≠ committed.** Undecided → `draft/`; writing into the three files or root principles needs human confirmation.
