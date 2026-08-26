@@ -15,7 +15,7 @@
 ## 為何第三層有 gap（這是設計，不是缺陷）
 knowie **刻意不持久化 context window**（感覺/工作記憶 = runtime，不儲存，見 [記憶系統](../concepts/記憶系統.md)）。所以它**不是 session 逐字稿的交接工具**：
 - 要交接任務狀態 → **離場 session 得先 capture 進 `draft/` + commit**。knowie 給機制（capture→draft），但這是個**動作**，不是自動。
-- 接手 session 可讀 **git log**（git = 因果基底，見 [往外長](2026-06-05-往外長.md) git 時光機）看上一棒做了什麼——但**沒 commit、還在 context 裡的，沒 capture 就丟了**。
+- 接手 session 可讀 **git log**（git = 因果基底，見 [history/009](../history/009-migrate運作模型從snapshot判斷到時間軸replay.md) 的護欄段）看上一棒做了什麼——但**沒 commit、還在 context 裡的，沒 capture 就丟了**。
 
 ## AGENTS.md = 跨廠商的中立交接點
 Codex/Cursor/Copilot/Gemini 共讀 AGENTS.md（Linux Foundation 標準）→ 它是一個**不屬於任何廠商**的 handshake 落點。knowie 注入它一次，多廠商都被促發去查 `knowledge/`。
