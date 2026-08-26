@@ -79,7 +79,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [x] skill 化更嚴人確認（執行級）；記 **why-behind-skill** — capture 程序版
 - [x] 安裝到工具位置——**AI 固化時直接裝**到專案 skill 位置（B）。（CLI 批次安裝 installDomainSkills 一度建、又砍：純 no-op + 專案 scope 用不到；跨 checkout/泛化才需要 → 真要時再接）
 - [x] 觸發接進三 skill（next 預防＋消費 / capture 記錄 / judge §5 backstop＋抓過時 skill）
-- [x] **跨工具散佈（內部 symlink 投影）機制完成**（2026-06-12）——`knowledge/skills/` 為唯一源 → **AI 內部** per-skill symlink 投影到 `.claude/skills` + `.agents/skills`（capture 程序版固化時投影 + judge §5 re-ensure/heal；可逆故自動、**非 CLI**）；registry 加 `skillsDir`；handshake 補指 `skills/`；Windows 退化 copy。對標 agentskills.io + `.agents/skills/` 慣例。設計脈絡 ←→ [domain-skill跨工具散佈](draft/2026-06-12-domain-skill跨工具散佈.md)
+- [x] **跨工具散佈（內部 symlink 投影）機制完成**（2026-06-12）——`knowledge/skills/` 為唯一源 → **AI 內部** per-skill symlink 投影到 `.claude/skills` + `.agents/skills`（capture 程序版固化時投影 + judge §5 re-ensure/heal；可逆故自動、**非 CLI**）；registry 加 `skillsDir`；handshake 補指 `skills/`；Windows 退化 copy。對標 agentskills.io + `.agents/skills/` 慣例。轉移見 [history/016](history/016-跨工具散佈-單一源加枚舉投影.md)
   - [ ] symlink/Windows + 真實 Codex/Gemini 讀到並用到 domain skill（**驗證類，merge 後**）
 - [ ] **進化（outcome-based）**：用了結果爛 → 自動標記、人改寫——**驗證類**（要真實 skill 執行+結果才驗得到；過時/未用偵測已在 judge §5）
 - [x] **在一個真實專案長出至少一個 domain skill**（2026-08-14 確認：**5/5 專案兌現**——semorphe 12、VizGPT 7、ArduinoCAD 2、wewayfinders 2、KnowField 1）。兌現在 2026-07～08 就發生了，直到本次審計才被發現——**證據在別的 repo，judge 掃不到** → 見下方「驗證證據回收」。現場 → [episode](episodes/2026-08-14-五專案外推審計.md)
@@ -91,11 +91,11 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] CLI = 互動層決定 opts → 呼核心 → 印人話；MCP = 參數組 opts → 呼核心 → 串 report
 - [ ] 統一 config 寫入語意（顯式傳入的 language 才覆蓋）+ structureVersion 落後警告移進核心 result，兩端都報
 
-**版本偵測 + 遷移提示**（實作完，待真實舊專案驗）— 用 `.knowie.json` 的 **`structureVersion`**（與 tool `version` 脫鉤，只在結構真的改時才升）讓 `/knowie-migrate` 認出舊結構、提示手動遷移（不做向後相容，但**不靜默 breaking**）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)。
+**版本偵測 + 遷移提示**（實作完，待真實舊專案驗）— 用 `.knowie.json` 的 **`structureVersion`**（與 tool `version` 脫鉤，只在結構真的改時才升）讓 `/knowie-migrate` 認出舊結構、提示手動遷移（不做向後相容，但**不靜默 breaking**）。轉移見 [history/015](history/015-版本號脫鉤-結構版與工具版.md)。
 - [x] update（skill）讀 structureVersion + 比對當前正典訊號、認出舊結構
 - [x] 偵測到舊結構 → detect/propose/confirm 手動遷移（不自動改）
-- [x] 明示 breaking、不靜默（CLI `structureBehind` 警告 + 修掉「CLI 自動升 version＝靜默 breaking」的 bug）
-- [x] **git 時光機**：re-home 有歧義時，用 `git log`/`git show` 還原當時的 knowledge/code/spec；舊 base 的 git log ＝ 可蒸餾成 `history/` 的因果軌跡；留 commit 指針補「how 腿」（四護欄：脈絡非 import what／有界非考古／優雅降級／人仍確認）。設計脈絡 ←→ [往外長](draft/2026-06-05-往外長.md)
+- [x] 明示 breaking、不靜默（CLI `structureBehind` 警告 + 修掉「CLI 自動升 version＝靜默 breaking」的 bug）。轉移見 [history/015](history/015-版本號脫鉤-結構版與工具版.md)
+- [x] **git 時光機**：re-home 有歧義時，用 `git log`/`git show` 還原當時的 knowledge/code/spec；舊 base 的 git log ＝ 可蒸餾成 `history/` 的因果軌跡；留 commit 指針補「how 腿」（四護欄：脈絡非 import what／有界非考古／優雅降級／人仍確認）。轉移見 [history/009](history/009-migrate運作模型從snapshot判斷到時間軸replay.md)
 - [ ] **時間軸 replay 重構（in-flight，0.6.3→0.6.8）**：把 migrate 從「看終局一次判斷」改成「順 git 往前播、逐片疊、遮罩未來、跑真代謝」；含 first-parent 切片 + adoption 相位邊界 + 兩種聲音 why。battle 真跑已驗「決策轉移只從往前播長出來」，但亂史/cascade/推錯 why 等常態破口待真實驗。設計脈絡 ←→ [時間軸replay](draft/2026-06-12-migrate時間軸replay.md)（幅射到 [預期問題](draft/2026-06-12-migrate預期問題.md)／[架構視角](draft/2026-06-12-migrate架構視角-ES-CQRS-DDD.md)／[遮罩harness](draft/2026-06-12-遮罩harness設計.md)）
 - [ ] 真實舊專案（research/design/history era）遷移驗證（驗證類，merge 後）
 
