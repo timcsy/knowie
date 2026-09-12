@@ -55,6 +55,9 @@
 - 第 3 條會動到 `history/NNN` 這個主鍵，是 structure 層改動 → 要評估 `structureVersion`。
 - 六條全做完，knowie 會不會實質上變成一個 framework？判準應該是：**它有沒有開始擁有 runtime。** 只要仍是 markdown + 約定，就還在協議這邊。
 
+## 下一格
+下一層是什麼、以及它正在被平台先佔的風險 → [graph 之後是治理與存證](2026-09-12-graph之後是治理與存證.md)。
+
 ## 同族
 [harness/loop 定位](2026-06-12-harness-loop-workflow定位.md)（上一格）、[多 agent 併發](2026-06-12-多agent併發-git模型.md)（第 3 條的家）、[OKF frontmatter 互通](2026-06-24-OKF競品與frontmatter互通.md)（第 2 條的理據）、[架構視角 ES/CQRS/DDD](2026-06-12-migrate架構視角-ES-CQRS-DDD.md)（read model 的語言）、[協議非平台](../concepts/協議非平台.md)（護欄）、[競品與生存空間](2026-06-06-競品與生存空間.md)。
 
