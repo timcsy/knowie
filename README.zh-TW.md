@@ -91,6 +91,10 @@ npx knowie init
 
 可以混搭：用搜尋工具找程式碼、用記憶工具記個人歷史、用 Knowie 管策展過的「為什麼」。各司其職。
 
+**如果你本來就用 DDD 或 event sourcing 的語言思考**，這套東西換成那組詞是這樣：你的 git 史就是不可變的 event log，`knowledge/` 是它上面的一組 read model，每個回答一種 query——`concepts/` 語意、`episodes/` 情節、`history/` 因果軌跡，三份核心檔案則是規範／處境／存在。`/knowie-migrate` 就是重播那條 log、重建這些 read model。母概念大致是 aggregate：邊界就是「哪些東西必須一起成立」。why 與 what 之間是一條 bounded context 邊界，而 Knowie 刻意不吸收 code 已經是真相的那半。`history/` 記的是**領域事件**（某個決定變了），從不記技術事件（某個 commit 出貨了）。
+
+類比斷掉的地方才是有意思的：這裡的領域事件**不是被記錄的，是從 commit 推論出來的**，而推論有損。這就是為什麼 `/knowie-migrate` 要在因果遮罩下重播、最後由人確認，而不是對一條 log 做一次乾淨的 fold。
+
 **Knowie 不適合的時候：**
 - 你需要從對話中自動萃取事實 → 用 memory 系統
 - 你的專案邏輯一個檔案裝得下 → 一份 `CLAUDE.md` 就夠了

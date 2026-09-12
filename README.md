@@ -91,6 +91,10 @@ Three things make it different:
 
 Mix and match: a search tool for finding code, a memory tool for personal history, Knowie for the curated *why*. Different jobs.
 
+**If you already think in DDD or event sourcing**, here is the same thing in that vocabulary. Your git history is the immutable event log. `knowledge/` is a set of read models over it, each answering a different query — `concepts/` semantic, `episodes/` episodic, `history/` the causal trail, and the three files normative / situational / existential. `/knowie-migrate` rebuilds those read models by replaying the log. A parent-concept is roughly an aggregate: the boundary is what has to hold together. `why` vs `what` is a bounded context boundary, and Knowie deliberately refuses to absorb what the code already holds. `history/` is a stream of *domain* events (a decision that changed) and never technical ones (a commit that shipped).
+
+Where the analogy breaks is the interesting part: domain events here are **not recorded, they're inferred** from commits, and inference is lossy. That's why `/knowie-migrate` replays under causal masking and ends with a human confirming, instead of being a clean fold over a log.
+
 **When Knowie isn't the right fit:**
 - You need automatic fact extraction from conversations → use a memory system
 - Your project logic fits in one file → a single `CLAUDE.md` is probably enough
