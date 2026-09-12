@@ -124,6 +124,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 | 觸發關鍵字 | MUST 讀 |
 |---|---|
 | 競品 / Letta / Mem0 / agent memory / 協議定位 | [concepts/協議非平台](concepts/協議非平台.md) |
+| graph engineering / context graph / execution graph / 節點契約 / 錨點凍結 / loop 的下一層 | [draft/2026-09-12-graph-engineering定位與六條接口](draft/2026-09-12-graph-engineering定位與六條接口.md) |
 | 記憶動態 / 回流 / 兩條輸入線 / 分層整理 | `_core` / capture / judge（已固化）；緣由見 [draft/2026-06-06-記憶動態](draft/2026-06-06-記憶動態.md) |
 | 開放問題 / ROI / 失敗模式 / 協議版本 | `draft/` |
 | 外部驗證 / 證據在別的 repo / domain skill 兌現 / 跨專案 skill / skill origin | [draft/2026-08-14-驗證證據在外部repo](draft/2026-08-14-驗證證據在外部repo.md) |

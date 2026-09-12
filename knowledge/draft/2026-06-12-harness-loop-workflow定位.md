@@ -2,6 +2,7 @@
 
 > 2026-06-12 研究 + 討論。draft，未定案（定位型）。
 > 怎麼冒出來的：問「knowie 搭配最紅的 Harness、Loop Engineering、goal、workflow 效果如何」。比 SDD 那塊更貼當下熱點。
+> **2026-09-12 續**：下一層 graph engineering 出現，把「context graph」切成獨立設計問題、有獨立擁有者——這份的結論被推強了，見 [graph engineering 定位與六條接口](2026-09-12-graph-engineering定位與六條接口.md)。
 
 ## 2026 當前定義（對齊用）
 - **Harness engineering**（早 2026，Hashimoto/OpenAI/Anthropic）：包住**單次 run** 的確定性 runtime——工具、約束、驗證閘，validate/authorize/execute/log 每個動作。
