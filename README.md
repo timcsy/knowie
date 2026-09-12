@@ -125,7 +125,7 @@ Five subdirectories hold the rest:
 |-----------|-------|
 | `concepts/` | Recurring core concepts — the three files keep only pointers, detail lives here (semantic memory) |
 | `episodes/` | Recall-worthy full scenes behind a lesson or decision (episodic memory) |
-| `skills/` | Learned domain skills — repeated work distilled into reusable capability (procedural memory / cerebellum); projected into your AI tool's skill dir |
+| `skills/` | Learned domain skills — repeated work distilled into reusable capability (procedural memory / cerebellum); projected into every skill dir listed in `.knowie.json` → `skillDirs` |
 | `history/` | The causal trail — why things became what they are (decisions, rejected options) |
 | `draft/` | Short-term memory — undecided ideas still forming |
 
@@ -133,7 +133,7 @@ The three files are the *interface*; subdirectories hold the detail. Start with 
 
 ## Skills
 
-These commands run **inside your AI chat** (not in the terminal). For AI tools with skill support (e.g., Claude Code):
+These commands run **inside your AI chat** (not in the terminal). `init` installs them into `.agents/skills/` — the cross-tool convention Codex, Cursor, Gemini and others read — and links them into `.claude/skills/` for Claude Code. Both directories are created whichever tool you use, so switching agents later needs no re-run:
 
 | Skill | What it does |
 |-------|-------------|

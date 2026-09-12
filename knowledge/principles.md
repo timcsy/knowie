@@ -94,5 +94,7 @@ knowie 記 why 為主，並保留**足以讓過去認知被大致重建的最小
 | 概念命名 / 名詞式 vs 斷言式 / 剪枝力 / god-concept 該拆不該改名 | [history/013-概念命名從名詞式到斷言式](history/013-概念命名從名詞式到斷言式.md) |
 | 版本號 / structureVersion / 向後相容 / 靜默 breaking / 趁年輕改 | [history/015](history/015-版本號脫鉤-結構版與工具版.md) |
 | 跨工具散佈 / symlink 投影 / skillDirs / domain skill 裝哪 / 枚舉來源 | [history/016](history/016-跨工具散佈-單一源加枚舉投影.md) |
+| TDD / SDD / 驗收載體 / 測試 / git 前提 / 為何不推薦實踐 | [history/019](history/019-驗收載體-不推薦TDD但要求指名誰來接.md) |
+| package skill 裝哪 / `.agents` vs `.claude` / 地板目錄 / CLI 自舉 / 誰指向誰 | [history/018](history/018-skill自舉-agents為家與地板目錄.md) |
 | skill 寫法 / 判準 vs 論證 / 壓縮 / `_core` 引用 / 為何不用名詞術語 | [history/017](history/017-judge壓縮-判準與論證分居.md) |
 | 可逆性邊界 / 延伸原則 5 的 real-why / JIT / CP-AP / kernel-user / 母概念候選（待人認定） | [draft/2026-06-27-自然語言即計算-三軸同源於可逆性邊界](draft/2026-06-27-自然語言即計算-三軸同源於可逆性邊界.md) |

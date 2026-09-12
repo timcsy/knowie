@@ -1,5 +1,5 @@
 import { readFile, writeFile, access } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, parse } from 'node:path';
 import { KNOWLEDGE_DIR, KNOWIE_CONFIG, VERSION, STRUCTURE_VERSION } from '../constants.js';
 import { scaffoldKnowledge } from '../scaffold.js';
 import { installTemplates } from '../templates.js';
@@ -12,6 +12,19 @@ import { detectLanguage, normalizeLanguage, t } from '../i18n.js';
 
 async function exists(p) {
   try { await access(p); return true; } catch { return false; }
+}
+
+// Walk up for `.git` — a dir in a normal clone, a file in a worktree or submodule.
+// Deliberately not `git rev-parse`: knowie assumes the *repository*, not the binary,
+// and a missing CLI would read as "no git" and fire a wrong warning.
+async function inGitRepo(dir) {
+  let cur = dir;
+  for (;;) {
+    if (await exists(join(cur, '.git'))) return true;
+    const parent = parse(cur).dir;
+    if (!parent || parent === cur) return false;
+    cur = parent;
+  }
 }
 
 const LANGUAGE_CHOICES = [
@@ -128,9 +141,11 @@ export async function init(projectRoot, { yes = false } = {}) {
     }
   }
 
-  // 7. Install skills
-  const skills = await installSkills(projectRoot);
-  console.log(`\n${t(lang, 'cli.init.skills')(skills.length)}`);
+  // 7. Install skills — physical in SKILLS_HOME, symlinked into the rest.
+  // The dir list is resolved *before* the config write so both use one value.
+  const skillDirs = getSkillDirs(selectedIds);
+  const skills = await installSkills(projectRoot, skillDirs);
+  console.log(`\n${t(lang, 'cli.init.skills')(skills.installed.length, skills.home, skills.projected)}`);
 
   // 8. Update .knowie.json
   const configPath = join(projectRoot, KNOWIE_CONFIG);
@@ -147,11 +162,17 @@ export async function init(projectRoot, { yes = false } = {}) {
   config.tools = selectedIds;
   // Where learned skills get projected — the AI can't read the registry, so give
   // it the resolved list to enumerate (see getSkillDirs).
-  config.skillDirs = getSkillDirs(selectedIds);
+  config.skillDirs = skillDirs;
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 
-  // 9. Summary
+  // 9. Summary — flag a missing git repo *here*, not on every later run: it's a
+  // one-time prerequisite, and a warning that repeats each planning round gets
+  // tuned out (emphasis is a budget).
+  if (!await inGitRepo(projectRoot)) {
+    console.log(`\n${t(lang, 'cli.init.noGit')}`);
+  }
+
   console.log(`\n${t(lang, 'cli.init.done')}\n`);
   console.log(`${t(lang, 'cli.init.nextStep')}\n`);
 }

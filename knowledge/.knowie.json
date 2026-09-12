@@ -1,13 +1,14 @@
 {
-  "version": "0.7.5",
+  "version": "0.7.6",
   "structureVersion": "2",
   "language": "zh-TW",
   "createdAt": "2026-06-05T00:00:00.000Z",
   "tools": [
     "claude-code"
   ],
-  "updatedAt": "2026-08-26T08:00:42.848Z",
+  "updatedAt": "2026-09-12T14:30:05.550Z",
   "skillDirs": [
+    ".agents/skills",
     ".claude/skills"
   ]
 }

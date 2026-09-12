@@ -119,9 +119,11 @@ async function handleKnowieInit(args) {
     }
   }
 
-  // Skills
-  const skills = await installSkills(projectPath);
-  report.push(`✓ Installed ${skills.length} skills`);
+  // Skills — physical in .agents/skills/, symlinked into every other skill dir.
+  const skillDirs = getSkillDirs([...new Set(toolIds)]);
+  const skills = await installSkills(projectPath, skillDirs);
+  report.push(`✓ Installed ${skills.installed.length} skills in ${skills.home}/`
+    + (skills.projected.length ? ` (linked into ${skills.projected.join(', ')}/)` : ''));
 
   // Update config
   const configPath = join(projectPath, KNOWIE_CONFIG);
@@ -135,7 +137,7 @@ async function handleKnowieInit(args) {
   // Don't stamp structureVersion onto an existing base (absence = older structure).
   config.language = config.language || lang;
   config.tools = [...new Set(toolIds)];
-  config.skillDirs = getSkillDirs(config.tools);
+  config.skillDirs = skillDirs;
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 
@@ -177,9 +179,6 @@ async function handleKnowieUpdate(args) {
   const readmes = await installReadmes(projectPath, configLang, { overwrite: true });
   report.push(`✓ Refreshed ${readmes.created.length} subdir READMEs`);
 
-  const skills = await installSkills(projectPath);
-  report.push(`✓ Updated ${skills.length} skills`);
-
   // Re-detect and handshake
   const { detected } = await detectTools(projectPath);
   const existingTools = new Set(config.tools || []);
@@ -206,10 +205,16 @@ async function handleKnowieUpdate(args) {
   }
   report.push(`✓ Refreshed ${writtenFiles.size} tool connection(s)`);
 
+  // Skills last — the tool list (and so the dir list) is final only here.
+  const skillDirs = getSkillDirs([...existingTools]);
+  const skills = await installSkills(projectPath, skillDirs);
+  report.push(`✓ Updated ${skills.installed.length} skills in ${skills.home}/`
+    + (skills.projected.length ? ` (linked into ${skills.projected.join(', ')}/)` : ''));
+
   // Update config
   config.version = VERSION;
   config.tools = [...existingTools];
-  config.skillDirs = getSkillDirs(config.tools);
+  config.skillDirs = skillDirs;
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 

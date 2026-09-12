@@ -21,7 +21,7 @@ The three files (principles / vision / experience) + empty Key Extensions tables
 - **(b) free-form**: go straight to the open questions. Remember the choice.
 
 ## Per file — layered (ask 2-3, listen, go deeper)
-- **principles**: push for the *root* — the one belief everything else derives from; don't settle for surface rules. Establish root principles first (very few), then derived ones (cite the derivation chain).
+- **principles**: push for the *root* — the one belief everything else derives from; don't settle for surface rules. Establish root principles first (very few), then derived ones (cite the derivation chain). One probe worth asking outright: **how does this project decide a change is done?** Tests first, tests after, a review, a manual run. Whatever they say is theirs to record as a derived principle, and `next`/`judge` hold the code to it from then on. "No practice yet" is a real answer — record nothing rather than installing a habit they didn't choose.
 - **vision**: one-sentence goal → current state → next milestones, each with verifiable success criteria.
 - **experience**: trigger recall with concrete common lessons; convert what resonates into the four-part form (theory said → actually happened → resolved by → lesson).
 

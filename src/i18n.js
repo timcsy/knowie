@@ -69,7 +69,9 @@ const messages = {
     'cli.init.handshake.created': (file, tool) => `  ✓ Created ${file} (${tool})`,
     'cli.init.handshake.updated': (file, tool) => `  ✓ Updated ${file} (${tool})`,
     'cli.init.handshake.appended': (file, tool) => `  ✓ Added to ${file} (${tool})`,
-    'cli.init.skills': (n) => `  ✓ Installed ${n} skills to .claude/skills/`,
+    'cli.init.skills': (n, home, links) => `  ✓ Installed ${n} skills to ${home}/`
+      + (links?.length ? ` (linked into ${links.join(', ')}/)` : ''),
+    'cli.init.noGit': '⚠️  Not a git repository — knowie assumes one.\n   Tidying is automatic *because* it is reviewable and revertible (principle: auditable after the fact),\n   draft decay reads git recency, and /knowie-migrate rebuilds the why from your log.\n   Run `git init` to get those; everything else works without it.',
     'cli.init.done': '✅ Done!',
     'cli.init.nextStep': 'Next step: run /knowie-init in your AI tool to populate your knowledge files.',
     'cli.init.selectLanguage': 'Select language for templates:',
@@ -80,7 +82,8 @@ const messages = {
     'cli.update.badConfig': 'Failed to read .knowie.json. Run "knowie init" to re-initialize.',
     'cli.update.templates': (n) => `  ✓ Updated ${n} templates`,
     'cli.update.readmes': (n) => `  ✓ Refreshed ${n} subdir README(s)`,
-    'cli.update.skills': (n) => `  ✓ Updated ${n} skills`,
+    'cli.update.skills': (n, home, links) => `  ✓ Updated ${n} skills in ${home}/`
+      + (links?.length ? ` (linked into ${links.join(', ')}/)` : ''),
     'cli.update.newTools': (names) => `  New tools detected: ${names}`,
     'cli.update.addTools': '  Add knowledge references to these tools?',
     'cli.update.refreshed': (n) => `  ✓ Refreshed ${n} tool connection(s)`,
@@ -123,7 +126,9 @@ const messages = {
     'cli.init.handshake.created': (file, tool) => `  ✓ 已建立 ${file}（${tool}）`,
     'cli.init.handshake.updated': (file, tool) => `  ✓ 已更新 ${file}（${tool}）`,
     'cli.init.handshake.appended': (file, tool) => `  ✓ 已加入 ${file}（${tool}）`,
-    'cli.init.skills': (n) => `  ✓ 已安裝 ${n} 個 skills 到 .claude/skills/`,
+    'cli.init.skills': (n, home, links) => `  ✓ 已安裝 ${n} 個 skills 到 ${home}/`
+      + (links?.length ? `（投影到 ${links.join('、')}/）` : ''),
+    'cli.init.noGit': '⚠️  這不是 git 儲存庫，而 knowie 預設你有。\n   自動整理之所以敢自動，是因為可審、可回滾（原則：事後可審計）；\n   draft 衰減讀 git 新近度；/knowie-migrate 從 git log 重建 why。\n   跑 `git init` 就能拿到這些；其餘功能沒有 git 也能用。',
     'cli.init.done': '✅ 完成！',
     'cli.init.nextStep': '下一步：在你的 AI 工具中執行 /knowie-init 來填寫知識文件。',
     'cli.init.selectLanguage': '選擇模板語言：',
@@ -134,7 +139,8 @@ const messages = {
     'cli.update.badConfig': '無法讀取 .knowie.json。請執行 "knowie init" 重新初始化。',
     'cli.update.templates': (n) => `  ✓ 已更新 ${n} 個模板`,
     'cli.update.readmes': (n) => `  ✓ 已刷新 ${n} 個子目錄 README`,
-    'cli.update.skills': (n) => `  ✓ 已更新 ${n} 個 skills`,
+    'cli.update.skills': (n, home, links) => `  ✓ 已更新 ${home}/ 的 ${n} 個 skills`
+      + (links?.length ? `（投影到 ${links.join('、')}/）` : ''),
     'cli.update.newTools': (names) => `  偵測到新工具：${names}`,
     'cli.update.addTools': '  要為這些工具加入知識引用嗎？',
     'cli.update.refreshed': (n) => `  ✓ 已刷新 ${n} 個工具連結`,
