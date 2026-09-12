@@ -105,6 +105,7 @@ knowie why 協議（三視角結構 + skill 行為約定）  ← 寄生在「讀
 - [ ] 不做同步機制／registry（會走回平台化）——只報，不搬
 - [x] 修 `.agents/skills/` 從未被建立——**根因不是措辭，是沒有枚舉來源**：投影是 AI 做的，而 `registry.js` 的 `skillsDir` 是 CLI 的資料，skill markdown 讀不到；`.knowie.json` 只記 tool id。所以 AI 只投影它自己讀的那個目錄。修法：`init`/`update`（CLI + MCP 四處，共用 `getSkillDirs()`）把解析後的清單寫進 `.knowie.json` → `skillDirs`，capture/judge 改成**枚舉它**。registry 仍是唯一來源，config 只承載它的投影。
 - [x] 投影 symlink 一律**相對路徑**（VizGPT 實測是絕對路徑，換 checkout 就全斷）；judge §5 掃到絕對路徑直接修回（可逆 → 自動）
+- [x] 補上 016 的另一半（0.7.6）：**CLI 自舉也枚舉 `skillDirs`**——實體進 `.agents/skills/`、其餘 per-skill 相對 symlink；`getSkillDirs()` 設**地板** `.agents` + `.claude`，不靠偵測。起點是使用者在 Codex 回報「`init --yes` 沒建 `.agents/skills/`」，查下去發現六個 skill 全在一個沒註冊的工具目錄裡。轉移見 [history/018](history/018-skill自舉-agents為家與地板目錄.md)
 - [x] 順手修：`init --yes` 的 `selectedIds` 沒去重，既有 `AGENTS.md` 會讓 `agents-md` 在 config 裡出現兩次（MCP 那條有 `new Set`、CLI 沒有——又一個 CLI/MCP 漂移）
 
 **知識條目的形狀（模板 + `_core`）** — ✅ 0.7.3 完成。experience 模板加「不適用的時候／相關」、concept 命名採斷言式、教訓寫判準不寫做法、強調預算，四項進 `_core` + 雙語模板。回頭套用到 knowie 自己：跑 `update` 收齊 managed files、砍掉 `concepts/README` 那張已漂的索引表（每個概念檔本來就自帶一句話，索引是複述）、孤兒 draft 接進 principles 路由；**沒做**既有內容的強調瘦身——那個數字後來被證明分不開好壞，追它就是追一個非鑑別指標。命名那條的轉移見 [history/013](history/013-概念命名從名詞式到斷言式.md)；現場與量測見 [episode](episodes/2026-08-14-五專案外推審計.md)。

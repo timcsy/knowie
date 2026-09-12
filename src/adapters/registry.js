@@ -1,3 +1,5 @@
+import { BASE_SKILL_DIRS } from '../constants.js';
+
 /**
  * Tool registry — defines how to detect and handshake with each AI/spec tool.
  *
@@ -8,11 +10,14 @@
  *   targets     — files to inject the Knowy reference into
  *   readsAgents — true if the tool also reads AGENTS.md
  *   skillsDir   — (optional) where this tool loads agentskills.io SKILL.md skills from.
- *                 Learned domain skills live in knowledge/skills/ (the single source) and are
- *                 *projected* here (per-skill symlink, copy-fallback on Windows) by the AI when
- *                 it consolidates a skill / during judge §5 — never by a CLI (the AI is present;
- *                 see experience "在場的 AI 自己做"). Most SKILL.md tools read the cross-tool
- *                 `.agents/skills` (via the agents-md entry); Claude Code reads `.claude/skills`.
+ *                 Only needed for a tool that reads *neither* dir in BASE_SKILL_DIRS — those
+ *                 two are always created, so this field only ever *adds* to the list.
+ *                 Two kinds of skill land in these dirs, by two different hands:
+ *                 package skills (knowie-*) are installed by the CLI — physical in
+ *                 SKILLS_HOME, per-skill symlink everywhere else; learned domain skills
+ *                 live in knowledge/skills/ (their single source) and are projected by the
+ *                 *AI* when it consolidates one / during judge §5 — never by a CLI (the AI
+ *                 is present; see experience "在場的 AI 自己做").
  *   category    — 'ai' | 'spec' | 'standard'
  */
 export const TOOL_REGISTRY = [
@@ -285,6 +290,7 @@ export function getToolById(id) {
 
 /**
  * The skill-projection targets for a set of selected tools (deduped, stable order).
+ * Always starts from BASE_SKILL_DIRS — the registered tools only ever *add*.
  *
  * Why this exists: projecting a learned skill is the *AI's* job (capture / judge §5),
  * but the AI can't read this registry — so it had no list to enumerate and only ever
@@ -293,9 +299,15 @@ export function getToolById(id) {
  * resolved list into `knowledge/.knowie.json` → `skillDirs` so the skills have a
  * source to enumerate. Registry stays the single source of truth; the config just
  * carries a projection of it (see experience "重複的知識會獨立漂移").
+ *
+ * Why the floor: gating the dirs on detection made the dir list a bet on *today's*
+ * tool, and the bet is wrong as soon as someone opens the project in another agent
+ * — which people do constantly. Both dirs cost nothing; a missing one costs the
+ * whole skill set. `SKILLS_HOME` stays first: it's where installSkills puts the
+ * physical files, the rest get symlinks.
  */
 export function getSkillDirs(toolIds = []) {
-  const dirs = [];
+  const dirs = [...BASE_SKILL_DIRS];
   for (const id of toolIds) {
     const dir = getToolById(id)?.skillsDir;
     if (dir && !dirs.includes(dir)) dirs.push(dir);

@@ -125,7 +125,7 @@ Knowie 可以安全地加到任何專案：
 |------|--------|
 | `concepts/` | 反覆出現的母概念——三份檔只放指針，細節在這（語意記憶）|
 | `episodes/` | 值得回憶的完整現場（教訓或決策背後的情節記憶）|
-| `skills/` | 學到的領域 skill——反覆工作蒸餾成可重用能力（程序記憶／小腦）；投影到你 AI 工具的 skill 目錄 |
+| `skills/` | 學到的領域 skill——反覆工作蒸餾成可重用能力（程序記憶／小腦）；投影到 `.knowie.json` → `skillDirs` 列出的每個 skill 目錄 |
 | `history/` | 因果軌跡——為什麼變成現在這樣（決策、被否決的選項）|
 | `draft/` | 短期記憶——還沒定案、正在醞釀的想法 |
 
@@ -133,7 +133,7 @@ Knowie 可以安全地加到任何專案：
 
 ## Skills
 
-以下指令在你的 **AI 聊天介面**中使用（不是終端機）。支援 skill 的 AI 工具（如 Claude Code）：
+以下指令在你的 **AI 聊天介面**中使用（不是終端機）。`init` 會把它們裝進 `.agents/skills/`（Codex、Cursor、Gemini 等都讀的跨工具慣例），並在 `.claude/skills/` 建 symlink 指過去給 Claude Code。兩個目錄不管你用哪個工具都會建，之後換 agent 不必重跑：
 
 | Skill | 做什麼 |
 |-------|--------|

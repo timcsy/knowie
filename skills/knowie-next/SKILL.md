@@ -1,6 +1,6 @@
 ---
 name: knowie-next
-description: Plan the next step as a brief grounded in vision, principles, and experience — then carry it into the spec
+description: Plan the next step as a brief grounded in vision, principles, and experience — then carry it into whatever will check it
 user-invocable: true
 argument-hint: "[a direction or feature; empty = infer from vision + recent commits]"
 ---
@@ -9,14 +9,14 @@ argument-hint: "[a direction or feature; empty = infer from vision + recent comm
 
 # Knowie Next
 
-Turn the knowledge base into a **structured plan** for the next step, and carry the *why* into the spec tool so it's obeyed during implementation.
+Turn the knowledge base into a **structured plan** for the next step, and carry the *why* into whatever will check it during implementation — a spec tool where there is one, an executable test where there isn't.
 
 ## Steps
 1. **Check `draft/` for ripe items first.** Before planning, scan `draft/` for any topic mature enough to graduate (recognition chain: a *design* settled enough to commit → its exit is the **vision roadmap**; an *experience/insight* verified enough → consolidate). Surface these — never silently build a design straight from `draft/`; a design must become a roadmap item (the human-commit gate) before it's implemented.
 2. **Read with evidence** — attach a verbatim quote for whatever you rely on.
 3. **Retrieve — recall over precision.** Pull everything relevant from all three perspectives **and `knowledge/skills/`** — a learned skill that does this step → recommend *using* it, don't re-plan it from scratch. Missing a relevant one is worse than one extra (retrieval recall is the bottleneck for adherence).
 4. **Write the plan as a brief, organized by the three perspectives** (below).
-5. **Hand off** — give the brief's cautions to the spec tool. Suggest only; never auto-implement, never auto-invoke another skill.
+5. **Hand off — a brief has to land somewhere that can fail later.** Spec tool registered in `knowledge/.knowie.json` → `tools`? Give it the cautions and the acceptance. None registered? **Name the carrier before implementing** — an executable test is the strongest, being the only one that fires by itself months later; a PR checklist or commit trailer is weaker but still a receiver. **Test:** can this acceptance only fail if someone remembers it? Then it has no carrier and the why evaporates at implementation. *Which* verification style is the base's own call, recorded in its `principles.md` — ask where the why lands, don't prescribe how they test. Suggest only; never auto-implement, never auto-invoke another skill.
 
 ## The plan — a brief grounded in all three perspectives
 Every line cites where it comes from; skip a line if empty.
@@ -28,7 +28,7 @@ Every line cites where it comes from; skip a line if empty.
 - **From vision** (the roadmap / situational):
   - **Prerequisites** — verify against the *code*, not just what vision says.
   - **In scope** / **Out of scope** — state exclusions explicitly, to prevent scope creep.
-  - **Acceptance** — concrete, verifiable criteria.
+  - **Acceptance** — concrete, verifiable criteria, each naming what will check it (step 5).
 - **From principles** (normative):
   - Which principle this serves — **quote it + show the derivation chain**. Can't trace to one? Flag it a pragmatic choice, not a principled one.
 - **From experience** (existential):

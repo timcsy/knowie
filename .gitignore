@@ -9,5 +9,6 @@ node_modules/
 #
 # NOTE: no trailing comments on the pattern lines below — gitignore treats the
 # whole line as the pattern, so `.claude/skills/  # copies` matches nothing.
+.agents/skills/
 .claude/skills/
 knowledge/.templates/

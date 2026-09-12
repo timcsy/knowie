@@ -33,7 +33,16 @@ export const SUBDIR_READMES = {
 };
 
 export const SKILLS_SOURCE = join(PACKAGE_ROOT, 'skills');
-export const SKILLS_TARGET = '.claude/skills';
+// Where the package skills physically land. `.agents/skills` is the cross-tool
+// central convention (Codex/Cursor/Gemini/Copilot/OpenCode… read it); every other
+// tool's skill dir gets a per-skill relative symlink pointing here.
+export const SKILLS_HOME = '.agents/skills';
+// The floor: these two dirs are created whatever tool was detected. Detection
+// answers "which tool is here *now*", but a base outlives that answer — people
+// switch agents mid-project, and a skill dir the next agent can't read is the
+// same as no skill at all (a Codex-only base used to get all six knowie skills
+// written into `.claude/skills/`, invisible to Codex).
+export const BASE_SKILL_DIRS = [SKILLS_HOME, '.claude/skills'];
 export const SKILL_NAMES = ['knowie-init', 'knowie-capture', 'knowie-consolidate', 'knowie-next', 'knowie-judge', 'knowie-migrate'];
 
 export const MARKER_START = '<!-- Knowie: Project Knowledge -->';

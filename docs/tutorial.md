@@ -75,7 +75,7 @@ npx knowie init --yes
 AI 會幫你在終端機跑、`--yes` 跳過所有互動，一次到位。Knowie 會：
 1. 建立 `knowledge/` 目錄、三份模板文件與子目錄
 2. 自動偵測你的 AI 工具，在它們的設定檔（`CLAUDE.md`、`AGENTS.md`、`.github/copilot-instructions.md`…）裡注入知識文件的引用
-3. 安裝六個 skill 到 `.claude/skills/`（init / capture / consolidate / next / judge / migrate）
+3. 安裝六個 skill 到 `.agents/skills/`（init / capture / consolidate / next / judge / migrate），並在 `.claude/skills/` 建每個 skill 的 symlink 指過去——兩個目錄不管你用哪個 agent 都會建，換工具時不必重跑
 4. 產生 `knowledge/.knowie.json`
 
 > **（此處放截圖：在 AI 聊天裡貼上 npx knowie init --yes 後跑完的畫面）**
@@ -96,6 +96,8 @@ runefall/
 │   ├── history/           ← 因果軌跡（決策、否決選項）
 │   ├── draft/             ← 還沒定案的想法（短期記憶）
 │   └── .knowie.json       ← Knowie 的設定檔
+├── .agents/skills/        ← 六個 knowie skill 的實體（跨工具慣例：Codex／Cursor／Gemini…）
+├── .claude/skills/        ← per-skill symlink 指向 .agents/skills/（Claude Code 讀這裡）
 ├── CLAUDE.md              ← 被注入了 knowledge/ 引用
 ├── AGENTS.md              ← 被注入了 knowledge/ 引用
 └── .github/

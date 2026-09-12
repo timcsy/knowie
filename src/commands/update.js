@@ -45,16 +45,12 @@ export async function update(projectRoot, { yes = false } = {}) {
   const readmes = await installReadmes(projectRoot, configLang, { overwrite: true });
   console.log(t(lang, 'cli.update.readmes')(readmes.created.length));
 
-  // 3. Update skills
-  const skills = await installSkills(projectRoot);
-  console.log(t(lang, 'cli.update.skills')(skills.length));
-
-  // 4. Re-detect tools
+  // 3. Re-detect tools
   const { detected } = await detectTools(projectRoot);
   const existingTools = new Set(config.tools || []);
   const newTools = detected.filter(id => !existingTools.has(id));
 
-  // 5. Handshake new tools
+  // 4. Handshake new tools
   if (newTools.length > 0) {
     const names = newTools.map(id => getToolById(id)?.name).filter(Boolean);
     console.log(`\n${t(lang, 'cli.update.newTools')(names.join(', '))}`);
@@ -74,7 +70,7 @@ export async function update(projectRoot, { yes = false } = {}) {
     }
   }
 
-  // 6. Refresh existing handshakes
+  // 5. Refresh existing handshakes
   const writtenFiles = new Set();
   for (const id of existingTools) {
     const tool = getToolById(id);
@@ -87,6 +83,14 @@ export async function update(projectRoot, { yes = false } = {}) {
   }
   console.log(t(lang, 'cli.update.refreshed')(writtenFiles.size));
 
+  // 6. Update skills — after the tool list is final, so a tool added *this run*
+  // gets its skill dir on this run too (the dirs drive where skills are linked).
+  // Heals an older base: package skills used to be real copies in .claude/skills/;
+  // they're replaced by symlinks to the .agents/skills/ home.
+  const skillDirs = getSkillDirs([...existingTools]);
+  const skills = await installSkills(projectRoot, skillDirs);
+  console.log(t(lang, 'cli.update.skills')(skills.installed.length, skills.home, skills.projected));
+
   // 7. Update .knowie.json — bump the *tool* version only.
   // Deliberately DO NOT touch structureVersion: that's the knowledge structure's
   // version, migrated by the /knowie-migrate skill (with human confirm). Auto-
@@ -96,7 +100,7 @@ export async function update(projectRoot, { yes = false } = {}) {
   config.tools = [...existingTools];
   // Heal/refresh the skill-projection list (an older base has none; a newly added
   // tool brings a new dir) — see getSkillDirs.
-  config.skillDirs = getSkillDirs([...existingTools]);
+  config.skillDirs = skillDirs;
   config.updatedAt = new Date().toISOString();
   await writeFile(configPath, JSON.stringify(config, null, 2) + '\n');
 

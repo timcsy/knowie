@@ -2,6 +2,33 @@
 
 All notable changes to knowie are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/); this project is pre-1.0, so a **minor** bump can carry breaking changes.
 
+## [0.7.6] — 2026-09-12
+
+`npx knowie init --yes` inside Codex produced a base with no `.agents/skills/` — and, less visibly, with all six knowie skills written into `.claude/skills/`, a directory belonging to a tool that base had not even registered. Codex could not see a single skill; `/knowie-init` did not exist there. `0.7.3` fixed the same blindness for *learned* skills by giving the AI a list to enumerate; the CLI half went unfixed, still holding one hardcoded target.
+
+### Fixed
+
+- **Package skills no longer land in one hardcoded tool directory.** `SKILLS_TARGET = '.claude/skills'` made the bootstrap a bet on which tool was present — and it did not even read the bet: the dir was hardcoded, not derived from the tools `init` had just registered. A Codex-only base got six skills it could not load. `installSkills()` now takes the resolved `skillDirs`, writes the physical `SKILL.md` files into `SKILLS_HOME` (`.agents/skills/`, the cross-tool convention), and projects a per-skill **relative** symlink into every other dir, copy-fallback where symlinks fail. One set of bytes, so an update touches one copy and no tool's view can drift from another's.
+- **Both skill directories are now created whatever tool was detected.** `getSkillDirs()` starts from `BASE_SKILL_DIRS` (`.agents/skills`, `.claude/skills`); registered tools only ever *add*. Detection answers "which tool is here now", and a knowledge base outlives that answer — people open the same repo in another agent constantly, and a skill dir the next agent cannot read is the same as no skill at all. Two empty-cheap directories against a whole skill set going invisible.
+- **`update` migrates an older base in place.** Pre-0.7.6 real copies under `.claude/skills/knowie-*`, absolute symlinks, and links to a moved home are all replaced by relative symlinks to the new home. Only `SKILL_NAMES` are ever touched, so a user's own skills in the same directory are left alone.
+- **`update` now installs skills *after* the tool list is final** (CLI and MCP). It ran before detection, so a tool adopted on that same run had its skill dir recorded in `.knowie.json` but nothing linked into it until the next update.
+
+### Changed
+
+- **capture and judge now name the pre-0.7.6 signal**, not just the pre-0.7.3 one: a `skillDirs` list *lacking* `.agents/skills` is as much an out-of-date base as a missing key, and the remedy is the same `npx knowie update`.
+- Docs (`README`, `README.zh-TW`, `docs/tutorial.md`) say where skills land and why both directories exist.
+
+### Added
+
+- **`/knowie-next`'s hand-off now has a receiver in a project with no spec tool.** Step 5 said "give the cautions to the spec tool", which addresses nobody on a base that registered none — the brief got read once in chat and evaporated at implementation. It now branches: hand off to a registered spec tool, or **name the carrier** before implementing, an executable test being the strongest since it's the only one that fires by itself months later. The test is whether the acceptance can fail without someone remembering it. knowie still does not prescribe TDD — *that* would be a what-lane opinion; it asks where the why lands and leaves the verification style to the base's own `principles.md`.
+- **`/knowie-init` asks how the project decides a change is done.** Whatever the user answers becomes *their* derived principle, which `next` and `judge` then hold the code to. "No practice yet" is an accepted answer — the skill is told to record nothing rather than install a habit the user did not choose.
+- **`knowie init` says so when the project is not a git repository.** git was load-bearing and unstated: automatic tidying is safe only because it is reviewable and revertible, `draft` decay reads git recency, and `/knowie-migrate` rebuilds the why from the log. Detection walks up for `.git` rather than shelling out to `git`, since the assumption is the repository, not the binary. Fired once at init, not on every later run.
+
+### Knowledge base (not shipped)
+
+- `history/019` records where knowie stands on TDD, SDD and git, and why the TDD suggestion is derived from its own verifiability criterion rather than imported as a practice.
+- `history/018` records the transition and its rejected options (two physical copies, pointing the other way, whole-dir symlink); `history/016` gets a pointer to the half it left undone.
+
 ## [0.7.5] — 2026-08-26
 
 One suggestion from outside — define your vocabulary up front, then refer back to it instead of re-explaining (DDD's ubiquitous language, as applied to skill-writing) — and it changed shape on contact with the constraint that makes knowie knowie: **skills are copied into other people's repos**, so `history/012` is a pointer that resolves nowhere for every user who isn't this project. Rationale had nowhere to go, so it sat inline next to the criterion it justified; judge's longest bullet ran 1099 characters. The only reference target guaranteed to be present is `_core`, because the CLI injects it into every `SKILL.md`. Everything below follows from that.
