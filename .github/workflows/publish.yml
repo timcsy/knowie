@@ -4,47 +4,54 @@ on:
   push:
     branches: [main]
     paths: ['package.json']
+  # Lets a failed or skipped publish be retried without inventing a version bump.
+  workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      id-token: write
+      id-token: write  # OIDC for npm trusted publishing — replaces NPM_TOKEN
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 2
 
-      - name: Check if version changed
+      # Ask the registry, not git. The old check diffed HEAD~1:package.json, which
+      # reads the wrong side on a squash merge and says "unchanged" on any re-run
+      # or manual dispatch — exactly when a retry is needed.
+      - name: Is this version already published?
         id: version
         run: |
+          NAME=$(node -p "require('./package.json').name")
           NEW=$(node -p "require('./package.json').version")
-          OLD=$(git show HEAD~1:package.json 2>/dev/null | node -p "JSON.parse(require('fs').readFileSync('/dev/stdin','utf8')).version" 2>/dev/null || echo "")
           echo "new=$NEW" >> $GITHUB_OUTPUT
-          echo "old=$OLD" >> $GITHUB_OUTPUT
-          if [ "$NEW" != "$OLD" ]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
-          else
+          if npm view "$NAME@$NEW" version >/dev/null 2>&1; then
+            echo "  $NAME@$NEW is already on npm — nothing to do."
             echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "  $NAME@$NEW is not on npm — publishing."
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
+      # Trusted publishing needs npm >= 11.5.1 and Node >= 22.14.0.
+      # Node 18 ships npm 10, which silently falls back to token auth.
       - name: Setup Node.js
         if: steps.version.outputs.changed == 'true'
         uses: actions/setup-node@v6
         with:
-          node-version: '18'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Verify package
         if: steps.version.outputs.changed == 'true'
         run: npm pack --dry-run
 
+      # No NODE_AUTH_TOKEN: npm detects the OIDC environment and mints a
+      # short-lived credential. Requires a trusted publisher configured on
+      # npmjs.com for this repo + this workflow filename.
       - name: Publish to npm
         if: steps.version.outputs.changed == 'true'
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Git tag
         if: steps.version.outputs.changed == 'true'
